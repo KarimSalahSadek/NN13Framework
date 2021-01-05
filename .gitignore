@@ -131,3 +131,6 @@ dmypy.json
 #Jupyter Notebooks
 *.ipynb
 ipynb_checkpoints/
+
+#main file for testing
+main.py
