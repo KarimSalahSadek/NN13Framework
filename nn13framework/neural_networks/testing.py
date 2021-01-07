@@ -1,5 +1,4 @@
 import numpy as np
 import activation_functions
-print(np.array([(-5,2),(4,0)]))
-print(activation_functions.sigmoid(np.array([(-5,2),(4,0)]),False))
-# print(np.array([(5,2),(4,6)]))
+
+print(activation_functions.softmax(np.array([[3],[1],[-3]], dtype = float),True))

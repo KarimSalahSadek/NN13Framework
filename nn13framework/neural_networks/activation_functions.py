@@ -5,7 +5,7 @@
 #If grad is set to True , return the derivative instead
 import numpy as np
 
-# @staticmethod
+ @staticmethod
 def sigmoid(x , grad = False):
     # the function output
     if grad == False :
@@ -15,7 +15,7 @@ def sigmoid(x , grad = False):
         return sigmoid(x,False) * (1-sigmoid(x,False))
 
 
-# @staticmethod
+ @staticmethod
 def relu(z,grad=False):
     # the function output
     if grad == False:
@@ -26,16 +26,16 @@ def relu(z,grad=False):
         return np.where(z <= 0, 0, z)
 
 
-# @staticmethod
+ @staticmethod
 def softmax(z,grad=False):
     # the function output
     if grad == False:
-        return np.where(z<=0,0,z)
+        z= np.exp(z)
+        return z/z.sum()
     # the function derivative
     elif grad == True:
-        z=np.where(z>0,1,z)
-        return np.where(z <= 0, 0, z)
-
+        # return the derivative for each class by d itself
+        return softmax(z,False)*(1-softmax(z,False))
 
 
 
