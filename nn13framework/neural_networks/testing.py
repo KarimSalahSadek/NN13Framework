@@ -1,4 +1,6 @@
 import numpy as np
 import activation_functions
+import loss_functions
+print(loss_functions.multinomial_loss(np.array([[13],[-11],[5],[-15],[-18]], dtype = float),np.array([[1],[1],[1],[1],[1]], dtype = float),True))
 
-print(activation_functions.softmax(np.array([[3],[1],[-3]], dtype = float),True))
+
