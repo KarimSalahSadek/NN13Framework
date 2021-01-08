@@ -8,18 +8,17 @@ import activation_functions as AF
 def mean_square_loss(prediction ,label,grad=False):
     # the function output
     if grad == False:
-        return (label-prediction)*(label-prediction)/(2*len(label))
+        return sum((label-prediction)*(label-prediction)/(2*len(label)))
     # the function derivative
     elif grad == True:
-        # return the derivative for each class by d itself
-        return 0 #edit here
+        return -(label-prediction/len(label))
 
 
 @staticmethod
 def multinomial_loss(prediction ,label,grad=False):
     # the function output
     if grad == False:
-        return -label*np.log(AF.softmax(prediction,False)) # times label or not ??
+        return -sum(label*np.log(AF.softmax(prediction,False)) )
     # the function derivative
     elif grad == True:
         # return the derivative for each class by d itself
