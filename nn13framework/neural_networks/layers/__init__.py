@@ -1,4 +1,4 @@
-from ...neural_networks import activation_functions
+from nn13framework.neural_networks import activation_functions
 import numpy as np
 
 #Layer class , a model mainly consists of multiple objects of this class
@@ -18,6 +18,10 @@ class linear(layer):
         self.input = None
         
     def forward(self,data_in):
+        if self.layer_num == 0:
+            if len(data_in.shape) >1:
+                assert((data_in.shape[0]>1) or (data_in.shape[1]>1))
+            data_in = np.reshape(data_in,(-1,1))
         if self.use_bias:
             data_out = np.dot(self.weight,np.vstack((data_in,1)))
             self.input = np.vstack((data_in,1))
