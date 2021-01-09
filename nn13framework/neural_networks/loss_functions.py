@@ -3,7 +3,7 @@
 #If grad is set to True , return the derivative instead
 
 import numpy as np
-import activation_functions as AF
+import nn13framework.neural_networks.activation_functions as AF
 
 def mean_square_loss(prediction ,label,grad=False):
     # the function output
