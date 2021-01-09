@@ -54,6 +54,15 @@ class model:
 
         self.weights = [layer.weight for layer in self.layers if layer.weight is not None]
 
+    def forward(self,data_in):
+        '''
+            Data input must be a matrix of row vectors, each row vector is an example
+            Returns the output after one forward propagation through the entire network
+        '''
+        x = data_in
+        for layer in self.layers:
+            x = layer.forward(x)
+        return x
 
     def add_layer(self,layer):
         '''
