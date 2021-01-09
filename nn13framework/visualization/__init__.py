@@ -5,6 +5,5 @@
 #If disply_validation is True , then display both the metric for the validation set
 #and the training set on the same graph
 
-@staticmethod
 def plot_accuracy_vs_iterations(model,display_validation = True):
     pass

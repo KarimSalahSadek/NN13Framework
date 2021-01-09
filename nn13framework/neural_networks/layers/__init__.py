@@ -1,4 +1,4 @@
-from ...neural_networks import activation_functions
+import nn13framework.neural_networks.activation_functions
 
 #Layer class , a model mainly consists of multiple objects of this class
 class layer:
