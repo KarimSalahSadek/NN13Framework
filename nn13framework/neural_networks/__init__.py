@@ -1,5 +1,5 @@
 import numpy as np
-from . import layers as layers
+import nn13framework.neural_networks.layers as layers
 
 class model:
 
