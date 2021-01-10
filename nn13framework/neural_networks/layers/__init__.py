@@ -23,20 +23,20 @@ class linear(layer):
         """
         data_in = np.array(data_in)
         if self.use_bias:
-            data_out = np.dot(self.weight,np.hstack((data_in,np.ones((data_in.shape[0],1)))).T)
-            self.input = np.hstack((data_in,np.ones((data_in.shape[0],1)))).T
+            data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
         else:
             data_out = np.dot(self.weight,data_in.T)
-            self.input = data_in
+        self.input = data_in
 
-        return data_out
+        return data_out.T
 
     def backward(self,grad_data_out):
         """
         Returns grad of weight , grad of input data
         """
-        grad_w = np.dot(grad_data_out,self.input.T)
-        grad_data_in = np.dot(self.weight.T,grad_data_out)
+        grad_w = np.hstack((np.dot(grad_data_out,self.input),np.sum(grad_data_out,axis=-1,keepdims=True)))
+        #grad w = dw + db = sigma (grad_out_i * in_i) + sigma (grad_out_i)
+        grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out)
         return grad_w , grad_data_in
 
 ###########################################################################
@@ -61,4 +61,4 @@ class sigmoid(layer):
         Returns None , grad of input data
         """
         grad_data_in = activation_functions.sigmoid(self.last_input,grad=True)
-        return None , grad_data_in
+        return None , grad_data_in.T
