@@ -3,15 +3,16 @@
 #If grad is set to True , return the derivative instead
 
 import numpy as np
-import activation_functions as AF
+import nn13framework.neural_networks.activation_functions as AF
 
 def mean_square_loss(prediction ,label,grad=False):
     # the function output
+    col_len,row_len=label.shape
     if grad == False:
-        return np.sum((np.multiply((label-prediction),(label-prediction)))/(2*len(label)))
+        return ((np.multiply((label-prediction),(label-prediction)))/(2*row_len))
     # the function derivative
     elif grad == True:
-        return -(label-prediction/len(label))
+        return -((label-prediction)/row_len)
 
 
 
