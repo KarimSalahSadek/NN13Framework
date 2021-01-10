@@ -22,6 +22,8 @@ class batch_gradient_descent(optimizer):
             dw , dx = self.model.layers[i].backward(last_dx)
             last_dx = dx
             #Update Rule
+            if self.model.layers[i].is_activation:
+                continue
             self.model.layers[i].weight -= (self.learning_rate*dw/self.batch_size + self.regularization_parameter*np.sum(self.model.layers[i].weight,1,keepdims=True))
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
