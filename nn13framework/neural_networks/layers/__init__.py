@@ -62,3 +62,47 @@ class sigmoid(layer):
         """
         grad_data_in = activation_functions.sigmoid(self.last_input,grad=True)
         return None , grad_data_in.T
+
+class relu(layer):
+    
+    def __init__(self):
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.input_dim = None
+        self.output_dim = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.relu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_data_in = activation_functions.relu(self.last_input,grad=True)
+        return None , grad_data_in.T
+
+class softmax(layer):
+    
+    def __init__(self):
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.input_dim = None
+        self.output_dim = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.softmax(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_data_in = activation_functions.softmax(self.last_input,grad=True)
+        return None , grad_data_in.T
