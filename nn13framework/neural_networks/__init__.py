@@ -62,7 +62,7 @@ class model:
         x = data_in
         for layer in self.layers:
             x = layer.forward(x)
-        return x
+        return x.T
 
     def add_layer(self,layer):
         '''
