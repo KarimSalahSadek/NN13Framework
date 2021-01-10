@@ -27,7 +27,7 @@ def softmax(z,grad=False):
     # the function output
     if grad == False:
         z= np.exp(z)
-        return z/z.sum()
+        return z/np.sum(z,axis=1,keepdims=True)
     # the function derivative
     elif grad == True:
         # return the derivative for each class by d itself
