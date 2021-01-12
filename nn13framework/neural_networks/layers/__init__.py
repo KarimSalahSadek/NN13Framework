@@ -28,15 +28,15 @@ class linear(layer):
             data_out = np.dot(self.weight,data_in.T)
         self.input = data_in
 
-        return data_out.T
+        return data_out
 
     def backward(self,grad_data_out):
         """
         Returns grad of weight , grad of input data
         """
-        grad_w = np.hstack((np.dot(grad_data_out,self.input),np.sum(grad_data_out,axis=-1,keepdims=True)))
+        grad_w = np.hstack((np.dot(grad_data_out.T,self.input),np.sum(grad_data_out.T,axis=-1,keepdims=True)))
         #grad w = dw + db = sigma (grad_out_i * in_i) + sigma (grad_out_i)
-        grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out)
+        grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out.T)
         return grad_w , grad_data_in
 
 ###########################################################################
