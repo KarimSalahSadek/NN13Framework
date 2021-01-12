@@ -16,9 +16,8 @@ Mnist_files = [
 	["test_labels","t10k-labels-idx1-ubyte.gz"]
 ]
 
-def download_mnist():
+def download_mnist(path=None):
     base_url = "http://yann.lecun.com/exdb/mnist/"
-    path=None
     if path is None:
         # Set path to /home/USER/data/mnist or C:\Users\USER_NAME\data\mnist
         path = os.path.join(os.path.expanduser('~'), 'data', 'Mnist')
@@ -58,7 +57,7 @@ def load():
 
 
 
-def MakeOneHot(Y, D_out):
+def one_hot(Y, D_out):
     N = Y.shape[0]
     Z = np.zeros((N, D_out))
     Z[np.arange(N), Y] = 1
@@ -109,11 +108,10 @@ X_train, X_test = X_train/float(255), X_test/float(255)
 Data_out=10
 X_train -= np.mean(X_train)
 X_test -= np.mean(X_test)
-Y_train=MakeOneHot(Y_train, Data_out)
-Y_test=MakeOneHot(Y_test,Data_out)
+Y_train=one_hot(Y_train, Data_out)
+Y_test=one_hot(Y_test,Data_out)
 #6th : in order to take batches from X and Y , so you need first to determine the size of the batch you need , then you will be returned a generator of X_batch and Y_batch
 X_batch_generator=get_batch_X(X_train,batch_size)
 Y_batch_generator=get_batch_Y(Y_train,batch_size)
 #7th : convert the generator to X_batch & Y_batch
 X_batch,Y_batch=get_batch_XY_modified(X_batch_generator,Y_batch_generator)
-
