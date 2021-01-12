@@ -9,7 +9,7 @@ def mean_square_loss(prediction ,label,grad=False):
     # the function output
     col_len,row_len=label.shape
     if grad == False:
-        return ((np.multiply((label-prediction),(label-prediction)))/(2*row_len))
+        return np.sum(((np.multiply((label-prediction),(label-prediction)))/(2*row_len)))
     # the function derivative
     elif grad == True:
         return -((label-prediction)/row_len)
