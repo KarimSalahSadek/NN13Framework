@@ -64,7 +64,7 @@ def one_hot(Y, D_out):
     return Z
 
 
-def get_batch_X(X,batch_size):
+def get_batch_generator_X(X,batch_size):
     i=0
     N=len(X)
     if i*batch_size>=N:
@@ -74,7 +74,7 @@ def get_batch_X(X,batch_size):
         i += 1
     yield X 
 
-def get_batch_Y(Y,batch_size):
+def get_batch_generator_Y(Y,batch_size):
     i=0
     N=len(Y)
     if i*batch_size>=N:
@@ -84,7 +84,7 @@ def get_batch_Y(Y,batch_size):
         i += 1
     yield Y
 
-def get_batch_XY_modified(X_batch_generator,Y_batch_generator):
+def get_batch_XY(X_batch_generator,Y_batch_generator):
     for x in X_batch_generator:
         X_batch=x
     for y in Y_batch_generator:
@@ -94,24 +94,24 @@ def get_batch_XY_modified(X_batch_generator,Y_batch_generator):
 
 
 #Steps 
-# 1st : download the dataset 
-download_mnist()
-# 2nd : save it in the same directory as pickle file
-save_mnist()
-# 3rd : Load it in dictionaries of names training_images,test_images,training_labels,and test_labels
-X_train, Y_train, X_test, Y_test=load()
-#4th : Normaliztion
-X_train, X_test = X_train/float(255), X_test/float(255)
-#5th : convert the X dictionaries into numpy arrays , and Y into one hot encoding
-# DataOut= is the number of classes to be applied in the output in order to make proper one hot encoding  
-#for testing the mnist the Data_out will be 10
-Data_out=10
-X_train -= np.mean(X_train)
-X_test -= np.mean(X_test)
-Y_train=one_hot(Y_train, Data_out)
-Y_test=one_hot(Y_test,Data_out)
-#6th : in order to take batches from X and Y , so you need first to determine the size of the batch you need , then you will be returned a generator of X_batch and Y_batch
-X_batch_generator=get_batch_X(X_train,batch_size)
-Y_batch_generator=get_batch_Y(Y_train,batch_size)
-#7th : convert the generator to X_batch & Y_batch
-X_batch,Y_batch=get_batch_XY_modified(X_batch_generator,Y_batch_generator)
+##  1st : download the dataset 
+# download_mnist()
+## 2nd : save it in the same directory as pickle file
+# save_mnist()
+## 3rd : Load it in dictionaries of names training_images,test_images,training_labels,and test_labels
+# X_train, Y_train, X_test, Y_test=load()
+##4th : Normaliztion
+# X_train, X_test = X_train/float(255), X_test/float(255)
+##5th : convert the X dictionaries into numpy arrays , and Y into one hot encoding
+## DataOut= is the number of classes to be applied in the output in order to make proper one hot encoding  
+##for testing the mnist the Data_out will be 10
+# Data_out=10
+# X_train -= np.mean(X_train)
+# X_test -= np.mean(X_test)
+# Y_train=one_hot(Y_train, Data_out)
+# Y_test=one_hot(Y_test,Data_out)
+##6th : in order to take batches from X and Y , so you need first to determine the size of the batch you need , then you will be returned a generator of X_batch and Y_batch
+# X_batch_generator=get_batch_generator_X(X_train,batch_size)
+# Y_batch_generator=get_batch_generator_Y(Y_train,batch_size)
+##7th : convert the generator to X_batch & Y_batch
+# X_batch,Y_batch=get_batch_XY(X_batch_generator,Y_batch_generator)
