@@ -24,8 +24,10 @@ def relu(z,grad=False):
 
 
 def softmax(z,grad=False):
+    z=np.array(z)
     # the function output
     if grad == False:
+        z=z-np.max(z,axis=1,keepdims=True)
         z= np.exp(z)
         return z/np.sum(z,axis=1,keepdims=True)
     # the function derivative
