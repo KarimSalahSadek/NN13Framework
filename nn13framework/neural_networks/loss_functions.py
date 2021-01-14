@@ -22,6 +22,7 @@ def mean_square_loss(prediction ,label,grad=False):
 
 def multinomial_loss(prediction ,label,grad=False):
     assert (label.shape == prediction.shape)
+    # transpose the matrices
     label = np.transpose(label)
     prediction = np.transpose(prediction)
     # the function output
