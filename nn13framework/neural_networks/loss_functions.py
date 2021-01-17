@@ -3,7 +3,7 @@
 #If grad is set to True , return the derivative instead
 
 import numpy as np
-import activation_functions as AF
+import nn13framework.neural_networks.activation_functions as AF
 
 def mean_square_loss(prediction ,label,grad=False):
     assert (label.shape == prediction.shape)
@@ -39,5 +39,5 @@ def multinomial_loss(prediction ,label,grad=False):
                     delta[j][i] = prediction[j][i]
         return delta
 
-        
+
 
