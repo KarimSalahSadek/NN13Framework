@@ -167,6 +167,10 @@ def download_mnist(path=None):
 
 
 def load_mnist(path=None):
+    if path is None:
+# Set path to /home/USER/data/mnist or C:\Users\USER_NAME\data\mnist
+        path = os.path.join(os.path.expanduser('~'), 'data', 'Mnist')
+    
     with open(path+"/mnist.pkl", 'rb') as f:
         mnist = pickle.load(f)
     return mnist["training_images"], mnist["training_labels"], mnist["test_images"], mnist["test_labels"]
@@ -175,6 +179,7 @@ def load_mnist(path=None):
 
 
 def load_mnist_data(path=None):
+    
     download_mnist(path)
     X_train,X_test,Y_train,Y_test=load_mnist(path)
 
@@ -182,11 +187,11 @@ def load_mnist_data(path=None):
 
 
 
-path='C:/Users/Kiro/Desktop'
+""" path='C:/Users/Kiro/Desktop'
 download_mnist(path)
 x_train,y_train,x_test,y_test=load_mnist(path)
 y_train=one_hot(y_train,10)
-train_test_split(x_train,y_train,test_size=0.333)
+train_test_split(x_train,y_train,test_size=0.333) """
 
 
 #Steps 
