@@ -6,21 +6,30 @@ import numpy as np
 import nn13framework.neural_networks.activation_functions as AF
 
 def mean_square_loss(prediction ,label,grad=False):
+    assert (label.shape == prediction.shape)
+    # transpose the matrices
+    label=np.transpose(label)
+    prediction=np.transpose(prediction)
     # the function output
+    col_len,row_len=label.shape
     if grad == False:
-        return sum((label-prediction)*(label-prediction)/(2*len(label)))
+        return np.sum(((np.multiply((label-prediction),(label-prediction)))/(2*row_len)))
     # the function derivative
     elif grad == True:
-        return -(label-prediction/len(label))
+        return -np.transpose(((label-prediction)/row_len))
 
 
 
 def multinomial_loss(prediction ,label,grad=False):
+    assert (label.shape == prediction.shape)
+    # transpose the matrices
+    label = np.transpose(label)
+    prediction = np.transpose(prediction)
     # the function output
     if grad == False:
-        return -sum(label*np.log(AF.softmax(prediction,False)) )
+        return -np.sum((np.multiply(np.log(AF.softmax(prediction,False)),label )))
     # the function derivative
     elif grad == True:
         # return the derivative for each class by d itself
-        return AF.softmax(prediction,False)-label
+        return np.transpose(AF.softmax(prediction,False)-label)
 
