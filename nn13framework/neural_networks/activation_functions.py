@@ -2,7 +2,7 @@
 #Numpy will automatically understand that 1x1 arrays are not arrays and return them correctly
 #If grad is set to True , return the derivative instead
 import numpy as np
-from scipy.ndimage.interpolation import shift
+
 
 
 def sigmoid(x , grad = False):
@@ -35,12 +35,12 @@ def softmax(z,grad=False):
     # the function derivative
     elif grad == True:
         z=z.T
-        m, n = z.shape
+        no_of_examples, no_of_classes = z.shape
         p = softmax(z)
 
         tensor1 = np.einsum('ij,ik->ijk', p, p)  # (m, n, n)
 
-        tensor2 = np.einsum('ij,jk->ijk', p, np.eye(n, n))  # (m, n, n)
+        tensor2 = np.einsum('ij,jk->ijk', p, np.eye(no_of_classes, no_of_classes))  # (m, n, n)
 
 
         return tensor2 - tensor1
