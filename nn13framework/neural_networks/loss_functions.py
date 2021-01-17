@@ -41,3 +41,4 @@ def multinomial_loss(prediction ,label,grad=False):
 
         
 
+
