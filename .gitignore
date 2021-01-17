@@ -134,3 +134,4 @@ ipynb_checkpoints/
 
 #main file for testing
 main.py
+main_mnist.py
