@@ -81,9 +81,9 @@ class model:
         if not layer.is_activation:
             new_weight = None
             if layer.use_bias:
-                new_weight = np.random.normal(0,1,(layer.output_dim,layer.input_dim+1)) # +1 for bias
+                new_weight = np.random.uniform(0,1/layer.input_dim**0.5,(layer.output_dim,layer.input_dim+1)) # +1 for bias
             else:
-                new_weight = np.random.normal(0,1,(layer.output_dim,layer.input_dim))
+                new_weight = np.random.uniform(0,1/layer.input_dim**0.5,(layer.output_dim,layer.input_dim))
             layer.weight = new_weight
         layer_num = len(self.layers)
         layer.layer_num = layer_num
