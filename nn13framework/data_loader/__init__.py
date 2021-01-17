@@ -6,6 +6,7 @@ import tarfile
 from urllib import request
 import gzip
 from urllib.request import urlretrieve
+import math
 
 
 
@@ -21,34 +22,19 @@ def one_hot(Y, D_out):
     return Z
 
 
-def get_batch_generator_X(X,batch_size):
-    # i=0
+def get_batch_generator_X(X,batch_size,epoch_size):
     N=len(X)
-    # while True:
-    #     if i*batch_size>=N:
-    #         i=0
-    #         X = X[i*batch_size:(i+1)*batch_size,:]
-    #     else:
-    #         X = X[i*batch_size:(i+1)*batch_size,:]     
-    #         i += 1
-    #     yield X
+    batch_number=math.ceil(N/batch_size)
+    count=0
     for i in range (0,N,batch_size):
-        yield X[i*batch_size:(i+1)*batch_size]
+        yield X[i:i+batch_size]
     
-def get_batch_generator_Y(Y,batch_size):
-    # i=0
+def get_batch_generator_Y(Y,batch_size,epoch_size):
     N=len(Y)
-    # while True:
-    #     if i*batch_size>=N:
-    #         i=0
-    #         Y = Y[i*batch_size:(i+1)*batch_size]
-    #     else:
-    #         Y = Y[i*batch_size:(i+1)*batch_size]
-    #         i += 1
-    #     yield Y
+    batch_number=math.ceil(N/batch_size)
 
     for i in range (0,N,batch_size):
-        yield Y[i*batch_size:(i+1)*batch_size]
+        yield Y[i:i+batch_size]
    
 
 def get_batch_XY(X_batch_generator,Y_batch_generator):
@@ -57,7 +43,7 @@ def get_batch_XY(X_batch_generator,Y_batch_generator):
     for x in X_batch_generator:
         X_batches.append(x)
     for y in Y_batch_generator:
-        X_batches.append(y)
+        Y_batches.append(y)
     
     return X_batches,Y_batches
 
@@ -266,12 +252,11 @@ def load_mnist_data(path=None):
 
 ################# FOR TESTING #######################
 X_train,Y_train,X_test,Y_test=load_mnist_data()
-X1=None
 batch_size=64
-X_batch_generator=get_batch_generator_X(X_train,batch_size)
-Y_batch_generator=get_batch_generator_Y(Y_train,batch_size)
+epoch_size=100
+X_batch_generator=get_batch_generator_X(X_train,batch_size,epoch_size)
+Y_batch_generator=get_batch_generator_Y(Y_train,batch_size,epoch_size)
 X_batches,Y_batches=get_batch_XY(X_batch_generator,Y_batch_generator)
-print(X_batches[0][0])
-print("*******************************************************************************")
-print(X_batches[1][0])
-
+print(len(X_batches[937]))
+# for i in range (0,98):
+#     print(X_batches[i].shape)
