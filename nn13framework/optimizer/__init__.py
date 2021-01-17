@@ -17,7 +17,7 @@ class batch_gradient_descent(optimizer):
         self.model = model
 
     def step(self,grad_loss):
-        last_dx = grad_loss
+        last_dx = grad_loss.T
         for i in reversed(range(len(self.model.layers))):
             dw , dx = self.model.layers[i].backward(last_dx)
             last_dx = dx
