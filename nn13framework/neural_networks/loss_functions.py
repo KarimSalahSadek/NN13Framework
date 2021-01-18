@@ -25,7 +25,7 @@ def multinomial_loss(prediction ,label,grad=False):
 
     # the function output
     if grad == False:
-        return -np.sum(np.multiply(np.log(prediction),label ))
+        return -np.sum(np.multiply(np.log(prediction+np.exp(-15)),label ))
     # the function derivative
     elif grad == True:
         # return the derivative for each class by d itself
