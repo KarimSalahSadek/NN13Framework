@@ -6,6 +6,7 @@ import tarfile
 from urllib import request
 import gzip
 from urllib.request import urlretrieve
+import matplotlib.pyplot  as plt
 
 batches_tracking=0
 
@@ -22,12 +23,13 @@ def get_batch_generator_XY(X,Y,batch_size,shuffle=False):
     global batches_tracking
     if shuffle:
         X,Y=shuffle_data(X,Y)
+    
     N=len(X)
     if batches_tracking*batch_size>=N:
         batches_tracking=0
     else:
-        X = X[batches_tracking*batch_size:(i+1)*batch_size,:]
-        Y = Y[batches_tracking*batch_size:(i+1)*batch_size]
+        X = X[batches_tracking*batch_size:(batches_tracking+1)*batch_size,:]
+        Y = Y[batches_tracking*batch_size:(batches_tracking+1)*batch_size]
         batches_tracking += 1
     yield X,Y 
 
@@ -86,51 +88,14 @@ def train_test_split(X,Y,test_size):
 
 
 
-############################################# FOR CIFAR10 DATA ###############################################################
-# def download_save_cifar(path=None):
-
-#     Cifaar_files = ['cifar-10-batches-bin/data_batch_1.bin',
-#              'cifar-10-batches-bin/data_batch_2.bin',
-#              'cifar-10-batches-bin/data_batch_3.bin',
-#              'cifar-10-batches-bin/data_batch_4.bin',
-#              'cifar-10-batches-bin/data_batch_5.bin',
-#              'cifar-10-batches-bin/test_batch.bin']
-#     Cifar_Size=170052171
-#     cifar_url = 'https://www.cs.toronto.edu/~kriz/'
-#     tar_file='cifar-10-binary.tar.gz'
-#     if path is None:
-#         # Set path to /home/USER/data/mnist or C:\Users\USER\data\Cifar10
-#         path = os.path.join(os.path.expanduser('~'), 'data', 'Cifar10')
-
-#     # Create path if it doesn't exist
-#     os.makedirs(path, exist_ok=True)
-
-    
-#     # Download tarfile if missing
-#     if tar_file not in os.listdir(path): 
-#         print("Downloading cifar-10-binary.tar.gz....")
-#         urlretrieve(''.join((cifar_url, tar_file)), os.path.join(path, tar_file))
-#         print("Downloaded %s to %s" % (tar_file, path))
-#     else :
-#         #if the download is not completed so that the downloaded file be deleted and then re-downloaded
-#         if os.path.getsize(os.path.join(path, tar_file))!= Cifar_Size:
-#             os.remove(os.path.join(path,tar_file))
-#             print("Downloading cifar-10-binary.tar.gz....")
-#             urlretrieve(''.join((cifar_url, tar_file)), os.path.join(path, tar_file))
-#             print("Downloaded %s to %s" % (tar_file, path))
-#         else :
-#             print("Mnist dataset is already downloaded in the directory :",path)
-
-#     #Loading data
-#     with tarfile.open(os.pardir.join(path,tar_file)) as cifar_object:
-
-
-
 
 ############################################# FOR MNIST DATA ###############################################################
 
 
-def download_save_mnist(path=None):
+def download_save_mnist(path=None,CNN=False):
+
+    if CNN==None :
+        CNN=False
 
     Mnist_files = [
 	["training_images","train-images-idx3-ubyte.gz",9912422],
@@ -167,14 +132,17 @@ def download_save_mnist(path=None):
         print("Mnist dataset is already downloaded in the directory :",path)
     else:
         print("Download complete.")
-
+########################################################################################## SAVING #############################################################################################
     #saving the dataset
     mnist = {}
     
     #save inputs
     for name in Mnist_files[:2]:
         with gzip.open(os.path.join(path,name[1]), 'rb') as f:
-            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28*28)
+            if CNN:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28,28,1)
+            else:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28*28)
     
     #save labels
     for name in Mnist_files[-2:]:
@@ -187,6 +155,8 @@ def download_save_mnist(path=None):
 
 
 
+
+
 def load_mnist(path=None):
 
     # Set path to /home/USER/data/mnist or C:\Users\USER_NAME\data\mnist
@@ -196,13 +166,14 @@ def load_mnist(path=None):
     with open(path+"/mnist.pkl", 'rb') as f:
         mnist = pickle.load(f)
     
-    # print(mnist["training_images"][0])
     return mnist["training_images"], mnist["training_labels"], mnist["test_images"], mnist["test_labels"]
 
 
-def load_mnist_data(path=None):
+def load_mnist_data(path=None,CNN=False):
+    if CNN==None:
+        CNN=False
     #downloading & and saving
-    download_save_mnist(path)
+    download_save_mnist(path,CNN)
     #loading
     X_train,Y_train,X_test,Y_test=load_mnist(path)
     #Nomralization & One hot encoding
@@ -225,6 +196,7 @@ def load_mnist_data(path=None):
 
 ################# FOR TESTING ########################################################################
 
+# load_mnist_data(path=None,CNN=True)
 
  
 #Steps for loading Mnist step by step (Not required to do that now)
@@ -241,14 +213,32 @@ def load_mnist_data(path=None):
 # Y_train=one_hot(Y_train, Data_out)
 # Y_test=one_hot(Y_test,Data_out)
 
-###################################################### Steps for batch ##########################################
+###################################################### Steps for batch & CNN DATA LOADER N##########################################
 
 #Please use it like this way 
 
 
 #NOTE : X_batches_list is not required at all for your testing it is only for me to test if the functions is functional 
 
-# X_train,Y_train,X_test,Y_test=load_mnist_data()
+# X_train,Y_train,X_test,Y_test=load_mnist_data(path=None,CNN=True)
+
+
+# #TESTING THE CNN DATA LOADER & Compare the output in first examples
+# print(Y_train[8])
+# #plt.figure()
+# plt.imshow(X_train[8])
+# plt.show()  # display it
+
+
+# #MORE EXAMPLES , CLOSE THE WINDOW OF THE FIRST EXAMPLE FIRST
+# print(Y_train[10])
+# #plt.figure()
+# plt.imshow(X_train[10])
+# plt.show()  # display it
+
+
+
+
 # batch_size=1500
 #X_batches_list=[]
 # for i in range (0,5):
@@ -267,3 +257,9 @@ def load_mnist_data(path=None):
 
 #https://www.geeksforgeeks.org/how-to-compare-two-numpy-arrays/ This method only tnf3 lma yb2a 3ndk array of size so8ir msh 64,784
 
+########################## STEPS FOR CNN DATA_LOADER ####################################################
+# BY DEFAULT THE DATA_LOADER WILL RETURN ONLY THE DATA IN THIS SHAPE (60000,784) IF IT IS TRAINING DATA , BUT IF YOU WANT TO USE CNN , JUST CALL THE FUNCTION load_mnist_data 
+# AND PUT CNN=TRUE or IF YOU WANT TO GO FOR STEP BY STEP , JUST USE THIS download_save_mnist AND PUT CNN=TRUE
+
+
+# THE DATALOADER IS ATGRABET BY ME USING MATPLOTLIB IN MORE THAN 10 EXAMPLES AND IT WORKS WELL
