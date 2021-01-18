@@ -213,7 +213,7 @@ def load_mnist_data(path=None,CNN=False):
 # Y_train=one_hot(Y_train, Data_out)
 # Y_test=one_hot(Y_test,Data_out)
 
-###################################################### Steps for batch & CNN DATA LOADER N##########################################
+###################################################### Steps for batch & CNN DATA LOADER ############################################
 
 #Please use it like this way 
 
