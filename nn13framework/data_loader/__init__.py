@@ -6,11 +6,8 @@ import tarfile
 from urllib import request
 import gzip
 from urllib.request import urlretrieve
-import math
 
-
-
-
+batches_tracking=0
 
 ############################################# FOR GENERIC DATA ###############################################################
 
@@ -21,31 +18,27 @@ def one_hot(Y, D_out):
     Z[np.arange(N), Y] = 1 #Z[][]==Z[,]
     return Z
 
-
-def get_batch_generator_X(X,batch_size,epoch_size):
+def get_batch_generator_XY(X,Y,batch_size,shuffle=False):
+    global batches_tracking
+    if shuffle:
+        X,Y=shuffle_data(X,Y)
     N=len(X)
-    batch_number=math.ceil(N/batch_size)
-    count=0
-    for i in range (0,N,batch_size):
-        yield X[i:i+batch_size]
-    
-def get_batch_generator_Y(Y,batch_size,epoch_size):
-    N=len(Y)
-    batch_number=math.ceil(N/batch_size)
+    if batches_tracking*batch_size>=N:
+        batches_tracking=0
+    else:
+        X = X[batches_tracking*batch_size:(i+1)*batch_size,:]
+        Y = Y[batches_tracking*batch_size:(i+1)*batch_size]
+        batches_tracking += 1
+    yield X,Y 
 
-    for i in range (0,N,batch_size):
-        yield Y[i:i+batch_size]
-   
 
 def get_batch_XY(X_batch_generator,Y_batch_generator):
-    X_batches=[]
-    Y_batches=[]
     for x in X_batch_generator:
-        X_batches.append(x)
+        X_batch=x
     for y in Y_batch_generator:
-        Y_batches.append(y)
-    
-    return X_batches,Y_batches
+        Y_batch=y
+    return X_batch,Y_batch
+
 
 
 
@@ -222,7 +215,19 @@ def load_mnist_data(path=None):
 
 
 
-#Steps 
+
+
+
+
+
+
+
+
+################# FOR TESTING ########################################################################
+
+
+ 
+#Steps for loading Mnist step by step (Not required to do that now)
 ##  1st : download & save the dataset 
 # download_save_mnist()
 ## 2nd : Load it in dictionaries of names training_images,test_images,training_labels,and test_labels
@@ -233,30 +238,32 @@ def load_mnist_data(path=None):
 ## DataOut= is the number of classes to be applied in the output in order to make proper one hot encoding  
 ##for testing the mnist the Data_out will be 10
 # Data_out=10
-# X_train -= np.mean(X_train)
-# X_test -= np.mean(X_test)
 # Y_train=one_hot(Y_train, Data_out)
 # Y_test=one_hot(Y_test,Data_out)
-##6th : in order to take batches from X and Y , so you need first to determine the size of the batch you need , then you will be returned a generator of X_batch and Y_batch
-# X_batch_generator=get_batch_generator_X(X_train,batch_size)
-# Y_batch_generator=get_batch_generator_Y(Y_train,batch_size)
-##7th : convert the generator to X_batch & Y_batch
-# X_batch,Y_batch=get_batch_XY(X_batch_generator,Y_batch_generator)
+
+###################################################### Steps for batch ##########################################
+
+#Please use it like this way 
 
 
+#NOTE : X_batches_list is not required at all for your testing it is only for me to test if the functions is functional 
+
+# X_train,Y_train,X_test,Y_test=load_mnist_data()
+# batch_size=1500
+#X_batches_list=[]
+# for i in range (0,5):
+#     X_batch_generator,Y_batch_generator=zip(*get_batch_generator_XY(X_train,Y_train,batch_size))
+#     x_batch,y_batch=get_batch_XY(X_batch_generator,Y_batch_generator)
+#     X_batches_list.append(x_batch)
 
 
+#1st method to keep tracking , is 5anzara method by keep tracking by your eye to the first changed element in lets say 3rd col in the second example in batch 1 and compare it to the second ex in batch2 
+# print(X_batches_list[0][1])
+# print("***********************************************************************************************************************")
+# print(X_batches_list[1][1])
 
+#2nd method is to be a human and use a numpy function to compare between 2 numpy arrays (There is more than one numpy array)
+# print(np.array_equal(X_batches_list[0][1],X_batches_list[1][1]))
 
+#https://www.geeksforgeeks.org/how-to-compare-two-numpy-arrays/ This method only tnf3 lma yb2a 3ndk array of size so8ir msh 64,784
 
-
-################# FOR TESTING #######################
-X_train,Y_train,X_test,Y_test=load_mnist_data()
-batch_size=64
-epoch_size=100
-X_batch_generator=get_batch_generator_X(X_train,batch_size,epoch_size)
-Y_batch_generator=get_batch_generator_Y(Y_train,batch_size,epoch_size)
-X_batches,Y_batches=get_batch_XY(X_batch_generator,Y_batch_generator)
-print(len(X_batches[937]))
-# for i in range (0,98):
-#     print(X_batches[i].shape)
