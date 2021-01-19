@@ -122,5 +122,5 @@ class softmax(layer):
         inp = self.last_input.T
         for i in range(d_out.shape[0]):
             grad_data_in.append(np.multiply(d_out,inp))
-        grad_data_in = np.sum(grad_data_in,axis=0).T
+        grad_data_in = np.mean(grad_data_in,axis=0).T
         return None , grad_data_in
