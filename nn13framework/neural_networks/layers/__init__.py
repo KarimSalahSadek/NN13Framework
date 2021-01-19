@@ -117,5 +117,10 @@ class softmax(layer):
         #grad_z = activation_functions.softmax(self.last_input,grad=True)
         #assert(grad_z.shape == data_out.shape)
         #grad_data_in = np.einsum('ijk,ik->ij', grad_z , data_out.T).T
-        grad_data_in = data_out
+        grad_data_in = []
+        d_out = data_out.T
+        inp = self.last_input.T
+        for i in range(d_out.shape[0]):
+            grad_data_in.append(np.multiply(d_out,inp))
+        grad_data_in = np.sum(grad_data_in,axis=0).T
         return None , grad_data_in
