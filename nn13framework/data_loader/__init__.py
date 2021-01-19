@@ -7,8 +7,8 @@ from urllib import request
 import gzip
 from urllib.request import urlretrieve
 import matplotlib.pyplot  as plt
+import math
 
-batches_tracking=0
 
 ############################################# FOR GENERIC DATA ###############################################################
 
@@ -16,30 +16,36 @@ batches_tracking=0
 def one_hot(Y, D_out):
     N = Y.shape[0]
     Z = np.zeros((N, D_out))
+    
     Z[np.arange(N), Y] = 1 #Z[][]==Z[,]
     return Z
 
+
 def get_batch_generator_XY(X,Y,batch_size,shuffle=False):
-    global batches_tracking
     if shuffle:
         X,Y=shuffle_data(X,Y)
-    
-    N=len(X)
-    if batches_tracking*batch_size>=N:
-        batches_tracking=0
-    else:
-        X = X[batches_tracking*batch_size:(batches_tracking+1)*batch_size,:]
-        Y = Y[batches_tracking*batch_size:(batches_tracking+1)*batch_size]
-        batches_tracking += 1
-    yield X,Y 
+    N=len(Y)
+    batch_number=math.ceil(N/batch_size)
+    count=0
+    for i in range (0,N,batch_size):
+        #to prevent last batch to be less than the batch size
+        if (N%batch_size)!=0 and count==batch_number-1:
+            break
+        else :
+            yield X[i:i+batch_size],Y[i:i+batch_size]
+            count+=1
+   
 
-
-def get_batch_XY(X_batch_generator,Y_batch_generator):
+def get_batch_XY(X_Data,Y_Data,batch_size,shuffle=False):
+    X_batch_generator,Y_batch_generator=zip(*get_batch_generator_XY(X_Data,Y_Data,batch_size,shuffle))
+    X_batches=list()
+    Y_batches=list()
     for x in X_batch_generator:
-        X_batch=x
+        X_batches.append(x)
     for y in Y_batch_generator:
-        Y_batch=y
-    return X_batch,Y_batch
+        Y_batches.append(y)
+    
+    return X_batches,Y_batches
 
 
 
@@ -194,7 +200,7 @@ def load_mnist_data(path=None,CNN=False):
 
 
 
-################# FOR TESTING ########################################################################
+##################################################################### FOR TESTING ########################################################################
 
 # load_mnist_data(path=None,CNN=True)
 
@@ -220,7 +226,7 @@ def load_mnist_data(path=None,CNN=False):
 
 #NOTE : X_batches_list is not required at all for your testing it is only for me to test if the functions is functional 
 
-# X_train,Y_train,X_test,Y_test=load_mnist_data(path=None,CNN=True)
+# X_train,Y_train,X_test,Y_test=load_mnist_data(path=None,CNN=False)
 
 
 # #TESTING THE CNN DATA LOADER & Compare the output in first examples
@@ -236,24 +242,41 @@ def load_mnist_data(path=None,CNN=False):
 # plt.imshow(X_train[10])
 # plt.show()  # display it
 
+################################################ 1st test ####################################################
+
+# X_batch_test=[]
+# batch_size=4957
+# for epoch in range (0,50):
+#         X_batches,y_batches=get_batch_XY(X_train,Y_train,batch_size,shuffle=False)
+#         #to compare between different batches in an epoch
+#         if epoch==1 : 
+#             X_batch_test.append(X_batches[1])
+#             X_batch_test.append(X_batches[5])
+#         #print(len(X_batches))  #will be 12 in this example
+#         #print(X_batches[0].shape)
 
 
 
-# batch_size=1500
-#X_batches_list=[]
-# for i in range (0,5):
-#     X_batch_generator,Y_batch_generator=zip(*get_batch_generator_XY(X_train,Y_train,batch_size))
-#     x_batch,y_batch=get_batch_XY(X_batch_generator,Y_batch_generator)
-#     X_batches_list.append(x_batch)
+################################################ 2nd test ####################################################
+# X_batch_test=[]
+# batch_size=4957
+# X_batches,y_batches=get_batch_XY(X_train,Y_train,batch_size,shuffle=False)
+# for epoch in range (0,50):
+#          #to compare between different batches in an epoch
+#          if epoch==1 : 
+#              X_batch_test.append(X_batches[1])
+#              X_batch_test.append(X_batches[5])
+#          print(len(X_batches))  #will be 12 in this example
+#          print(X_batches[0].shape)
 
 
 #1st method to keep tracking , is 5anzara method by keep tracking by your eye to the first changed element in lets say 3rd col in the second example in batch 1 and compare it to the second ex in batch2 
-# print(X_batches_list[0][1])
+# print(X_batch_test[0])
 # print("***********************************************************************************************************************")
-# print(X_batches_list[1][1])
+# print(X_batch_test[1])
 
 #2nd method is to be a human and use a numpy function to compare between 2 numpy arrays (There is more than one numpy array)
-# print(np.array_equal(X_batches_list[0][1],X_batches_list[1][1]))
+# print(np.array_equal(X_batch_test[0],X_batch_test[1]))
 
 #https://www.geeksforgeeks.org/how-to-compare-two-numpy-arrays/ This method only tnf3 lma yb2a 3ndk array of size so8ir msh 64,784
 
