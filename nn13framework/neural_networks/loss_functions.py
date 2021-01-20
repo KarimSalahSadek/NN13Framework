@@ -10,9 +10,7 @@ class loss_functions:
     pass
 
 class mean_square_loss(loss_functions):
-    # general attributes
-    loss_derivative = None
-    #init functions that take the model
+
     def __init__(self,model=None):
         self.model=model
         self.loss_derivative = None
@@ -34,9 +32,7 @@ class mean_square_loss(loss_functions):
 
 
 class multinomial_loss(loss_functions):
-    # general attributes
-    loss_derivative = None
-
+    
     # init functions that take the model
     def __init__(self, model=None):
         self.model = model
@@ -58,7 +54,7 @@ class multinomial_loss(loss_functions):
         self.loss_derivative =  delta
 
         # the function output
-        return -np.sum(np.multiply(np.log(prediction + np.exp(-15)), label))
+        return -np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))
 
     # return the previously calculated derivative
     def backward(self):
