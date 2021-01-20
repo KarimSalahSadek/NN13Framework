@@ -29,9 +29,10 @@ def softmax(z,grad=False):
     z=np.array(z)
     # the function output
     if grad == False:
-        z=z-np.abs(np.max(z,axis=0,keepdims=True))
-        z= np.exp(z)
-        return z/(np.sum(z,axis=0,keepdims=True)+10e-6)
+        pos_condition = np.max(z,axis=0,keepdims=True) > 0
+        z = z - np.max(z,axis=0,keepdims=True)*pos_condition
+        z = np.exp(z)
+        return z/(np.sum(z,axis=0,keepdims=True)+np.exp(-150))
     # the function derivative
     elif grad == True:
         z=z.T
