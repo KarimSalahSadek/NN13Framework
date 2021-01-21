@@ -21,7 +21,7 @@ class model:
         self.evaluate_mode = False
         pass
     
-    def evaluate_mode(mode):
+    def set_evaluate_mode(self,mode):
         '''
             Sets the mode (boolean) of the model to either training mode or evaluation mode
             Only affects dropout layers
