@@ -21,9 +21,9 @@ class mean_square_loss(loss_functions):
         label = np.transpose(label)
         prediction = np.transpose(prediction)
         # the function derivative
+        col_len, row_len = label.shape
         self.loss_derivative = -np.transpose(((label - prediction) / row_len))
         # the function output
-        col_len, row_len = label.shape
         return np.sum(((np.multiply((label - prediction), (label - prediction))) / (2 * row_len)))
 
     #return the previously calculated derivative
