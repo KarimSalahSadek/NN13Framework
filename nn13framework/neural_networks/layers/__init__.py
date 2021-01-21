@@ -124,3 +124,27 @@ class softmax(layer):
             grad_data_in.append(np.multiply(d_out,inp))
         grad_data_in = np.mean(grad_data_in,axis=0).T
         return None , grad_data_in
+
+class dropout(layer):
+    
+    def __init__(self,keep_probability):
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.input_dim = None
+        self.output_dim = None
+        self.p = keep_probability
+        self.prob_matrix = None
+        
+    def forward(self,data_in):
+        self.prob_matrix = np.random.binomial(1,self.p,size=data_in.shape)
+        data_out = np.multiply(data_in,self.prob_matrix)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_data_in = np.multiply(self.prob_matrix,data_out)
+        return None , grad_data_in
