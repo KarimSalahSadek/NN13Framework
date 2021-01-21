@@ -9,6 +9,7 @@ class layer:
 class linear(layer):
     
     def __init__(self,input_dim,output_dim, use_bias = True):
+        self.layer_name = 'linear'
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.layer_num = None
@@ -49,6 +50,7 @@ class linear(layer):
 class sigmoid(layer):
     
     def __init__(self):
+        self.layer_name = 'sigmoid'
         self.layer_num = None
         self.weight = None
         self.is_activation = True
@@ -73,6 +75,7 @@ class sigmoid(layer):
 class relu(layer):
     
     def __init__(self):
+        self.layer_name = 'relu'
         self.layer_num = None
         self.weight = None
         self.is_activation = True
@@ -97,6 +100,7 @@ class relu(layer):
 class softmax(layer):
     
     def __init__(self):
+        self.layer_name = 'softmax'
         self.layer_num = None
         self.weight = None
         self.is_activation = True
@@ -128,6 +132,7 @@ class softmax(layer):
 class dropout(layer):
     
     def __init__(self,keep_probability):
+        self.layer_name = "dropout"
         self.layer_num = None
         self.weight = None
         self.is_activation = True
@@ -136,10 +141,16 @@ class dropout(layer):
         self.output_dim = None
         self.p = keep_probability
         self.prob_matrix = None
+        self.evaluate_mode = False
         
     def forward(self,data_in):
-        self.prob_matrix = np.random.binomial(1,self.p,size=data_in.shape)
-        data_out = np.multiply(data_in,self.prob_matrix)
+        if self.evaluate_mode == False:
+            self.prob_matrix = np.random.binomial(1,self.p,size=data_in.shape)
+            prob = self.p
+        elif self.evaluate_mode:
+            self.prob_matrix = np.ones(data_in.shape)
+            prob = 1
+        data_out = np.multiply(data_in,self.prob_matrix)/prob
         return data_out
 
     def backward(self,data_out):
