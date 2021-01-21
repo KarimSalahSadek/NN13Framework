@@ -18,8 +18,20 @@ class model:
         self.history['loss'] = 0
         self.history['validation_loss'] = 0
         self.layers = None #list of layers later
+        self.evaluate_mode = False
         pass
     
+    def evaluate_mode(mode):
+        '''
+            Sets the mode (boolean) of the model to either training mode or evaluation mode
+            Only affects dropout layers
+        '''
+        assert(type(mode)==type(bool())),"mode parameter must be either True or False"
+        model.evaluate_mode = mode
+        for layer in model.layers:
+            if layer.layer_name == 'dropout':
+                layer.evaluate_mode = mode
+
     #Initializes self.weights , has severals modes
     def initialize_weights(self,mode,a, b = None):
         '''
