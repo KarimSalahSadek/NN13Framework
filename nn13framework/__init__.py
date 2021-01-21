@@ -19,7 +19,7 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,axs,x_ax
     epoch_loss = 0
     accuracy = 0
     step = 0
-    model.evaluate_mode(False)
+    model.set_evaluate_mode(False)
     for X,Y in zip(data[0],data[1]):
         step +=1
         out = model.forward(X)
@@ -51,7 +51,7 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,axs,x_ax
     model.history['epoch_loss'].append(epoch_loss)
     model.history['accuracy'].append(accuracy)
     X_val , Y_val = next(zip(data_val[0],data_val[1]))
-    model.evaluate_mode(True)
+    model.set_evaluate_mode(True)
     val_out = model.forward(X_val)
     val_loss = criterion.evaluate(val_out,Y_val)/val_out.shape[0]
     pred = np.argmax(val_out,1)
