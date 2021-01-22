@@ -116,7 +116,39 @@ class RMS(optimizer):
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
 
-        
+class adadelta(optimizer):
+
+    def __init__(self, model, loss_fn, learning_rate, epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon = epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        self.si = []
+        L = len(self.model.layers)
+        for i in range(L):
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+            self.si.append(np.zeros_like(self.model.layers[i].weight))
+
+    def step(self):
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+
+            self.s[i] =  self.s[i] + np.power(dw, 2)  # Ai accumelator
+            self.dwi = np.sqrt(self.si[i]/(self.s[i]+self.epsilon))*dw
+            self.si[i]= self.learning_rate*self.si[i]+(1-self.learning_rate)*np.power(self.dwi, 2)
+            self.model.layers[i].weight = self.model.layers[i].weight -  dw*( np.sqrt(self.si[i] /( self.epsilon+self.s[i])))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+
 class adam(optimizer):
 
     def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8):
