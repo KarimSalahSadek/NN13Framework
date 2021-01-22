@@ -59,7 +59,7 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visu
     model.history['validation_accuracy'].append(val_acc)
     print("Epoch end:")
     print(" Last Loss = " + str(round(epoch_loss,5)) + "\t\tValidation Loss = " + str(round(val_loss,5)))
-    print(" Training Accuracy = " + str(round(accuracy,2)) + "\t\tValidation Accuracy = " + str(round(val_acc,2)))
+    print(" Training Accuracy = " + str(round(accuracy*100,2)) + "%\t\tValidation Accuracy = " + str(round(val_acc*100,2))+'%')
     if vis =='animated':
         Visualization_List[1].append(index)
         Visualization_List[2].set_data(Visualization_List[1],model.history['epoch_loss'])
@@ -116,7 +116,7 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
     elif(visualization == 'text' or visualization is None):
         for epoch in range(epochs):
             iteration(epoch,model,data,validation_data,criterion,optimizer,print_every,visualization)
-        print('Training Finished!')
+        print('\nTraining Finished!')
     else:
         raise Exception('Wrong input for visulaization parameter in train function!')
 
