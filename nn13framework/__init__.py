@@ -110,12 +110,12 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         print('Training Finished!')
     elif(visualization == 'static'):
         for epoch in range(epochs):
-            iteration(None,model,data,validation_data,criterion,optimizer,print_every,visualization)
+            iteration(epoch,model,data,validation_data,criterion,optimizer,print_every,visualization)
         print('Training Finished!')
         #STATIC VIS FUNCS
     elif(visualization == 'text' or visualization is None):
         for epoch in range(epochs):
-            iteration(None,model,data,validation_data,criterion,optimizer,print_every,visualization)
+            iteration(epoch,model,data,validation_data,criterion,optimizer,print_every,visualization)
         print('Training Finished!')
     else:
         raise Exception('Wrong input for visulaization parameter in train function!')
