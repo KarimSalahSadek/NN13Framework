@@ -9,14 +9,18 @@ class model:
         self.date_created = date_created
         self.weights = None #list of numpy array later
         self.history = {}
-        self.history['true_positives'] = 0
-        self.history['true_negatives'] = 0
-        self.history['false_positives'] = 0
-        self.history['false_negatives'] = 0
-        self.history['accuracy'] = 0
-        self.history['validation_accuracy'] = 0
-        self.history['loss'] = 0
-        self.history['validation_loss'] = 0
+        self.history['true_positives'] = []
+        self.history['true_negatives'] = []
+        self.history['false_positives'] = []
+        self.history['false_negatives'] = []
+        self.history['accuracy'] = []
+        self.history['validation_accuracy'] = []
+        self.history['batch_loss'] = []
+        self.history['epoch_loss'] = []
+        self.history['validation_loss'] = []
+        self.history['precision'] = []
+        self.history['recall']= []
+        self.history['f1score'] = []
         self.layers = None #list of layers later
         self.evaluate_mode = False
         pass
@@ -27,11 +31,11 @@ class model:
             Only affects dropout layers
         '''
         assert(type(mode)==type(bool())),"mode parameter must be either True or False"
-        model.evaluate_mode = mode
-        for layer in model.layers:
+        self.evaluate_mode = mode
+        for layer in self.layers:
             if layer.layer_name == 'dropout':
                 layer.evaluate_mode = mode
-
+    
     #Initializes self.weights , has severals modes
     def initialize_weights(self,mode,a, b = None):
         '''
