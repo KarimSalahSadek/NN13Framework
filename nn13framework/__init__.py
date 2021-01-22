@@ -72,19 +72,20 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,axs,x_ax
         axs[1].relim()
         axs[0].autoscale_view()
         axs[1].autoscale_view()
+        axs[1].set_ylim([0,1])
 
 def Init():
     pass
 
 #Main training function
 def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=False,print_every = 250,visualization='static',stopping_function_metric=None,stopping_function_value=None):
-    if model.history['true_positives'] == None:
+    if len(model.history['true_positives']) == 0:
         model.history['true_positives'] = [0]*data[1][0].shape[1]
-    if model.history['false_positives'] == None:
+    if len(model.history['false_positives']) == 0:
         model.history['false_positives'] = [0]*data[1][0].shape[1]
-    if model.history['true_negatives'] == None:
+    if len(model.history['true_negatives']) == 0:
         model.history['true_negatives'] = [0]*data[1][0].shape[1]
-    if model.history['false_negatives'] == None:
+    if len(model.history['false_negatives']) == 0:
         model.history['false_negatives'] = [0]*data[1][0].shape[1]
     #MO'MEN PART
     if(visualization == 'animated'):

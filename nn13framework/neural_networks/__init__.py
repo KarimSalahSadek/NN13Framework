@@ -21,7 +21,7 @@ class model:
         self.history['precision'] = []
         self.history['recall']= []
         self.history['f1score'] = []
-        self.layers = None #list of layers later
+        self.layers = [] #list of layers later
         self.evaluate_mode = False
         pass
     
