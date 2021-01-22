@@ -26,8 +26,8 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visu
         loss = criterion.evaluate(out,Y)/out.shape[0]
         optimizer.step()
         epoch_loss = loss
-        if step%250 == 0:
-            print(' Training Loss = ',loss)
+        if step%print_every == 0:
+            print(' Training Loss = ',round(loss,5))
         model.history['batch_loss'].append(loss)
         pred = np.argmax(out,1)
         label = np.argmax(Y,1)
@@ -58,8 +58,8 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visu
     model.history['validation_loss'].append(val_loss)
     model.history['validation_accuracy'].append(val_acc)
     print("Epoch end:")
-    print(" Last Loss = " + str(epoch_loss) + "\tValidation Loss = " + str(val_loss))
-    print(" Training Accuracy = " + str(accuracy) + "\tValidation Accuracy = " + str(val_acc))
+    print(" Last Loss = " + str(round(epoch_loss,5)) + "\t\tValidation Loss = " + str(round(val_loss,5)))
+    print(" Training Accuracy = " + str(round(accuracy,2)) + "\t\tValidation Accuracy = " + str(round(val_acc,2)))
     if vis =='animated':
         Visualization_List[1].append(index)
         Visualization_List[2].set_data(Visualization_List[1],model.history['epoch_loss'])
@@ -75,7 +75,7 @@ def Init():
     pass
 
 #Main training function
-def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=False,print_every = 250,visualization='static',stopping_function_metric=None,stopping_function_value=None):
+def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=False,visualization='static',stopping_function_metric=None,stopping_function_value=None,loss_prints_per_epoch = 5):
     if len(model.history['true_positives']) == 0:
         model.history['true_positives'] = [0]*data[1][0].shape[1]
     if len(model.history['false_positives']) == 0:
@@ -84,14 +84,14 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         model.history['true_negatives'] = [0]*data[1][0].shape[1]
     if len(model.history['false_negatives']) == 0:
         model.history['false_negatives'] = [0]*data[1][0].shape[1]
-    #MO'MEN PART
+    print_every = len(data[1])//loss_prints_per_epoch
     if(visualization == 'animated'):
         fig, axs = plt.subplots(2, 1,figsize=(10,10))
         x_ax = []
         ln1, = axs[0].plot([], [], 'r', label='Loss')
-        ln2, = axs[0].plot([], [], 'm', label='Vald. Loss')
+        ln2, = axs[0].plot([], [], 'm', label='Valid. Loss')
         ln3, = axs[1].plot([], [], 'g', label='Accuracy')
-        ln4, = axs[1].plot([], [], 'b', label='Vald. Accuracy')
+        ln4, = axs[1].plot([], [], 'b', label='Valid. Accuracy')
         axs[0].legend(loc='upper right', frameon=False)
         axs[1].legend(loc='lower right', frameon=False)
         axs[0].set_xlabel('Loss',fontweight='bold')
@@ -107,6 +107,18 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         plt.show()
         writer = matplotlib.animation.PillowWriter(fps=1)
         Pic.save("Live_GIF.gif", writer=writer)
+        print('Training Finished!')
+    elif(visualization == 'static'):
+        for epoch in range(epochs):
+            iteration(None,model,data,validation_data,criterion,optimizer,print_every,visualization)
+        print('Training Finished!')
+        #STATIC VIS FUNCS
+    elif(visualization == 'text' or visualization is None):
+        for epoch in range(epochs):
+            iteration(None,model,data,validation_data,criterion,optimizer,print_every,visualization)
+        print('Training Finished!')
+    else:
+        raise Exception('Wrong input for visulaization parameter in train function!')
 
 #Returns a dictionary of metrics
 def test(model,test_data,metric = None):
