@@ -14,7 +14,7 @@ def stopping_function(metric,value):
     return None
 
 #Single batch training
-def iteration(index,model,data,data_val,criterion,optimizer,print_every,axs,x_axis,Line_1,Line_2,Line_3,Line_4,vis):
+def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visualization_List=None):
     print("Epoch ",index+1,':')
     epoch_loss = 0
     accuracy = 0
@@ -24,9 +24,7 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,axs,x_ax
         step +=1
         out = model.forward(X)
         loss = criterion.evaluate(out,Y)/out.shape[0]
-        dloss = criterion.backward()
-        optimizer.step(dloss)
-        #optimizer.step()
+        optimizer.step()
         epoch_loss = loss
         if step%250 == 0:
             print(' Training Loss = ',loss)
@@ -63,16 +61,15 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,axs,x_ax
     print(" Last Loss = " + str(epoch_loss) + "\tValidation Loss = " + str(val_loss))
     print(" Training Accuracy = " + str(accuracy) + "\tValidation Accuracy = " + str(val_acc))
     if vis =='animated':
-        x_axis.append(index)
-        Line_1.set_data(x_axis,model.history['epoch_loss'])
-        Line_2.set_data(x_axis,model.history['validation_loss'])
-        Line_3.set_data(x_axis,model.history['accuracy'])
-        Line_4.set_data(x_axis,model.history['validation_accuracy'])
-        axs[0].relim()
-        axs[1].relim()
-        axs[0].autoscale_view()
-        axs[1].autoscale_view()
-        axs[1].set_ylim([0,1])
+        Visualization_List[1].append(index)
+        Visualization_List[2].set_data(Visualization_List[1],model.history['epoch_loss'])
+        Visualization_List[3].set_data(Visualization_List[1],model.history['validation_loss'])
+        Visualization_List[4].set_data(Visualization_List[1],model.history['accuracy'])
+        Visualization_List[5].set_data(Visualization_List[1],model.history['validation_accuracy'])
+        Visualization_List[0][0].relim()
+        Visualization_List[0][1].relim()
+        Visualization_List[0][0].autoscale_view()
+        Visualization_List[0][1].autoscale_view()
 
 def Init():
     pass
@@ -100,10 +97,14 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         axs[0].set_xlabel('Loss',fontweight='bold')
         axs[1].set_xlabel('Accuracy',fontweight='bold')
         axs[0].set_title('Live Graphs',fontweight='bold')
+        axs[0].set_xlim([0,epochs-1])
+        axs[1].set_xlim([0,epochs-1])
+        axs[1].set_ylim([0,1])
         func = iteration
-        args = (model,data,validation_data,criterion,optimizer,print_every,axs,x_ax,ln1,ln2,ln3,ln4,visualization)
+        visualization_args=[axs,x_ax,ln1,ln2,ln3,ln4]
+        args = (model,data,validation_data,criterion,optimizer,print_every,visualization,visualization_args)
         Pic = matplotlib.animation.FuncAnimation(fig, func,frames=epochs,repeat=False,fargs=args,init_func=Init)
-        #plt.show()
+        plt.show()
         writer = matplotlib.animation.PillowWriter(fps=1)
         Pic.save("Live_GIF.gif", writer=writer)
 
