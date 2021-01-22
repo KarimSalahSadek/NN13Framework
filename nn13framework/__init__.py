@@ -61,15 +61,15 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visu
     print(" Last Loss = " + str(round(epoch_loss,5)) + "\t\tValidation Loss = " + str(round(val_loss,5)))
     print(" Training Accuracy = " + str(round(accuracy*100,2)) + "%\t\tValidation Accuracy = " + str(round(val_acc*100,2))+'%')
     if vis =='animated':
-        Visualization_List[1].append(index)
-        Visualization_List[2].set_data(Visualization_List[1],model.history['epoch_loss'])
-        Visualization_List[3].set_data(Visualization_List[1],model.history['validation_loss'])
-        Visualization_List[4].set_data(Visualization_List[1],model.history['accuracy'])
-        Visualization_List[5].set_data(Visualization_List[1],model.history['validation_accuracy'])
-        Visualization_List[0][0].relim()
-        Visualization_List[0][1].relim()
-        Visualization_List[0][0].autoscale_view()
-        Visualization_List[0][1].autoscale_view()
+      Visualization_List[1].append(index+1)
+      Visualization_List[2].set_data(Visualization_List[1],model.history['epoch_loss'])
+      Visualization_List[3].set_data(Visualization_List[1],model.history['validation_loss'])
+      Visualization_List[4].set_data(Visualization_List[1],model.history['accuracy'])
+      Visualization_List[5].set_data(Visualization_List[1],model.history['validation_accuracy'])
+      Visualization_List[0][0].relim()
+      Visualization_List[0][1].relim()
+      Visualization_List[0][0].autoscale_view()
+      Visualization_List[0][1].autoscale_view()
 
 def Init():
     pass
@@ -97,11 +97,16 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         axs[0].set_xlabel('Loss',fontweight='bold')
         axs[1].set_xlabel('Accuracy',fontweight='bold')
         axs[0].set_title('Live Graphs',fontweight='bold')
-        axs[0].set_xlim([0,epochs-1])
-        axs[1].set_xlim([0,epochs-1])
+        axs[0].set_xlim([0,epochs])
+        axs[1].set_xlim([0,epochs])
         axs[1].set_ylim([0,1])
         func = iteration
         visualization_args=[axs,x_ax,ln1,ln2,ln3,ln4]
+        x_ax.append(0)
+        ln1.set_data(x_ax,model.history['epoch_loss'])
+        ln2.set_data(x_ax,model.history['validation_loss'])
+        ln3.set_data(x_ax,model.history['accuracy'])
+        ln4.set_data(x_ax,model.history['validation_accuracy'])
         args = (model,data,validation_data,criterion,optimizer,print_every,visualization,visualization_args)
         Pic = matplotlib.animation.FuncAnimation(fig, func,frames=epochs,repeat=False,fargs=args,init_func=Init)
         plt.show()
