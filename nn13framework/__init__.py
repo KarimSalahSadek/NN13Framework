@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation
+import visualization as vi
 
 #Tests a condition and returns true to stop training if condtion is met
 def stopping_function(metric,value):
@@ -113,6 +114,10 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         writer = matplotlib.animation.PillowWriter(fps=1)
         Pic.save("Live_GIF.gif", writer=writer)
         print('Training Finished!')
+        #vi.plot_accuracy_loss_vs_iterations(model)
+        #vi.plot_img(data[0][5][8])
+        #vi.metrics_plot(0,model)
+        plt.show()
     elif(visualization == 'static'):
         for epoch in range(epochs):
             iteration(epoch,model,data,validation_data,criterion,optimizer,print_every,visualization)
@@ -138,6 +143,7 @@ def test(model,test_data,metric = None):
 
 #Uses model to solve one piece of input
 def use_model(model,data_piece):
+
     predicted_output = None
 
     return predicted_output
