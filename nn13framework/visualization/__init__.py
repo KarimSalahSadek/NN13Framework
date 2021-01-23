@@ -55,18 +55,22 @@ def plot_confusion_matrix(Class_number, model):
     Labels = []
     if model.history['true_positives'][Class_number] > 0:
         Percentages.append(model.history['true_positives'][Class_number])
-        Labels.append('TP')
     if model.history['true_negatives'][Class_number] > 0:
         Percentages.append(model.history['true_negatives'][Class_number])
-        Labels.append('TN')
     if model.history['false_positives'][Class_number] > 0:
         Percentages.append(model.history['false_positives'][Class_number])
-        Labels.append('FP')
     if model.history['false_negatives'][Class_number] > 0:
         Percentages.append(model.history['false_negatives'][Class_number])
-        Labels.append('FN')
-
-    plt.pie(Percentages, autopct='%1.1f%%', labels=Labels, startangle=90)
+    if model.history['true_positives'][Class_number] > 0:
+        Labels.append('TP ({:.1f}%)'.format(100*(model.history['true_positives'][Class_number]/sum(Percentages))))
+    if model.history['true_negatives'][Class_number] > 0:
+        Labels.append('TN ({:.1f}%)'.format(100*(model.history['true_negatives'][Class_number]/sum(Percentages))))
+    if model.history['false_positives'][Class_number] > 0:
+        Labels.append('FP ({:.1f}%)'.format(100*(model.history['false_positives'][Class_number]/sum(Percentages))))
+    if model.history['false_negatives'][Class_number] > 0:
+        Labels.append('FN ({:.1f}%)'.format(100*(model.history['false_negatives'][Class_number]/sum(Percentages))))
+    plt.pie(Percentages,startangle=90)
+    plt.legend(Labels, loc=3)
 
 
 def plot_metrics(Class_number, model):
