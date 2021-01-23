@@ -68,7 +68,7 @@ class log_likehood_loss(loss_functions):
 """
     loss function for logistic regression problem & linear activation function 
     loss = log(1 + exp(- Y *y_hat))
-    derivative = 
+    derivative = (-Y* exp(- Y *y_hat)) / (1 + exp(- Y *y_hat)) 
     parameters are 2 matrices : 
     prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output  
     labels presents the actual output
