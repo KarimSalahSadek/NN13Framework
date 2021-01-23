@@ -30,7 +30,134 @@ class mean_square_loss(loss_functions):
     def backward(self):
         return self.loss_derivative
 
+    
+"""
+     loss function for logistic regression problem & sigmoid activation function 
+     loss = log(abs(Y/2 -0.5 + y_hat))
+     incase--> Y = 1   loss = log(y_hat)       drevative =  1 / y_hat  
+     incase--> Y = -1  loss = log(1-y_hat)     drevative = -1 / (1 - y_hat)
+     parameters are 2 matrices : prediction is the output of the last layer & labels presents the actual output{1 or -1}
+"""
+class log_likehood_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model=None):
+        self.model=model
+        self.loss_derivative = None
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        L1 = (label > 0)
+        L2 = (label <= 0)
+        pred1 = np.multiply(prediction,L1)
+        pred2 = np.multiply(prediction,L2)
+        Loss = np.where(L2==0,np.log(pred1+np.exp(-15)),0) + np.where(L1==0,np.log(1-pred2+np.exp(-15)),0)
 
+        # the function derivative
+        dev = np.where(L2==0,1 / (pred1 + np.exp(-15)),0) + np.where(L1==0,-1 / (1 - pred2 + np.exp(-15)),0)
+        self.loss_derivative = dev
+        return -1 * np.sum(Loss)
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+"""
+    loss function for logistic regression problem & linear activation function 
+    loss = log(1 + exp(- Y *y_hat))
+    derivative = (-Y* exp(- Y *y_hat)) / (1 + exp(- Y *y_hat)) 
+    parameters are 2 matrices : 
+    prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output  
+    labels presents the actual output
+"""
+class log_likehood2_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model=None):
+        self.model=model
+        self.loss_derivative = None
+    #calculate the function and the derivative but only return the function 
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction)
+        Loss = np.log(1+np.exp(prod))
+        # the function derivative
+        dev = (1 * lap * np.exp(prod))/(1 + np.exp(prod))
+        self.loss_derivative = dev
+        return np.sum(Loss)
+
+"""
+    loss function for Binary classifier problem & linear activation function 
+    loss = Max(0,-Y*Y_hat)
+    derivative = -Y   if  -Y*Y_hat > 0 
+    zero other wise
+    parameters are 2 matrices : 
+    prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp 
+    labels presents the actual output [1 , -1] or any 2 positive & negative values
+"""
+class Hing_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model=None):
+        self.model=model
+        self.loss_derivative = None
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction)
+        Loss = np.maximum(prod,0)
+        # the function derivative
+        dev = np.where(prod > 0,lap,0)
+        self.loss_derivative = dev
+        return np.sum(Loss)
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+"""
+    # loss function for Binary classifier problem & linear activation function 
+    # loss = Max(0,1-Y*Y_hat)
+    # derivative = -Y   if  1-Y*Y_hat > 0 
+    # zero other wise
+    # parameters are 2 matrices : 
+    # prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp 
+    # labels presents the actual output [1 , -1] or any 2 positive & negative values
+"""
+class svm_Hing_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model=None):
+        self.model=model
+        self.loss_derivative = None
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction) + 1
+        Loss = np.maximum(prod,0)
+        # the function derivative
+        dev = np.where(prod > 0,lap,0)
+        self.loss_derivative = dev
+        return np.sum(Loss)
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+#############################################   MULticlass loss funtion #####################################
 class multinomial_loss(loss_functions):
     
     # init functions that take the model
@@ -57,6 +184,126 @@ class multinomial_loss(loss_functions):
         return -np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))
 
     # return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+  
+"""
+    # perceptron criterion
+    # loss function for Multiclass problem & linear activation function 
+    # loss_i = Max(0, Y_i - Y_corrent)
+    # dervative out = matrix whose size = prediction's size
+    # if Y_correct is not the maximum value of one ex. (one row) of prediction matrix derivative = -1 @ Y_correct 
+    # & derivative = 1 @ maximum value of one exp & rest of the dervatives = 0
+    # else if Y_correct is the maximum value --> then all the row = 0,0,.... in derivative Matrix for this ex 
+    # parameters are 2 matrices (for the first fun): 
+    # prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp 
+    # labels presents Matrix (one hup) , same size as prediction
+    # 2 returns : 
+    # first function :(evalute) returns one value (loss) & compute drivative 
+    # second function : (back word) return the drivativre (Matrix consist of  1 , -1 & zeros)
+"""
+class Percep_criterion_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model=None):
+        self.model=model
+        self.loss_derivative = None
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert(label.shape == prediction.shape)
+
+        # the function output
+        row_len,col_len  = label.shape
+        lap = np.zeros(row_len) 
+        loss = np.zeros(row_len)
+        #Get the label value for each exp
+        lap = np.sum(np.multiply(prediction, label),axis=1)
+        #convert it into matrix each row 's size = prediction 's row 
+        lap = np.transpose(np.tile(lap,(col_len,1)))
+
+        #compute loss: loss is a vector of n elemnt where n = no, of ex.
+        # & each element is the highest value in 1 ex  
+        loss = np.max(np.maximum(prediction-lap,0),axis=1)
+
+        #convert loss to matrix the same way like lap
+        li = np.transpose(np.tile(loss,(col_len,1)))
+
+        # the function derivative
+        #return matrix : has the same size as pred
+        # consist of 1 , -1 & 0,    
+        ret_mat = np.zeros_like(prediction)
+        #set -1 @ the right class if its out was not the highest for z certain ex
+        ret_mat = np.where(((label == 1) & ((lap + li) != prediction)),-1,0) 
+        # set 1 @ the node who has the highet output for a certin ex
+        ret_mat = np.where(((lap + li) == prediction) & (label != 1) ,1,ret_mat)
+        self.loss_derivative = ret_mat        
+        return np.sum(loss)
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+"""
+    # SVM 
+    # loss function for Multiclass problem & linear activation function 
+    # loss_i = Max(0, Y_i - Y_corrent + 1)
+    # dervative out = matrix whose size = prediction's size
+    # if Y_correct is not the  maximum value of one ex. (one row) of prediction matrix derivative = -1 * n @ Y_correct
+    # where n is the no of nodes that have higher values in one ex of (one row of)prediction Matrix than (Y_correct -1 ) for this e x  
+    # & derivative = 1 @  values higer than Y_correct  for tis ex & rest of the dervatives = 0
+    # else if Y_correct is the maximum value --> then all the row = 0,0,.... in derivative Matrix for this ex 
+    # parameters are 2 matrices (for the first fun): 
+    # prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp 
+    # labels presents Matrix (one hup) , same size as prediction
+    # 2 returns : 
+    # first function :(evalute) returns one value (loss) & compute drivative 
+    # second function : (back word) return the drivativre (Matrix consist of  1 , -1*n & zeros)
+"""
+class SVM_Multiclass_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model=None):
+        self.model=model
+        self.loss_derivative = None
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert(label.shape == prediction.shape)
+        # the function output
+        row_len,col_len  = label.shape
+        lap = np.zeros(row_len) 
+        loss = np.zeros(row_len)
+        #Get the label value for each exp
+        lap = np.sum(np.multiply(prediction, label),axis=1)
+        #convert it into matrix each row 's size = prediction 's row 
+        lap = np.transpose(np.tile(lap,(col_len,1)))
+        #compute loss: loss is a vector of n elemnt where n = no, of ex.
+        # & each element is the highest value in 1 ex  
+        loss = np.maximum(1 + prediction-lap,0)
+        li = np.max(loss,axis=1)
+        li = np.transpose(np.tile(li,(col_len,1)))
+        #set loss to zero  @ the right label
+        loss = np.where(label == 1, 0, loss)
+        #compute the no. of nodes that has a higher output than the actual label
+        no_max = np.sum(np.where(loss > 0,1,0),axis=1)
+        no_max = np.transpose(np.tile(no_max,(col_len,1)))
+    
+        # the function derivative
+        #return matrix : has the same size as pred
+        # consist of 1 , -1 & 0,    
+        ret_mat = np.zeros_like(prediction)
+        #set -1 @ the right class if its out was not the highest for z certain ex
+        ret_mat = np.where(((label == 1) & ((li + lap -1) != prediction)),-1*no_max,0) 
+        # set 1 @ the node who has the highet output for a certin ex
+        ret_mat = np.where(((prediction + 1) > lap ) & (label != 1) ,1,ret_mat)
+        self.loss_derivative = ret_mat        
+        return np.sum(loss)
+
+
+    #return the previously calculated derivative
     def backward(self):
         return self.loss_derivative
 
