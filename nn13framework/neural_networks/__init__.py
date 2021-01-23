@@ -21,6 +21,7 @@ class model:
         self.history['precision'] = []
         self.history['recall']= []
         self.history['f1score'] = []
+        self.history['epoch_number'] = 0
         self.layers = [] #list of layers later
         self.evaluate_mode = False
         pass
@@ -84,23 +85,29 @@ class model:
         '''
             Adds a layer to the model, layer is an 'nn13framework.neural_network.layers.layer' child object
         '''
-        assert(hasattr(layer,'weight')),"Cannot add object belonging to abstract class 'layer'"
+        assert(hasattr(layer,'layer_name')),"Cannot add object belonging to abstract class 'layer'"
         assert(isinstance(layer,type(layers.layer()))),"Input must be a layer object!"
         if self.layers is None:
             self.layers = []
         if layer.is_activation:
-            assert(len(self.layers)>0),"Cannot have the first layer as an activation layer"
-            layer.input_dim = self.layers[-1].output_dim
-            layer.output_dim = layer.input_dim
-        if len(self.layers)>0:
-            assert(layer.input_dim == self.layers[-1].output_dim)
-        if not layer.is_activation:
+                assert(len(self.layers)>0),"Cannot have the first layer as an activation layer"
+        if layer.layer_name == 'linear':
+            first = True
+            for searching_layer in self.layers:
+                if searching_layer.layer_name=='linear':
+                    first = False
+                    break
+            layer.first_linear = first
             new_weight = None
             if layer.use_bias:
                 new_weight = np.random.uniform(0,1/layer.input_dim**0.5,(layer.output_dim,layer.input_dim+1)) # +1 for bias
             else:
                 new_weight = np.random.uniform(0,1/layer.input_dim**0.5,(layer.output_dim,layer.input_dim))
             layer.weight = new_weight
+        elif layer.layer_name == 'convolution':
+            new_weight = np.random.randn(layer.n_filter, layer.d_X, layer.h_filter, layer.w_filter) / np.sqrt(layer.n_filter / 2.)
+            layer.weight =  new_weight
+
         layer_num = len(self.layers)
         layer.layer_num = layer_num
         self.layers.append(layer)

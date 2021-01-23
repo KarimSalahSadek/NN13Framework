@@ -146,7 +146,7 @@ def download_save_mnist(path=None,CNN=False):
     for name in Mnist_files[:2]:
         with gzip.open(os.path.join(path,name[1]), 'rb') as f:
             if CNN:
-                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28,28,1)
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,1,28,28)
             else:
                 mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28*28)
     

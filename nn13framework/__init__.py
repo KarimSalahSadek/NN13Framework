@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation
-import visualization as vi
+import nn13framework.visualization as vi
 
 #Tests a condition and returns true to stop training if condtion is met
 def stopping_function(metric,value):
@@ -13,6 +13,32 @@ def stopping_function(metric,value):
     pass
 
     return None
+
+def validation_run(model,data_val,criterion,confusion_calc = False):
+    X_val , Y_val = next(zip(data_val[0],data_val[1]))
+    model.set_evaluate_mode(True)
+    val_out = model.forward(X_val)
+    val_loss = criterion.evaluate(val_out,Y_val)/val_out.shape[0]
+    pred = np.argmax(val_out,1)
+    label = np.argmax(Y_val,1)
+    val_acc = np.sum(pred==label)/val_out.shape[0]
+    model.history['validation_loss'].append(val_loss)
+    model.history['validation_accuracy'].append(val_acc)
+    if confusion_calc:
+        num_labels = Y_val.shape[1]
+        pred_label_matrix = np.zeros((num_labels,num_labels))
+        for i in range(Y_val.shape[0]):
+            pred_label_matrix[label[i]][pred[i]]+=1
+        for i in range(num_labels):
+            model.history['true_positives'][i] += pred_label_matrix[i][i]
+            temp = pred_label_matrix.copy()
+            temp[i] -= temp[i]
+            temp[:,i] -= temp[:,i]
+            model.history['true_negatives'][i] += np.sum(temp)
+            model.history['false_positives'][i] += np.sum(pred_label_matrix[:,i]) - pred_label_matrix[i,i]
+            model.history['false_negatives'][i] += np.sum(pred_label_matrix[i]) - pred_label_matrix[i,i]
+    return val_loss,val_acc
+
 
 #Single batch training
 def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visualization_List=None):
@@ -33,31 +59,13 @@ def iteration(index,model,data,data_val,criterion,optimizer,print_every,vis,Visu
         pred = np.argmax(out,1)
         label = np.argmax(Y,1)
         accuracy += np.sum(pred==label)/out.shape[0]
-        num_labels = Y.shape[1]
-        pred_label_matrix = np.zeros((num_labels,num_labels))
-        for i in range(Y.shape[0]):
-            pred_label_matrix[label[i]][pred[i]]+=1
-        for i in range(num_labels):
-            model.history['true_positives'][i] += pred_label_matrix[i][i]
-            temp = pred_label_matrix
-            temp[i] -= temp[i]
-            temp[:,i] -= temp[:,i]
-            model.history['true_negatives'][i] += np.sum(temp)
-            model.history['false_positives'][i] += np.sum(pred_label_matrix[:,i] - pred_label_matrix[i,i])
-            model.history['false_negatives'][i] += np.sum(pred_label_matrix[i] - pred_label_matrix[i,i])
+        
     num_batches = len(data[1])
     accuracy = accuracy/num_batches
     model.history['epoch_loss'].append(epoch_loss)
     model.history['accuracy'].append(accuracy)
-    X_val , Y_val = next(zip(data_val[0],data_val[1]))
-    model.set_evaluate_mode(True)
-    val_out = model.forward(X_val)
-    val_loss = criterion.evaluate(val_out,Y_val)/val_out.shape[0]
-    pred = np.argmax(val_out,1)
-    label = np.argmax(Y_val,1)
-    val_acc = np.sum(pred==label)/val_out.shape[0]
-    model.history['validation_loss'].append(val_loss)
-    model.history['validation_accuracy'].append(val_acc)
+    val_loss, val_acc = validation_run(model,data_val,criterion)
+    model.history['epoch_number'] += 1
     print("Epoch end:")
     print(" Last Loss = " + str(round(epoch_loss,5)) + "\t\tValidation Loss = " + str(round(val_loss,5)))
     print(" Training Accuracy = " + str(round(accuracy*100,2)) + "%\t\tValidation Accuracy = " + str(round(val_acc*100,2))+'%')
@@ -118,14 +126,19 @@ def train(model,data,validation_data,epochs,criterion,optimizer,reset_history=Fa
         #vi.plot_img(data[0][5][8])
         #vi.metrics_plot(0,model)
         plt.show()
+        validation_run(model,validation_data,criterion,True)
     elif(visualization == 'static'):
         for epoch in range(epochs):
+            model.history['epoch_number'] += 1
             iteration(epoch,model,data,validation_data,criterion,optimizer,print_every,visualization)
+        validation_run(model,validation_data,criterion,True)
         print('Training Finished!')
         #STATIC VIS FUNCS
     elif(visualization == 'text' or visualization is None):
         for epoch in range(epochs):
+            model.history['epoch_number'] += 1
             iteration(epoch,model,data,validation_data,criterion,optimizer,print_every,visualization)
+        validation_run(model,validation_data,criterion,True)
         print('\nTraining Finished!')
     else:
         raise Exception('Wrong input for visulaization parameter in train function!')

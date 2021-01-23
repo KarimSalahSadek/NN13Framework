@@ -127,8 +127,8 @@ class adadelta(optimizer):
         self.si = []
         L = len(self.model.layers)
         for i in range(L):
-            self.s.append(np.zeros_like(self.model.layers[i].weight))
-            self.si.append(np.zeros_like(self.model.layers[i].weight))
+            self.s.append(np.ones_like(self.model.layers[i].weight))
+            self.si.append(np.ones_like(self.model.layers[i].weight))
 
     def step(self):
         grad_loss = self.loss_fn.backward()
@@ -141,13 +141,17 @@ class adadelta(optimizer):
             if self.model.layers[i].is_activation:
                 continue
 
+            self.s[i] = self.learning_rate * (self.s[i]) + (1 - self.learning_rate) * dw ** 2  # Ai
 
-            self.s[i] =  self.s[i] + np.power(dw, 2)  # Ai accumelator
-            self.dwi = np.sqrt(self.si[i]/(self.s[i]+self.epsilon))*dw
-            self.si[i]= self.learning_rate*self.si[i]+(1-self.learning_rate)*np.power(self.dwi, 2)
-            self.model.layers[i].weight = self.model.layers[i].weight -  dw*( np.sqrt(self.si[i] /( self.epsilon+self.s[i])))
+            self.dwi = dw * ((np.sqrt(self.epsilon + self.si[i])) / (np.sqrt(self.epsilon + self.s[i])))  # delta wi
+
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.dwi) * self.learning_rate
+
+            # Update decays d
+            self.si[i] = self.learning_rate * (self.si[i]) + (1 - self.learning_rate) * self.dwi ** 2
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+
 
 class adam(optimizer):
 
@@ -181,14 +185,14 @@ class adam(optimizer):
             if self.model.layers[i].is_activation:
                 continue
             # Moving average of the gradients. Inputs: "v, grads, beta1". Output: "v".
-
+            t = self.model.history['epoch_number']
             self.v[i] = self.beta1 * self.v[i] + (1 - self.beta1 + self.epsilon) * dw
             # Compute bias-corrected first moment estimate. Inputs: "v, beta1, t". Output: "v_corrected".
-            self.v_corrected[i] = self.v[i] / (1 - np.power(self.beta1, i) + self.epsilon)
+            self.v_corrected[i] = self.v[i] / (1 - np.power(self.beta1, t) + self.epsilon)
             # Moving average of the squared gradients. Inputs: "s, grads, beta2". Output: "s".
             self.s[i] = self.beta2 * self.s[i] + (1 - self.beta2 + self.epsilon) * np.power(dw, 2)
             # Compute bias-corrected second raw moment estimate. Inputs: "s, beta2, t". Output: "s_corrected".
-            self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , i) + self.epsilon)
+            self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , t) + self.epsilon)
             # Update parameters. Inputs: "parameters, learning_rate, v_corrected, s_corrected, epsilon". Output: "parameters".
             self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon)
 
