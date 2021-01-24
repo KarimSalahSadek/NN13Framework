@@ -16,6 +16,12 @@ class mean_square_loss(loss_functions):
         self.loss_derivative = None
     #calculate the function and the derivative but only return the function
     def evaluate(self,prediction,label):
+        '''
+
+        :param prediction: ,    :param label:
+        each input is a kXd matrix where k is the number of examples and d is the number of input dimension
+        :return: the sum of 0.5*(y_hat - y)^2 in forward propagation
+        '''
         assert (label.shape == prediction.shape)
         # transpose the matrices
         label = np.transpose(label)
@@ -28,6 +34,10 @@ class mean_square_loss(loss_functions):
 
     #return the previously calculated derivative
     def backward(self):
+         '''
+
+        :return: the derivative of the mean square loss = (y_hat - y)*dy_hat/dy_hat
+        '''
         return self.loss_derivative
 
     
@@ -167,6 +177,13 @@ class multinomial_loss(loss_functions):
 
     # calculate the function and the derivative but only return the function
     def evaluate(self, prediction, label):
+         '''
+
+        :param prediction:
+        :param label:
+        each input is a kXd matrix where k is the number of examples and d is the number of input classes
+        :return: the loss at the node at which the label is 1 = e^(node output)/sum of e^(all nodes output) in forward propagation
+        '''
         assert (label.shape == prediction.shape)
         # the function derivative
         # return the derivative for each class by d all other classes
@@ -185,6 +202,10 @@ class multinomial_loss(loss_functions):
 
     # return the previously calculated derivative
     def backward(self):
+         '''
+
+        :return:the derivative of the mutinomial loss in backward propagation
+        '''
         return self.loss_derivative
 
   
