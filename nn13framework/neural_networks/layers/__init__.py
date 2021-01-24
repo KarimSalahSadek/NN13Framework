@@ -137,7 +137,6 @@ class linear_svm_output(layer):
             no_of_weights_per_node = no_of_weights_per_node - 1
             weights = np.delete(weights,no_of_weights_per_node,axis=1)
 
-        acc_bias =np.transpose(np.sum(acc_bias,axis=1)/no_of_exp1)
         acc_delta = np.zeros((no_of_exp1,no_of_weights_per_node))
         tensor1 = np.einsum('ij,ik->ijk', weights,delta)
         for i in range(no_of_nodes_per_layer1):

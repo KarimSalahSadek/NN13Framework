@@ -11,7 +11,7 @@ class loss_functions:
 
 class mean_square_loss(loss_functions):
 
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
         self.lamda = regularization_parameter
@@ -59,7 +59,7 @@ class log_likehood_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
         self.lamda = regularization_parameter
@@ -97,7 +97,7 @@ class log_likehood_alt_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
         self.lamda = regularization_parameter
@@ -131,7 +131,7 @@ class hinge_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
         self.lamda = regularization_parameter
@@ -170,7 +170,7 @@ class svm_hinge_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
         self.lamda = regularization_parameter
@@ -198,7 +198,7 @@ class svm_hinge_loss(loss_functions):
 class multinomial_loss(loss_functions):
     
     # init functions that take the model
-    def __init__(self, model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model = model
         self.loss_derivative = None
         self.lamda = regularization_parameter
@@ -260,9 +260,10 @@ class perceptron_criterion_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
+        self.lamda = regularization_parameter
     #calculate the function and the derivative but only return the function
     def evaluate(self,prediction,label):
         assert(label.shape == prediction.shape)
@@ -324,9 +325,10 @@ class svm_multiclass_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
-    def __init__(self,model=None):
+    def __init__(self,model,regularization_parameter = 0):
         self.model=model
         self.loss_derivative = None
+        self.lamda = regularization_parameter
     #calculate the function and the derivative but only return the function
     def evaluate(self,prediction,label):
         assert(label.shape == prediction.shape)

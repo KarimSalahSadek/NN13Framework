@@ -3,18 +3,23 @@ import numpy as np
 class optimizer:
     pass
 
-class stochastic_gradient_descent(optimizer):
-    pass
-
 class batch_gradient_descent(optimizer):
-
+    """
+    this is initialization fn for mini batch /batch GD
+    argument: model, loss_fn, learning_rate, batch_size
+    """
+ 
     def __init__(self, model,loss_fn, learning_rate, batch_size):
         self.learning_rate = learning_rate
         self.batch_size = batch_size
         self.model = model
         self.loss_fn= loss_fn
+		
 
     def step(self):
+        """
+        this function update weight according to mini batch gradient descent
+        """
         grad_loss=self.loss_fn.backward()
         last_dx = grad_loss.T
         for i in reversed(range(len(self.model.layers))):
@@ -23,12 +28,17 @@ class batch_gradient_descent(optimizer):
             # Update Rule
             if self.model.layers[i].is_activation:
                 continue
-            self.model.layers[i].weight -= (self.learning_rate * dw / self.batch_size )
-            # self.model.layers[i].weight[:,:-1] -= (self.learning_rate*dw[:,:-1]/self.batch_size + self.regularization_parameter*(self.model.layers[i].weight[:,:-1]))
-            # self.model.layers[i].weight[:,-1] -= self.learning_rate*dw[:,-1]/self.batch_size
+            self.model.layers[i].weight -= (self.learning_rate * dw / self.batch_size )  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+	
+	
 
 class momuntum(optimizer):
+    """
+    this is initialization fn for momentum
+    argument: model, loss_fn, learning_rate, beta
+    """
 
     def __init__(self, model,loss_fn, learning_rate,beta=0.9):
         self.loss_fn = loss_fn
@@ -41,7 +51,15 @@ class momuntum(optimizer):
 
             self.v.append(np.zeros_like(self.model.layers[i].weight))  # set v =0 in all layers
 
+
+
+
+
+
     def step(self):
+        """
+        this function update weight according to momentum
+        """
         grad_loss=self.loss_fn.backward()
         last_dx = grad_loss.T
         for i in reversed(range(len(self.model.layers))):
@@ -51,11 +69,18 @@ class momuntum(optimizer):
             if self.model.layers[i].is_activation:
                 continue
             self.v[i] = (self.beta * self.v[i]) - self.learning_rate * dw
-            self.model.layers[i].weight += self.v[i]
+            self.model.layers[i].weight += self.v[i]  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
 
+
+
+
 class adagrad(optimizer):
+    """
+    this is initialization fn for adagrad
+    argument: model, loss_fn, learning_rate, epsilon
+    """
 
     def __init__(self, model,loss_fn, learning_rate,epsilon=1e-8):
         self.learning_rate = learning_rate
@@ -67,9 +92,12 @@ class adagrad(optimizer):
         for i in range(L):
 
             self.s.append(np.zeros_like(self.model.layers[i].weight))
-
-
+			
+			
     def step(self):
+        """
+        this function update weight according to adagrad
+        """
         grad_loss = self.loss_fn.backward()
         last_dx = grad_loss.T
 
@@ -81,12 +109,22 @@ class adagrad(optimizer):
                 continue
 
             self.s[i] +=   np.power(dw, 2)#Ai accumelator
-            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+		
+		
+		
+
+
 
 
 class RMS(optimizer):
+    """
+    this is initialization fn for RMS
+    argument: model, loss_fn, learning_rate, epsilon
+    """
+
 
     def __init__(self, model,loss_fn, learning_rate,epsilon=1e-8):
         self.learning_rate = learning_rate
@@ -98,9 +136,15 @@ class RMS(optimizer):
         for i in range(L):
 
             self.s.append(np.zeros_like(self.model.layers[i].weight))
+			
+		
+
 
 
     def step(self):
+        """
+        this function update weight according to RMS
+        """
         grad_loss = self.loss_fn.backward()
         last_dx = grad_loss.T
 
@@ -112,11 +156,18 @@ class RMS(optimizer):
                 continue
 
             self.s[i] =(self.learning_rate *self.s[i]) + (1-self.learning_rate)*np.power(dw, 2)#Ai accumelator
-            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
 
+
+
+
 class adadelta(optimizer):
+    """
+    this is initialization fn for adadelta
+    argument: model, loss_fn, learning_rate, epsilon
+    """
 
     def __init__(self, model, loss_fn, learning_rate, epsilon=1e-8):
         self.learning_rate = learning_rate
@@ -131,6 +182,9 @@ class adadelta(optimizer):
             self.si.append(np.ones_like(self.model.layers[i].weight))
 
     def step(self):
+        """
+        this function update weight according to adadelta
+        """
         grad_loss = self.loss_fn.backward()
         last_dx = grad_loss.T
 
@@ -145,18 +199,26 @@ class adadelta(optimizer):
 
             self.dwi = dw * ((np.sqrt(self.epsilon + self.si[i])) / (np.sqrt(self.epsilon + self.s[i])))  # delta wi
 
-            self.model.layers[i].weight = self.model.layers[i].weight - (self.dwi) * self.learning_rate
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.dwi) * self.learning_rate  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
 
             # Update decays d
             self.si[i] = self.learning_rate * (self.si[i]) + (1 - self.learning_rate) * self.dwi ** 2
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+		
+	
+		
+		
 
 
 class adam(optimizer):
+    """
+    this is initialization fn for adam
+    argument: model, loss_fn, learning_rate, beta1,beta2,epsilon
+    """
 
-    def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8,l2_regularization_param = 0):
-        self.lamda = l2_regularization_param
+    def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8):
+
         self.learning_rate = learning_rate
         self.model = model
         self.beta1 = beta1
@@ -174,8 +236,16 @@ class adam(optimizer):
             self.s.append(np.zeros_like(self.model.layers[i].weight))
             self.v_corrected.append(np.zeros_like(self.model.layers[i].weight))
             self.s_corrected.append(np.zeros_like(self.model.layers[i].weight))
+			
+			
+			
+
+	
 
     def step(self):
+        """
+        this function update weight according to adam
+        """
         grad_loss = self.loss_fn.backward()
         last_dx = grad_loss.T
 
@@ -195,6 +265,9 @@ class adam(optimizer):
             # Compute bias-corrected second raw moment estimate. Inputs: "s, beta2, t". Output: "s_corrected".
             self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , t) + self.epsilon)
             # Update parameters. Inputs: "parameters, learning_rate, v_corrected, s_corrected, epsilon". Output: "parameters".
-            self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon) - self.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+            self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon) - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+		
+
+		
