@@ -116,6 +116,9 @@ class log_likehood_alt_loss(loss_functions):
         dev = (1 * lap * np.exp(prod))/(1 + np.exp(prod))
         self.loss_derivative = dev
         return np.sum(Loss)+w
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
 
 
 class hinge_loss(loss_functions):
@@ -304,8 +307,6 @@ class perceptron_criterion_loss(loss_functions):
         return self.loss_derivative
 
 
-
-class svm_multiclass_loss(loss_functions):
     """
         SVM 
         loss function for Multiclass problem & linear activation function 
@@ -322,6 +323,7 @@ class svm_multiclass_loss(loss_functions):
         first function :(evalute) returns one value (loss) & compute drivative 
         second function : (back word) return the drivativre (Matrix consist of  1 , -1*n & zeros)
     """
+class svm_multiclass_loss(loss_functions):
     # general attributes
     loss_derivative = None
     #init functions that take the model
