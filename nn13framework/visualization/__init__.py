@@ -12,6 +12,12 @@ Figure_Number = 0
 
 
 def plot_accuracy_loss_vs_iterations(model, display_validation=True):
+    '''
+
+    :param model: it represents the model class which contain the history dict to plot loss & accuracy from .
+    :param display_validation: it specifies if user want to plot the validation losss & accuracy or not
+    :return: nothing, just plotting the loss & Accuracy in new Graphs.
+    '''
     global Figure_Number
     BatchLoss_fig = plt.figure(Figure_Number + 1)
     Figure_Number += 1
@@ -37,9 +43,14 @@ def plot_accuracy_loss_vs_iterations(model, display_validation=True):
         Figure_Number += 1
         plt.plot(model.history['accuracy'], 'm', label='Accuracy')
         plt.legend(loc='lower right', frameon=False)
-
+    plt.show()
 
 def plot_img(img_arr):
+    '''
+
+    :param img_arr: it represents the Image that user want to figure out it
+    :return: nothing, just figure out the image.
+    '''
     global Figure_Number
     img_fig = plt.figure(Figure_Number + 1)
     Figure_Number += 1
@@ -48,6 +59,12 @@ def plot_img(img_arr):
 
 
 def plot_confusion_matrix(Class_number, model):
+    '''
+
+    :param Class_number: it represents the index of the class that user want to plot its Confusion Matrix.
+    :param model: it represents the model class which contain the history dict to plot the Confusion Matrix From from.
+    :return: nothing, just plotting the Confusion Matrix in a new Graph.
+    '''
     global Figure_Number
     Confusion_fig = plt.figure(Figure_Number + 1)
     Figure_Number += 1
@@ -71,9 +88,16 @@ def plot_confusion_matrix(Class_number, model):
         Labels.append('FN ({:.1f}%)'.format(100*(model.history['false_negatives'][Class_number]/sum(Percentages))))
     plt.pie(Percentages,startangle=90)
     plt.legend(Labels, loc=3)
+    plt.show()
 
 
 def plot_metrics(Class_number, model):
+    '''
+
+    :param Class_number: it represents the index of the class that user want to plot its Metrics params.
+    :param model: it represents the model class which contain the history dict to plot the Metrics params from.
+    :return: nothing, just plotting the Metrics Parameters in a new Graph.
+    '''
     global Figure_Number
     recall=MT.recall(model,Class_number)
     precision=MT.precision(model,Class_number)
@@ -84,3 +108,4 @@ def plot_metrics(Class_number, model):
     Labels=['Recall','Precision','Accuracy','F1Score']
     Values=[recall,precision,Accuracy,F1score]
     plt.bar(Labels,Values,width=0.5)
+    plt.show()
