@@ -124,3 +124,21 @@ class model:
             self.layers[i].layer_num -= 1
 
         self.weights = [layer.weight for layer in self.layers if layer.weight is not None]
+
+class LeNet_5(model):
+    
+    def __init__(self,date_created = None):
+        super().__init__('LeNet_5',date_created)
+        self.add_layer(layers.convolution(1,6,5,1,2))
+        self.add_layer(layers.tanh())
+        self.add_layer(layers.average_pool(2,2))
+        self.add_layer(layers.convolution(6,16,5,1,0))
+        self.add_layer(layers.average_pool(2,2))
+        self.add_layer(layers.flatten())
+        self.add_layer(layers.linear(400,120))
+        self.add_layer(layers.tanh())
+        self.add_layer(layers.linear(120,84))
+        self.add_layer(layers.tanh())
+        self.add_layer(layers.linear(84,10))
+        self.add_layer(layers.softmax())
+        

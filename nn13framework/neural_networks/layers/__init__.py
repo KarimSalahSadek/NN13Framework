@@ -157,6 +157,122 @@ class relu(layer):
         grad_data_in = np.multiply(grad_z,data_out)
         return None , grad_data_in
 
+class tanh(layer):
+    
+    def __init__(self):
+        self.layer_name = 'tanh'
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.tanh(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_z = activation_functions.tanh(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class hard_tanh(layer):
+    
+    def __init__(self):
+        self.layer_name = 'hard_tanh'
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.hard_tanh(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_z = activation_functions.hard_tanh(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class sign(layer):
+    
+    def __init__(self):
+        self.layer_name = 'sign'
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.sign(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_z = activation_functions.sign(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class leaky_relu(layer):
+    
+    def __init__(self):
+        self.layer_name = 'leaky_relu'
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.leaky_relu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_z = activation_functions.leaky_relu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class elu(layer):
+    
+    def __init__(self):
+        self.layer_name = 'elu'
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.elu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        """
+        Returns None , grad of input data
+        """
+        grad_z = activation_functions.elu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+
 class softmax(layer):
     
     def __init__(self):

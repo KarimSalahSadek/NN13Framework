@@ -1,7 +1,15 @@
+import nn13framework.data_loader
+import nn13framework.metrics
+import nn13framework.neural_networks
+import nn13framework.neural_networks.layers
+import nn13framework.optimizer
+import nn13framework.utils
+import nn13framework.visualization
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation
-import nn13framework.visualization as vi
+#import nn13framework.visualization as vi
 
 
 # Tests a condition and returns true to stop training if condtion is met

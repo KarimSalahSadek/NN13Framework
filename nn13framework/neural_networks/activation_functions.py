@@ -46,30 +46,32 @@ def softmax(z,grad=False):
 
         return tensor2 - tensor1
 
-"""
-    tanh(x)= (e^(2*x) - 1)/(e^(2*x) + 1)
-    grad = (1 - tanh^(2))
-    parmetersare : 
-    pred : Matrix represent the output of a linear layer
-    gred : Flag to determine which to calculate the function or its drevative 
-"""
-def Tanh(pred , grad = False):
+
+def tanh(pred , grad = False):
+    """
+        tanh(x)= (e^(2*x) - 1)/(e^(2*x) + 1)
+        grad = (1 - tanh^(2))
+        parmetersare : 
+        pred : Matrix represent the output of a linear layer
+        gred : Flag to determine which to calculate the function or its drevative 
+    """
     # Tanh 's output
     if grad == False :
-        return (np.exp(2*pred) - 1) / (np.exp(2* pred) + 1)
+        return (np.exp(2*pred) - 1) / (np.exp(2* pred) + 1 +np.exp(-150))
     # Tanh 's derivative 
     elif grad== True:
-        return (1 - np.square(Tanh(pred,False)))
+        return (1 - np.square(tanh(pred,False)))
 
 
-"""
-    Hard tanh(x) = max(min(x,1),-1)  if (x > 1) {f(x)= 1} elif(x < -1) {f(x) = -1} else {f(x) = x}
-     grad =   if (x > 1) {f'(x)= 0} elif(x < -1) {f'(x) = 0} else {f(x) = 1}
-    parmetersare : 
-    pred : Matrix represent the output of a linear layer
-    gred : Flag to determine which to calculate the function or its drevative
-"""
-def HardTanh(pred, grad = False):
+
+def hard_tanh(pred, grad = False):
+    """
+        Hard tanh(x) = max(min(x,1),-1)  if (x > 1) {f(x)= 1} elif(x < -1) {f(x) = -1} else {f(x) = x}
+        grad =   if (x > 1) {f'(x)= 0} elif(x < -1) {f'(x) = 0} else {f(x) = 1}
+        parmetersare : 
+        pred : Matrix represent the output of a linear layer
+        gred : Flag to determine which to calculate the function or its drevative
+    """
     #HardTanh output
     X = pred
     if grad == False:
@@ -84,14 +86,15 @@ def HardTanh(pred, grad = False):
         return X
 
 
-"""
-    sign act fun
-     grad = zeros with dimension like pred 
-    parmetersare : 
-    pred : Matrix represent the output of a linear layer
-    gred : Flag to determine which to calculate the function or its drevative
-"""
+
 def sign(pred , grad = False):
+    """
+        sign act fun
+        grad = zeros with dimension like pred 
+        parmetersare : 
+        pred : Matrix represent the output of a linear layer
+        gred : Flag to determine which to calculate the function or its drevative
+    """
     X = np.zeros_like(pred)
     # sign 's output
     if grad == False :
@@ -100,15 +103,16 @@ def sign(pred , grad = False):
     elif grad== True:
         return X
 
-"""
-    leaky relu activation function 
-    if X > 0   L_relu(X) = X    otherwise     L_relu(X) = alpha * X     alpha = 0.01  mostly 
-    if X > 0   gred = 1         otherwise     gred = alpha              alpha = 0.01  mostly      
-    parmetersare : 
-    pred : Matrix represent the output of a linear layer
-    gred : Flag to determine which to calculate the function or its drevative
-"""
+
 def leaky_relu(pred, grad = False):
+    """
+        leaky relu activation function 
+        if X > 0   L_relu(X) = X    otherwise     L_relu(X) = alpha * X     alpha = 0.01  mostly 
+        if X > 0   gred = 1         otherwise     gred = alpha              alpha = 0.01  mostly      
+        parmetersare : 
+        pred : Matrix represent the output of a linear layer
+        gred : Flag to determine which to calculate the function or its drevative
+    """
     X = np.zeros_like(pred)
     alpha = 0.01 
     # leaky_relu 's out
@@ -120,15 +124,16 @@ def leaky_relu(pred, grad = False):
         return X 
 
 
-"""
-    elu activation function
-    if X > 0   elu(x) = x      otherwise elu(x) = alpha * (exp(X) - 1)
-    if X > 0   gred(x) = 1     otherwise gred = alpha * exp(X)
-    parmetersare : 
-    pred : Matrix represent the output of a linear layer
-    gred : Flag to determine which to calculate the function or its drevative
-"""
+
 def elu(pred,grad=False):
+    """
+        elu activation function
+        if X > 0   elu(x) = x      otherwise elu(x) = alpha * (exp(X) - 1)
+        if X > 0   gred(x) = 1     otherwise gred = alpha * exp(X)
+        parmetersare : 
+        pred : Matrix represent the output of a linear layer
+        gred : Flag to determine which to calculate the function or its drevative
+    """
     X = np.zeros_like(pred) 
     alpha = 0.01 
     # elu 's out
