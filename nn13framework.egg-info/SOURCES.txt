@@ -1,0 +1,17 @@
+setup.py
+nn13framework/__init__.py
+nn13framework.egg-info/PKG-INFO
+nn13framework.egg-info/SOURCES.txt
+nn13framework.egg-info/dependency_links.txt
+nn13framework.egg-info/not-zip-safe
+nn13framework.egg-info/requires.txt
+nn13framework.egg-info/top_level.txt
+nn13framework/data_loader/__init__.py
+nn13framework/metrics/__init__.py
+nn13framework/neural_networks/__init__.py
+nn13framework/neural_networks/activation_functions.py
+nn13framework/neural_networks/loss_functions.py
+nn13framework/neural_networks/layers/__init__.py
+nn13framework/optimizer/__init__.py
+nn13framework/utils/__init__.py
+nn13framework/visualization/__init__.py
