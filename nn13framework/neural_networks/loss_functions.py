@@ -78,7 +78,7 @@ class log_likehood_loss(loss_functions):
         # the function derivative
         dev = np.where(L2==0,1 / (pred1 + np.exp(-15)),0) + np.where(L1==0,-1 / (1 - pred2 + np.exp(-15)),0)
         self.loss_derivative = dev
-        return -1 * (np.sum(Loss)+w)
+        return (-1 * (np.sum(Loss)) + w)
 
     #return the previously calculated derivative
     def backward(self):
