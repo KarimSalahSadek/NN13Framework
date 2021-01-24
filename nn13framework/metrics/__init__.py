@@ -17,7 +17,7 @@ def precision(model,class_index):
     precision = tp/(tp+fp)
     return precision
 
-def accuracy(model,class_index):
+def class_accuracy(model,class_index):
     tp = model.history['true_positives'][class_index]
     tn = model.history['true_negatives'][class_index]
     fp = model.history['false_positives'][class_index]
