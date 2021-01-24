@@ -3,15 +3,15 @@ import numpy as np
 class optimizer:
     pass
 
-class batch_gradient_descent(optimizer):
+class SGD(optimizer):
     """
-    this is initialization fn for mini batch /batch GD
+    this is initialization fn for SGD
     argument: model, loss_fn, learning_rate, batch_size
     """
  
-    def __init__(self, model,loss_fn, learning_rate, batch_size):
+    def __init__(self, model,loss_fn, learning_rate):
         self.learning_rate = learning_rate
-        self.batch_size = batch_size
+        self.batch_size = None
         self.model = model
         self.loss_fn= loss_fn
 		
@@ -20,6 +20,7 @@ class batch_gradient_descent(optimizer):
         """
         this function update weight according to mini batch gradient descent
         """
+        self.batch_size = self.model.layers[0].last_input.shape[0]
         grad_loss=self.loss_fn.backward()
         last_dx = grad_loss.T
         for i in reversed(range(len(self.model.layers))):
@@ -119,9 +120,9 @@ class adagrad(optimizer):
 
 
 
-class RMS(optimizer):
+class RMSprop(optimizer):
     """
-    this is initialization fn for RMS
+    this is initialization fn for RMSprop
     argument: model, loss_fn, learning_rate, epsilon
     """
 
