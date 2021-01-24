@@ -50,6 +50,7 @@ def plot_img(img_arr):
     Figure_Number += 1
     img_2d = img_arr.reshape(28, 28)
     plt.imshow(img_2d)
+    plt.show()
 
 
 def plot_confusion_matrix(Class_number, model):
