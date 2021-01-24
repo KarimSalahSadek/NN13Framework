@@ -100,6 +100,8 @@ def plot_metrics(Class_number, model):
     Metrics_fig=plt.figure(Figure_Number+1)
     Figure_Number=Figure_Number+1
     Labels=['Recall','Precision','Accuracy','F1Score']
+    Labels_Leg=['Recall ({:.1f}%)'.format(recall*100),'Precision ({:.1f}%)'.format(precision*100),'Accuracy ({:.1f}%)'.format(Accuracy*100),'F1Score ({:.1f}%)'.format((F1score)*100)]
     Values=[recall,precision,Accuracy,F1score]
-    plt.bar(Labels,Values,width=0.5)
+    p1=plt.bar(Labels,Values,width=0.5)
+    plt.legend(p1,Labels_Leg,bbox_to_anchor=(1.05, 1.0), loc='upper left')
     plt.show()
