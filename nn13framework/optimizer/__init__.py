@@ -155,7 +155,8 @@ class adadelta(optimizer):
 
 class adam(optimizer):
 
-    def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8):
+    def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8,l2_regularization_param = 0):
+        self.lamda = l2_regularization_param
         self.learning_rate = learning_rate
         self.model = model
         self.beta1 = beta1
@@ -194,6 +195,6 @@ class adam(optimizer):
             # Compute bias-corrected second raw moment estimate. Inputs: "s, beta2, t". Output: "s_corrected".
             self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , t) + self.epsilon)
             # Update parameters. Inputs: "parameters, learning_rate, v_corrected, s_corrected, epsilon". Output: "parameters".
-            self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon)
+            self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon) - self.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
 
         self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]

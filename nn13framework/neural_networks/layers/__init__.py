@@ -7,8 +7,19 @@ class layer:
 
 #Network Layers
 class linear(layer):
-    
+    """
+        Also called dense or fully-connected layer
+        all input neurons are connected to all output neurons
+        
+        output = w_1 * input1 + w_2* input_2 + .... w_n*input_n
+    """
+
     def __init__(self,input_dim,output_dim, use_bias = True):
+        """
+            input_dim: number of neurons in the previous layer
+            output_dim: number of neurons in the layer
+            use_bias: boolean value for whether or not a bias term is added
+        """
         self.layer_name = 'linear'
         self.input_dim = input_dim
         self.output_dim = output_dim
@@ -46,7 +57,106 @@ class linear(layer):
         grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out)
         return grad_w , grad_data_in
 
-class convolution(layer):                                       
+class linear_svm_output(layer):
+    """
+        A modified version of the linear layer
+        Only works with svm_multiclass_loss and preceptron_criterion
+        This layer must always be the last linear layer in the network
+    """
+    def __init__(self,input_dim,output_dim, use_bias = True):
+        """
+            input_dim: number of neurons in the previous layer
+            output_dim: number of neurons in the layer
+            use_bias: boolean value for whether or not a bias term is added
+        """
+        self.layer_name = 'linear_svm_output'
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.layer_num = None
+        self.weight = None
+        self.use_bias = use_bias
+        self.is_activation = False
+        self.last_input = None
+        self.first_linear = False
+        
+    def forward(self,data_in):
+        """
+            Data input must be a matrix of row vectors, each row vector is an example
+        """
+        data_in = np.array(data_in)
+        if not self.first_linear:
+            data_in = np.array(data_in).T
+        if self.use_bias:
+            data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+        else:
+            data_out = np.dot(self.weight,data_in.T)
+        self.last_input = data_in
+
+        return data_out
+
+    def backward(self,grad_data_out):
+        """
+        Returns grad of weight , grad of input data
+        """
+        inp = self.last_input
+        delta = grad_data_out.T
+        
+        no_of_exp1,no_of_nodes_per_layer = delta.shape
+        no_of_exp2,no_of_weights_per_node = inp.shape
+        assert(no_of_exp1==no_of_exp2)
+
+        if (self.use_bias):
+            ones =np.eye(no_of_exp1) 
+            acc_bias = np.zeros((no_of_nodes_per_layer,no_of_exp1))
+            tensor2 = np.einsum('ij,ik->ijk',ones,delta)
+
+        acc_delta = np.zeros((no_of_nodes_per_layer,no_of_weights_per_node))
+        tensor1 = np.einsum('ij,ik->ijk', inp,delta)
+        for i in range(no_of_exp1):
+            acc_delta += np.transpose(tensor1[i])
+            if (self.use_bias):
+                acc_bias += np.transpose(tensor2[i]) 
+            
+        acc_delta = acc_delta / no_of_exp1
+
+        if (self.use_bias):
+            # add bias as last column
+            acc_bias =np.transpose(np.sum(acc_bias,axis=1)/no_of_exp1)
+            acc_delta = np.c_[acc_delta,acc_bias]
+
+        grad_w = acc_delta
+
+        delta = grad_data_out.T
+        weights = self.weight
+
+        delta = np.transpose(delta)
+        no_of_nodes_per_layer1,no_of_exp1, = delta.shape
+        no_of_nodes_per_layer2,no_of_weights_per_node = weights.shape
+
+        if (self.use_bias):
+            no_of_weights_per_node = no_of_weights_per_node - 1
+            weights = np.delete(weights,no_of_weights_per_node,axis=1)
+
+        acc_bias =np.transpose(np.sum(acc_bias,axis=1)/no_of_exp1)
+        acc_delta = np.zeros((no_of_exp1,no_of_weights_per_node))
+        tensor1 = np.einsum('ij,ik->ijk', weights,delta)
+        for i in range(no_of_nodes_per_layer1):
+            acc_delta += np.transpose(tensor1[i])
+        acc_delta = acc_delta / no_of_nodes_per_layer1
+
+        grad_data_in = acc_delta.T
+
+        return grad_w , grad_data_in
+
+class convolution(layer):
+    """
+    initalization fn:
+
+    this fn is convolution inialization ,will take needed parameter for convolution (filter size,stride,padding
+    ,depth_out(number of filter) , depth_in (depth of image)
+    filter size must be integer or tuple of length 2
+    """
+
 
     def __init__(self, depth_in , depth_out, filter_size, stride, padding):
         self.stride = stride
@@ -72,7 +182,12 @@ class convolution(layer):
         self.h_out = None
         self.w_out = None
 
+
     def forward(self, X):
+        """
+        argument X: input images with width ,height, depth
+        return:out: weight with dimensions (dimension of self_col,1)
+        """
 
         self.last_input = X
         n_X = X.shape[0]
@@ -93,26 +208,28 @@ class convolution(layer):
 
     def backward(self, dout):
 
+        """
+        argument dout: derivative of out in forward fn
+        return: dw,dx
+        """
         dout_flat = dout.transpose(1, 2, 3, 0).reshape(self.n_filter, -1)
-
         dW = dout_flat @ self.X_col.T
         dW = dW.reshape(self.weight.shape)
-
-
         W_flat = self.weight.reshape(self.n_filter, -1)
-
         dX_col = W_flat.T @ dout_flat
         shape = self.last_input.shape
         dX = col2im_indices(dX_col, shape, self.h_filter,self.w_filter, self.padding, self.stride)
-
         return dW , dX                                     
+                                    
 
 
 
 ###########################################################################
 #Activation Layers
 class sigmoid(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """
     def __init__(self):
         self.layer_name = 'sigmoid'
         self.layer_num = None
@@ -135,7 +252,9 @@ class sigmoid(layer):
         return None , grad_data_in
 
 class relu(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'relu'
         self.layer_num = None
@@ -158,7 +277,9 @@ class relu(layer):
         return None , grad_data_in
 
 class tanh(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'tanh'
         self.layer_num = None
@@ -181,7 +302,9 @@ class tanh(layer):
         return None , grad_data_in
 
 class hard_tanh(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'hard_tanh'
         self.layer_num = None
@@ -204,7 +327,9 @@ class hard_tanh(layer):
         return None , grad_data_in
 
 class sign(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'sign'
         self.layer_num = None
@@ -227,7 +352,9 @@ class sign(layer):
         return None , grad_data_in
 
 class leaky_relu(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'leaky_relu'
         self.layer_num = None
@@ -250,7 +377,9 @@ class leaky_relu(layer):
         return None , grad_data_in
 
 class elu(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'elu'
         self.layer_num = None
@@ -274,7 +403,9 @@ class elu(layer):
 
 
 class softmax(layer):
-    
+    """
+        A layer that utilizes this activation function
+    """    
     def __init__(self):
         self.layer_name = 'softmax'
         self.layer_num = None
@@ -292,9 +423,6 @@ class softmax(layer):
         """
         Returns None , grad of input data
         """
-        #grad_z = activation_functions.softmax(self.last_input,grad=True)
-        #assert(grad_z.shape == data_out.shape)
-        #grad_data_in = np.einsum('ijk,ik->ij', grad_z , data_out.T).T
         grad_data_in = []
         d_out = data_out.T
         inp = self.last_input.T
@@ -304,8 +432,14 @@ class softmax(layer):
         return None , grad_data_in
 
 class dropout(layer):
-    
+    """
+        Turns off neurons randomly, each neuron has probability (1- keep_probability) to be turned off
+        Only works when the model is not working in evaluation mode
+    """    
     def __init__(self,keep_probability):
+        """
+            keep_probability: constant fraction that determines the probability for keeping each neuron
+        """
         self.layer_name = "dropout"
         self.layer_num = None
         self.weight = None
@@ -334,6 +468,9 @@ class dropout(layer):
 
 
 class flatten(layer):
+    """
+        Flattens the input but takes into account the batch size 
+    """
     def __init__(self):
         self.layer_name = "flatten"
         self.layer_num = None
@@ -353,6 +490,10 @@ class flatten(layer):
 
 
 class max_pool(layer):
+    """
+            this is initialization fn for max pooling
+            argument:filter size,stride
+    """
 
     def __init__(self, filter_size, stride):
         self.layer_name = "max_pool"
@@ -366,8 +507,14 @@ class max_pool(layer):
 
         self.h_out = None
         self.w_out = None
+        
 
     def forward(self, X):
+        """
+            this is forward fn for max pooling
+            argument:x before max pooling 
+            return: out(x after max pooling)
+        """
         self.last_input = X
         n_X = X.shape[0]
         d_X = X.shape[1]
@@ -386,7 +533,15 @@ class max_pool(layer):
         out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
         return out
 
+    
+
     def backward(self, dout):
+        """
+            this is backward fn in case of max pooling 
+            argument:data_out (that is calculated from forward fn)
+            return: None , dx
+
+        """
         X = self.last_input
         n_X = X.shape[0]
         d_X = X.shape[1]
@@ -406,6 +561,10 @@ class max_pool(layer):
         return None , dX
 
 class average_pool(layer):
+    """
+        this is initialization fn for average pooling
+        argument:filter size,stride
+    """
 
     def __init__(self, filter_size, stride):
         self.layer_name = "average_pool"
@@ -420,7 +579,14 @@ class average_pool(layer):
         self.h_out = None
         self.w_out = None
 
+        
+
     def forward(self, X):
+        """
+            this is forward fn for average pooling
+            argument:x before average pooling 
+            return: out(x after average pooling)
+        """
         self.last_input = X
         n_X = X.shape[0]
         d_X = X.shape[1]
@@ -440,7 +606,15 @@ class average_pool(layer):
         out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
         return out
 
+    
+
     def backward(self, dout):
+        """
+            this is backward fn in case of average pooling 
+            argument:data_out (that is calculated from forward fn)
+            return: None , dx
+
+        """
         X = self.last_input
         n_X = X.shape[0]
         d_X = X.shape[1]
@@ -460,8 +634,11 @@ class average_pool(layer):
         return None , dX
 
 
+
 def get_im2col_indices(x_shape, field_height=3, field_width=3, padding=1, stride=1):
-    # First figure out what the size of the output should be
+    """ 
+        NOT FOR DIRECT USAGE
+    """
     N, C, H, W = x_shape
     assert (H + 2 * padding - field_height) % stride == 0
     assert (W + 2 * padding - field_height) % stride == 0
@@ -481,7 +658,9 @@ def get_im2col_indices(x_shape, field_height=3, field_width=3, padding=1, stride
     return (k, i, j)
 
 def im2col_indices(x, field_height=3, field_width=3, padding=1, stride=1):
-    """ An implementation of im2col based on some fancy indexing """
+    """ 
+        NOT FOR DIRECT USAGE
+    """
     # Zero-pad the input
     p = padding
     x_padded = np.pad(x, ((0, 0), (0, 0), (p, p), (p, p)), mode='constant')
@@ -495,7 +674,9 @@ def im2col_indices(x, field_height=3, field_width=3, padding=1, stride=1):
 
 
 def col2im_indices(cols, x_shape, field_height=3, field_width=3, padding=1,stride=1):
-    """ An implementation of col2im based on fancy indexing and np.add.at """
+    """ 
+        NOT FOR DIRECT USAGE
+    """
     N, C, H, W = x_shape
     H_padded, W_padded = H + 2 * padding, W + 2 * padding
     x_padded = np.zeros((N, C, H_padded, W_padded), dtype=cols.dtype)

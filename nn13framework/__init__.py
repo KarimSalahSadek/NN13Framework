@@ -9,22 +9,36 @@ import nn13framework.visualization
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation
-#import nn13framework.visualization as vi
+import nn13framework.visualization as vi
 
 
 # Tests a condition and returns true to stop training if condtion is met
-def stopping_function(metric, value):
+def stopping_function(model,metric, value, operator = '>'):
+    '''
+    NOT FOR DIRECT USAGE
+    '''
     if metric is None:
         return False
     if value is None:
         return False
-
-    pass
-
-    return None
+    metric = model.history[metric][-1]
+    if operator == '>':
+        out = metric > value
+    elif operator == '=':
+        out = metric == value
+    elif operator == '>=':
+        out = metric >= value
+    elif operator == '<':
+        out = metric < out
+    elif operator == '<=':
+        out = metric <= out
+    return out
 
 
 def validation_run(model, data_val, criterion, confusion_calc=False):
+    '''
+    NOT FOR DIRECT USAGE
+    '''
     X_val, Y_val = next(zip(data_val[0], data_val[1]))
     model.set_evaluate_mode(True)
     val_out = model.forward(X_val)
@@ -53,6 +67,9 @@ def validation_run(model, data_val, criterion, confusion_calc=False):
 
 # Single batch training
 def iteration(index, model, data, data_val, criterion, optimizer, print_every, vis, Visualization_List=None):
+    '''
+    NOT FOR DIRECT USAGE
+    '''
     print("Epoch ", index + 1, ':')
     epoch_loss = 0
     accuracy = 0
@@ -94,12 +111,39 @@ def iteration(index, model, data, data_val, criterion, optimizer, print_every, v
 
 
 def Init():
+    '''
+    NOT FOR DIRECT USAGE
+    '''
     pass
 
 
 # Main training function
-def train(model, data, validation_data, epochs, criterion, optimizer, reset_history=False, visualization='static',
-          stopping_function_metric=None, stopping_function_value=None, loss_prints_per_epoch=5):
+def train_classifier(model, data, validation_data, epochs, criterion, optimizer, reset_history = False, visualization='static',
+          stopping_function_params = None, loss_prints_per_epoch =5):
+    """
+        Parameters:
+        model: the model object to be trained
+        data: data on which the model trains on (get from nn13framework.data_loader.get_batch_XY())
+        validation_data:  data on which the model is validated every epoch on (get from nn13framework.data_loader.get_batch_XY())
+        epochs: maximum number of iteration that are done on the whole training data
+        criterion: a loss function object
+        optimizer: an optimizer object
+        reset_history: boolean, determines whether the training history of the model should be reset or not (useful if you want to stop and then continue training)
+        visualization: takes a string ('animated' means live plotting) , ('static' means plots static graphs after training) or ('text' means no plots at all)
+        stopping_function_params: tuple of three params (stopping metric,stopping value for metric, operator)
+            stopping metric: can take 'accuracy', 'validation accuracy' , 'loss' or 'validation loss'
+            stopping value: takes the value at which operation(metric,value) returns true to stop training
+            operator: can take '>','>=','=','<' or '<=' values
+        loss_prints_per_epoch: how many times the training loss should be printed every epoch 
+    """
+    error = (stopping_function_params is not None) and visualization=='animated'
+    if error:
+        raise Exception('Using stopping function with animated visualization mode is not supported!')
+    stop_metric , stop_value , stop_operator = None,None,None
+    if stopping_function_params is not None:
+        stop_metric , stop_value , stop_operator = stopping_function_params
+    if reset_history:
+        model.reset_history()
     if len(model.history['true_positives']) == 0:
         model.history['true_positives'] = [0] * data[1][0].shape[1]
     if len(model.history['false_positives']) == 0:
@@ -141,21 +185,24 @@ def train(model, data, validation_data, epochs, criterion, optimizer, reset_hist
         print('Training Finished!')
         validation_run(model, validation_data, criterion, True)
         vi.plot_accuracy_loss_vs_iterations(model)
-        vi.plot_img(data[0][5][8])
-        vi.plot_confusion_matrix(6, model)
-        vi.plot_metrics(6, model)
-        plt.show()
     elif (visualization == 'static'):
         for epoch in range(epochs):
             model.history['epoch_number'] += 1
             iteration(epoch, model, data, validation_data, criterion, optimizer, print_every, visualization)
+            if stopping_function(model,stop_metric,stop_value,stop_operator):
+                print('Early stopping condition met!')
+                break
         validation_run(model, validation_data, criterion, True)
-        print('Training Finished!')
+        vi.plot_accuracy_loss_vs_iterations(model)
+        print('\nTraining Finished!')
         # STATIC VIS FUNCS
     elif (visualization == 'text' or visualization is None):
         for epoch in range(epochs):
             model.history['epoch_number'] += 1
             iteration(epoch, model, data, validation_data, criterion, optimizer, print_every, visualization)
+            if stopping_function(model,stop_metric,stop_value,stop_operator):
+                print('Early stopping condition met!')
+                break
         validation_run(model, validation_data, criterion, True)
         print('\nTraining Finished!')
     else:
@@ -163,19 +210,31 @@ def train(model, data, validation_data, epochs, criterion, optimizer, reset_hist
 
 
 # Returns a dictionary of metrics
-def test(model, test_data, metric=None):
-    metrics = {}
-    metrics['accuracy'] = 0
-    pass
-
-    if metric == None:
-        return metrics
-    else:
-        return metrics[metric]
+def test_classifier(model, test_data):
+    """
+        Tests the model on the given data (preferably new data that didn't contribute at all in training)
+        and prints the accuracy of the model on that data
+    """
+    accuracy = 0
+    state = model.evaluate_mode
+    X, Y = next(zip(test_data[0], test_data[1]))
+    model.set_evaluate_mode(True)
+    out = model.forward(X)
+    model.set_evaluate_mode(state)
+    pred = np.argmax(out, 1)
+    label = np.argmax(Y, 1)
+    accuracy = np.sum(pred == label) / out.shape[0]
+    print("Tested on " + str(out.shape[0]) + " examples, Accuracy: "+ str(round(accuracy*100,2))+'%')
 
 
 # Uses model to solve one piece of input
-def use_model(model, data_piece):
-    predicted_output = None
-
+def use_classifier(model, data_piece , img_arr):
+    """
+        Takes a model, a data example and an image
+        Draws the image and displays the model's prediction for that image
+    """
+    data_piece = data_piece.reshape((1,-1))
+    predicted_output = np.argmax(model.forward(data_piece)[0])
+    print("Output class index: "+str(predicted_output))
+    vi.plot_img(img_arr)
     return predicted_output

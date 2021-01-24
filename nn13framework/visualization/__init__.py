@@ -6,7 +6,7 @@
 # and the training set on the same graph
 import matplotlib.pyplot as plt
 import matplotlib.transforms as mtransforms
-import metrics as MT
+import nn13framework.metrics as MT
 
 Figure_Number = 0
 
@@ -37,6 +37,7 @@ def plot_accuracy_loss_vs_iterations(model, display_validation=True):
         Figure_Number += 1
         plt.plot(model.history['accuracy'], 'm', label='Accuracy')
         plt.legend(loc='lower right', frameon=False)
+    plt.show()
 
 
 def plot_img(img_arr):
@@ -45,6 +46,7 @@ def plot_img(img_arr):
     Figure_Number += 1
     img_2d = img_arr.reshape(28, 28)
     plt.imshow(img_2d)
+    plt.show()
 
 
 def plot_confusion_matrix(Class_number, model):
@@ -71,6 +73,7 @@ def plot_confusion_matrix(Class_number, model):
         Labels.append('FN ({:.1f}%)'.format(100*(model.history['false_negatives'][Class_number]/sum(Percentages))))
     plt.pie(Percentages,startangle=90)
     plt.legend(Labels, loc=3)
+    plt.show()
 
 
 def plot_metrics(Class_number, model):
@@ -84,3 +87,4 @@ def plot_metrics(Class_number, model):
     Labels=['Recall','Precision','Accuracy','F1Score']
     Values=[recall,precision,Accuracy,F1score]
     plt.bar(Labels,Values,width=0.5)
+    plt.show()
