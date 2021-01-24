@@ -187,7 +187,6 @@ def train_classifier(model, data, validation_data, epochs, criterion, optimizer,
         vi.plot_accuracy_loss_vs_iterations(model)
     elif (visualization == 'static'):
         for epoch in range(epochs):
-            model.history['epoch_number'] += 1
             iteration(epoch, model, data, validation_data, criterion, optimizer, print_every, visualization)
             if stopping_function(model,stop_metric,stop_value,stop_operator):
                 print('Early stopping condition met!')
@@ -195,10 +194,8 @@ def train_classifier(model, data, validation_data, epochs, criterion, optimizer,
         validation_run(model, validation_data, criterion, True)
         vi.plot_accuracy_loss_vs_iterations(model)
         print('\nTraining Finished!')
-        # STATIC VIS FUNCS
     elif (visualization == 'text' or visualization is None):
         for epoch in range(epochs):
-            model.history['epoch_number'] += 1
             iteration(epoch, model, data, validation_data, criterion, optimizer, print_every, visualization)
             if stopping_function(model,stop_metric,stop_value,stop_operator):
                 print('Early stopping condition met!')
@@ -209,7 +206,6 @@ def train_classifier(model, data, validation_data, epochs, criterion, optimizer,
         raise Exception('Wrong input for visulaization parameter in train function!')
 
 
-# Returns a dictionary of metrics
 def test_classifier(model, test_data):
     """
         Tests the model on the given data (preferably new data that didn't contribute at all in training)

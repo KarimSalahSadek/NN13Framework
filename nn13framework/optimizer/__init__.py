@@ -256,7 +256,7 @@ class adam(optimizer):
             if self.model.layers[i].is_activation:
                 continue
             # Moving average of the gradients. Inputs: "v, grads, beta1". Output: "v".
-            t = self.model.history['epoch_number']
+            t = (self.model.history['epoch_number']+1)
             self.v[i] = self.beta1 * self.v[i] + (1 - self.beta1 + self.epsilon) * dw
             # Compute bias-corrected first moment estimate. Inputs: "v, beta1, t". Output: "v_corrected".
             self.v_corrected[i] = self.v[i] / (1 - np.power(self.beta1, t) + self.epsilon)
