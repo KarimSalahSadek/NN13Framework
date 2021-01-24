@@ -227,7 +227,7 @@ class multinomial_loss(loss_functions):
         w = np.multiply(self.lamda / 2, np.multiply(w, w))
         w = np.sum(w)
         # the function output
-        return -(np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))+w)
+        return (-1* (np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))) + w)
 
     # return the previously calculated derivative
     def backward(self):
