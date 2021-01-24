@@ -1,12 +1,6 @@
-# matplotlib functions that plots different types of graphs
-# In every function, Check first if model is an instance of the neural_network class, call assert on result
-
-# Assume that whatever parameters you want will be added to model.history dict later
-# If disply_validation is True , then display both the metric for the validation set
-# and the training set on the same graph
 import matplotlib.pyplot as plt
 import matplotlib.transforms as mtransforms
-import metrics as MT
+import nn13framework.metrics as MT
 
 Figure_Number = 0
 
