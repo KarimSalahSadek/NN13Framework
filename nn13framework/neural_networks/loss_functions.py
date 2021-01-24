@@ -249,6 +249,7 @@ class perceptron_criterion_loss(loss_functions):
         perceptron criterion
         loss function for Multiclass problem & linear activation function 
         loss_i = Max(0, Y_i - Y_corrent)
+        Loss = max loss_i
         dervative out = matrix whose size = prediction's size
         if Y_correct is not the maximum value of one ex. (one row) of prediction matrix derivative = -1 @ Y_correct 
         & derivative = 1 @ maximum value of one exp & rest of the dervatives = 0
@@ -366,7 +367,7 @@ class svm_multiclass_loss(loss_functions):
         w = self.model.weights[-1]
         w = np.multiply(self.lamda / 2, np.multiply(w, w))
         w = np.sum(w)
-        return np.sum(loss)+w
+        return ((np.sum(loss)/row_len)+w)
 
 
     #return the previously calculated derivative
