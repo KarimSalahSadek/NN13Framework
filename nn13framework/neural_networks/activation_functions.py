@@ -6,6 +6,13 @@ import numpy as np
 
 
 def sigmoid(x , grad = False):
+    '''
+
+      :param z: a vector of the input x
+      :param grad: a boolean to determine whether the output is the sigmoid or its derivative
+      :return: if grad equals True the output is sum of e^(xi)/sum of(e^(allx))
+              if grad equals False the output is the derivative = a tensor containing a matrix for each example where each matrix is every node derivative by all nodes
+      '''
     # the function output
     if grad == False :
         return 1 / (1 + np.exp(-x))
@@ -16,6 +23,13 @@ def sigmoid(x , grad = False):
 
 
 def relu(z,grad=False):
+    '''
+
+            :param z: a vector of the input x
+            :param grad: a boolean to determine whether the output is the sigmoid or its derivative
+            :return: if grad equals True the output is argmax(0,x)
+                    if grad equals False the output is the derivative = 0 when x<=0 , 1 when x>0
+    '''
     # the function output
     if grad == False:
         return np.where(z<=0,0,z)
@@ -26,6 +40,13 @@ def relu(z,grad=False):
 
 
 def softmax(z,grad=False):
+    '''
+
+       :param z: a vector of the input x
+       :param grad: a boolean to determine whether the output is the sigmoid or its derivative
+       :return: if grad equals True the output is sum of e^(xi)/sum of(e^(allx))
+               if grad equals False the output is the derivative = a tensor containing a matrix for each example where each matrix is every node derivative by all nodes
+    '''
     z=np.array(z)
     # the function output
     if grad == False:
