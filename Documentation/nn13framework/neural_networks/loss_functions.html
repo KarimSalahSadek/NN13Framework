@@ -1,0 +1,1496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>nn13framework.neural_networks.loss_functions API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>nn13framework.neural_networks.loss_functions</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#ALL FUNCTIONS TAKE NUMPY ARRAYS AS INPUT AND RETURN NUMPY ARRAYS!!!!
+#Numpy will automatically understand that 1x1 arrays are not arrays and return them correctly
+#If grad is set to True , return the derivative instead
+
+import numpy as np
+import nn13framework.neural_networks.activation_functions as AF
+
+#parent class
+class loss_functions:
+    pass
+
+class mean_square_loss(loss_functions):
+
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        &#39;&#39;&#39;
+
+        :param prediction: ,    :param label:
+        each input is a kXd matrix where k is the number of examples and d is the number of input dimension
+        :return: the sum of 0.5*(y_hat - y)^2 in forward propagation
+        &#39;&#39;&#39;
+        assert (label.shape == prediction.shape)
+        # transpose the matrices
+        label = np.transpose(label)
+        prediction = np.transpose(prediction)
+        # the function derivative
+        col_len, row_len = label.shape
+        self.loss_derivative = -np.transpose(((label - prediction) / row_len))
+        #the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function output
+        return np.sum(((np.multiply((label - prediction), (label - prediction))) / (2 * row_len)))+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        &#39;&#39;&#39;
+
+        :return: the derivative of the mean square loss = (y_hat - y)*dy_hat/dy_hat
+        &#39;&#39;&#39;
+
+        return self.loss_derivative
+
+    
+
+class log_likehood_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for logistic regression problem &amp; sigmoid activation function 
+        loss = log(abs(Y/2 -0.5 + y_hat))
+        incase--&gt; Y = 1   loss = log(y_hat)       drevative =  1 / y_hat  
+        incase--&gt; Y = -1  loss = log(1-y_hat)     drevative = -1 / (1 - y_hat)
+        parameters are 2 matrices : prediction is the output of the last layer &amp; labels presents the actual output{1 or -1}
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        L1 = (label &gt; 0)
+        L2 = (label &lt;= 0)
+        pred1 = np.multiply(prediction,L1)
+        pred2 = np.multiply(prediction,L2)
+        Loss = np.where(L2==0,np.log(pred1+np.exp(-15)),0) + np.where(L1==0,np.log(1-pred2+np.exp(-15)),0)
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = np.where(L2==0,1 / (pred1 + np.exp(-15)),0) + np.where(L1==0,-1 / (1 - pred2 + np.exp(-15)),0)
+        self.loss_derivative = dev
+        return (-1 * (np.sum(Loss)) + w)
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+class log_likehood_alt_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for logistic regression problem &amp; linear activation function 
+        loss = log(1 + exp(- Y *y_hat))
+        derivative = (-Y* exp(- Y *y_hat)) / (1 + exp(- Y *y_hat)) 
+        parameters are 2 matrices : 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output  
+        labels presents the actual output
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function 
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction)
+        Loss = np.log(1+np.exp(prod))
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = (1 * lap * np.exp(prod))/(1 + np.exp(prod))
+        self.loss_derivative = dev
+        return np.sum(Loss)+w
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+class hinge_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for Binary classifier problem &amp; linear activation function 
+        loss = Max(0,-Y*Y_hat)
+        derivative = -Y   if  -Y*Y_hat &gt; 0 
+        zero other wise
+        parameters are 2 matrices : 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents the actual output [1 , -1] or any 2 positive &amp; negative values
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction)
+        Loss = np.maximum(prod,0)
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = np.where(prod &gt; 0,lap,0)
+        self.loss_derivative = dev
+        return np.sum(Loss)+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+
+class svm_hinge_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for Binary classifier problem &amp; linear activation function 
+        loss = Max(0,1-Y*Y_hat)
+        derivative = -Y   if  1-Y*Y_hat &gt; 0 
+        zero other wise
+        parameters are 2 matrices : 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents the actual output [1 , -1] or any 2 positive &amp; negative values
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction) + 1
+        Loss = np.maximum(prod,0)
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = np.where(prod &gt; 0,lap,0)
+        self.loss_derivative = dev
+        return np.sum(Loss)+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+#############################################   MULticlass loss funtion #####################################
+class multinomial_loss(loss_functions):
+    
+    # init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model = model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+
+    # calculate the function and the derivative but only return the function
+    def evaluate(self, prediction, label):
+        &#39;&#39;&#39;
+
+             :param prediction:
+             :param label:
+             each input is a kXd matrix where k is the number of examples and d is the number of input classes
+             :return: the loss at the node at which the label is 1 = e^(node output)/sum of e^(all nodes output) in forward propagation
+             &#39;&#39;&#39;
+        assert (label.shape == prediction.shape)
+        # the function derivative
+        # return the derivative for each class by d all other classes
+        no_of_examples, no_of_classes = prediction.shape
+        delta = np.zeros((no_of_examples, no_of_classes))
+        for j in range(no_of_examples):
+            for i in range(no_of_classes):
+                if label[j][i] == 1:
+                    delta[j][i] = -(1 - prediction[j][i])
+                else:
+                    delta[j][i] = prediction[j][i]
+        self.loss_derivative =  delta
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function output
+        return (-1* (np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))) + w)
+
+    # return the previously calculated derivative
+    def backward(self):
+        &#39;&#39;&#39;
+
+                :return:the derivative of the mutinomial loss in backward propagation
+                &#39;&#39;&#39;
+        return self.loss_derivative
+
+  
+
+class perceptron_criterion_loss(loss_functions):
+    &#34;&#34;&#34;
+        perceptron criterion
+        loss function for Multiclass problem &amp; linear activation function 
+        loss_i = Max(0, Y_i - Y_corrent)
+        Loss = max loss_i
+        dervative out = matrix whose size = prediction&#39;s size
+        if Y_correct is not the maximum value of one ex. (one row) of prediction matrix derivative = -1 @ Y_correct 
+        &amp; derivative = 1 @ maximum value of one exp &amp; rest of the dervatives = 0
+        else if Y_correct is the maximum value --&gt; then all the row = 0,0,.... in derivative Matrix for this ex 
+        parameters are 2 matrices (for the first fun): 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents Matrix (one hup) , same size as prediction
+        2 returns : 
+        first function :(evalute) returns one value (loss) &amp; compute drivative 
+        second function : (back word) return the drivativre (Matrix consist of  1 , -1 &amp; zeros)
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert(label.shape == prediction.shape)
+
+        # the function output
+        row_len,col_len  = label.shape
+        lap = np.zeros(row_len) 
+        loss = np.zeros(row_len)
+        #Get the label value for each exp
+        lap = np.sum(np.multiply(prediction, label),axis=1)
+        #convert it into matrix each row &#39;s size = prediction &#39;s row 
+        lap = np.transpose(np.tile(lap,(col_len,1)))
+
+        #compute loss: loss is a vector of n elemnt where n = no, of ex.
+        # &amp; each element is the highest value in 1 ex  
+        loss = np.max(np.maximum(prediction-lap,0),axis=1)
+
+        #convert loss to matrix the same way like lap
+        li = np.transpose(np.tile(loss,(col_len,1)))
+
+        # the function derivative
+        #return matrix : has the same size as pred
+        # consist of 1 , -1 &amp; 0,    
+        ret_mat = np.zeros_like(prediction)
+        #set -1 @ the right class if its out was not the highest for z certain ex
+        ret_mat = np.where(((label == 1) &amp; ((lap + li) != prediction)),-1,0) 
+        # set 1 @ the node who has the highet output for a certin ex
+        ret_mat = np.where(((lap + li) == prediction) &amp; (label != 1) ,1,ret_mat)
+        self.loss_derivative = ret_mat
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        return np.sum(loss)+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+    &#34;&#34;&#34;
+        SVM 
+        loss function for Multiclass problem &amp; linear activation function 
+        loss_i = Max(0, Y_i - Y_corrent + 1)
+        dervative out = matrix whose size = prediction&#39;s size
+        if Y_correct is not the  maximum value of one ex. (one row) of prediction matrix derivative = -1 * n @ Y_correct
+        where n is the no of nodes that have higher values in one ex of (one row of)prediction Matrix than (Y_correct -1 ) for this e x  
+        &amp; derivative = 1 @  values higer than Y_correct  for tis ex &amp; rest of the dervatives = 0
+        else if Y_correct is the maximum value --&gt; then all the row = 0,0,.... in derivative Matrix for this ex 
+        parameters are 2 matrices (for the first fun): 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents Matrix (one hup) , same size as prediction
+        2 returns : 
+        first function :(evalute) returns one value (loss) &amp; compute drivative 
+        second function : (back word) return the drivativre (Matrix consist of  1 , -1*n &amp; zeros)
+    &#34;&#34;&#34;
+class svm_multiclass_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert(label.shape == prediction.shape)
+        # the function output
+        row_len,col_len  = label.shape
+        lap = np.zeros(row_len) 
+        loss = np.zeros(row_len)
+        #Get the label value for each exp
+        lap = np.sum(np.multiply(prediction, label),axis=1)
+        #convert it into matrix each row &#39;s size = prediction &#39;s row 
+        lap = np.transpose(np.tile(lap,(col_len,1)))
+        #compute loss: loss is a vector of n elemnt where n = no, of ex.
+        # &amp; each element is the highest value in 1 ex  
+        loss = np.maximum(1 + prediction-lap,0)
+        li = np.max(loss,axis=1)
+        li = np.transpose(np.tile(li,(col_len,1)))
+        #set loss to zero  @ the right label
+        loss = np.where(label == 1, 0, loss)
+        #compute the no. of nodes that has a higher output than the actual label
+        no_max = np.sum(np.where(loss &gt; 0,1,0),axis=1)
+        no_max = np.transpose(np.tile(no_max,(col_len,1)))
+    
+        # the function derivative
+        #return matrix : has the same size as pred
+        # consist of 1 , -1 &amp; 0,    
+        ret_mat = np.zeros_like(prediction)
+        #set -1 @ the right class if its out was not the highest for z certain ex
+        ret_mat = np.where(((label == 1) &amp; ((li + lap -1) != prediction)),-1*no_max,0) 
+        # set 1 @ the node who has the highet output for a certin ex
+        ret_mat = np.where(((prediction + 1) &gt; lap ) &amp; (label != 1) ,1,ret_mat)
+        self.loss_derivative = ret_mat
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        return ((np.sum(loss)/row_len)+w)
+
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.hinge_loss"><code class="flex name class">
+<span>class <span class="ident">hinge_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>loss function for Binary classifier problem &amp; linear activation function
+loss = Max(0,-Y<em>Y_hat)
+derivative = -Y
+if
+-Y</em>Y_hat &gt; 0
+zero other wise
+parameters are 2 matrices :
+prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp
+labels presents the actual output [1 , -1] or any 2 positive &amp; negative values</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class hinge_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for Binary classifier problem &amp; linear activation function 
+        loss = Max(0,-Y*Y_hat)
+        derivative = -Y   if  -Y*Y_hat &gt; 0 
+        zero other wise
+        parameters are 2 matrices : 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents the actual output [1 , -1] or any 2 positive &amp; negative values
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction)
+        Loss = np.maximum(prod,0)
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = np.where(prod &gt; 0,lap,0)
+        self.loss_derivative = dev
+        return np.sum(Loss)+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.hinge_loss.loss_derivative"><code class="name">var <span class="ident">loss_derivative</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.hinge_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.hinge_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    assert (label.shape == prediction.shape)
+    # the function output
+    lap = -1 * label
+    prod = np.multiply(lap,prediction)
+    Loss = np.maximum(prod,0)
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    # the function derivative
+    dev = np.where(prod &gt; 0,lap,0)
+    self.loss_derivative = dev
+    return np.sum(Loss)+w</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss"><code class="flex name class">
+<span>class <span class="ident">log_likehood_alt_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>loss function for logistic regression problem &amp; linear activation function
+loss = log(1 + exp(- Y <em>y_hat))
+derivative = (-Y</em> exp(- Y <em>y_hat)) / (1 + exp(- Y </em>y_hat))
+parameters are 2 matrices :
+prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output<br>
+labels presents the actual output</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class log_likehood_alt_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for logistic regression problem &amp; linear activation function 
+        loss = log(1 + exp(- Y *y_hat))
+        derivative = (-Y* exp(- Y *y_hat)) / (1 + exp(- Y *y_hat)) 
+        parameters are 2 matrices : 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output  
+        labels presents the actual output
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function 
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction)
+        Loss = np.log(1+np.exp(prod))
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = (1 * lap * np.exp(prod))/(1 + np.exp(prod))
+        self.loss_derivative = dev
+        return np.sum(Loss)+w
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.loss_derivative"><code class="name">var <span class="ident">loss_derivative</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    assert (label.shape == prediction.shape)
+    # the function output
+    lap = -1 * label
+    prod = np.multiply(lap,prediction)
+    Loss = np.log(1+np.exp(prod))
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    # the function derivative
+    dev = (1 * lap * np.exp(prod))/(1 + np.exp(prod))
+    self.loss_derivative = dev
+    return np.sum(Loss)+w</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_loss"><code class="flex name class">
+<span>class <span class="ident">log_likehood_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>loss function for logistic regression problem &amp; sigmoid activation function
+loss = log(abs(Y/2 -0.5 + y_hat))
+incase&ndash;&gt; Y = 1
+loss = log(y_hat)
+drevative =
+1 / y_hat<br>
+incase&ndash;&gt; Y = -1
+loss = log(1-y_hat)
+drevative = -1 / (1 - y_hat)
+parameters are 2 matrices : prediction is the output of the last layer &amp; labels presents the actual output{1 or -1}</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class log_likehood_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for logistic regression problem &amp; sigmoid activation function 
+        loss = log(abs(Y/2 -0.5 + y_hat))
+        incase--&gt; Y = 1   loss = log(y_hat)       drevative =  1 / y_hat  
+        incase--&gt; Y = -1  loss = log(1-y_hat)     drevative = -1 / (1 - y_hat)
+        parameters are 2 matrices : prediction is the output of the last layer &amp; labels presents the actual output{1 or -1}
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        L1 = (label &gt; 0)
+        L2 = (label &lt;= 0)
+        pred1 = np.multiply(prediction,L1)
+        pred2 = np.multiply(prediction,L2)
+        Loss = np.where(L2==0,np.log(pred1+np.exp(-15)),0) + np.where(L1==0,np.log(1-pred2+np.exp(-15)),0)
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = np.where(L2==0,1 / (pred1 + np.exp(-15)),0) + np.where(L1==0,-1 / (1 - pred2 + np.exp(-15)),0)
+        self.loss_derivative = dev
+        return (-1 * (np.sum(Loss)) + w)
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_loss.loss_derivative"><code class="name">var <span class="ident">loss_derivative</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.log_likehood_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    assert (label.shape == prediction.shape)
+    # the function output
+    L1 = (label &gt; 0)
+    L2 = (label &lt;= 0)
+    pred1 = np.multiply(prediction,L1)
+    pred2 = np.multiply(prediction,L2)
+    Loss = np.where(L2==0,np.log(pred1+np.exp(-15)),0) + np.where(L1==0,np.log(1-pred2+np.exp(-15)),0)
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    # the function derivative
+    dev = np.where(L2==0,1 / (pred1 + np.exp(-15)),0) + np.where(L1==0,-1 / (1 - pred2 + np.exp(-15)),0)
+    self.loss_derivative = dev
+    return (-1 * (np.sum(Loss)) + w)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.loss_functions"><code class="flex name class">
+<span>class <span class="ident">loss_functions</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class loss_functions:
+    pass</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.hinge_loss" href="#nn13framework.neural_networks.loss_functions.hinge_loss">hinge_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss" href="#nn13framework.neural_networks.loss_functions.log_likehood_alt_loss">log_likehood_alt_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.log_likehood_loss" href="#nn13framework.neural_networks.loss_functions.log_likehood_loss">log_likehood_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.mean_square_loss" href="#nn13framework.neural_networks.loss_functions.mean_square_loss">mean_square_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.multinomial_loss" href="#nn13framework.neural_networks.loss_functions.multinomial_loss">multinomial_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss" href="#nn13framework.neural_networks.loss_functions.perceptron_criterion_loss">perceptron_criterion_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.svm_hinge_loss" href="#nn13framework.neural_networks.loss_functions.svm_hinge_loss">svm_hinge_loss</a></li>
+<li><a title="nn13framework.neural_networks.loss_functions.svm_multiclass_loss" href="#nn13framework.neural_networks.loss_functions.svm_multiclass_loss">svm_multiclass_loss</a></li>
+</ul>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.mean_square_loss"><code class="flex name class">
+<span>class <span class="ident">mean_square_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class mean_square_loss(loss_functions):
+
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        &#39;&#39;&#39;
+
+        :param prediction: ,    :param label:
+        each input is a kXd matrix where k is the number of examples and d is the number of input dimension
+        :return: the sum of 0.5*(y_hat - y)^2 in forward propagation
+        &#39;&#39;&#39;
+        assert (label.shape == prediction.shape)
+        # transpose the matrices
+        label = np.transpose(label)
+        prediction = np.transpose(prediction)
+        # the function derivative
+        col_len, row_len = label.shape
+        self.loss_derivative = -np.transpose(((label - prediction) / row_len))
+        #the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function output
+        return np.sum(((np.multiply((label - prediction), (label - prediction))) / (2 * row_len)))+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        &#39;&#39;&#39;
+
+        :return: the derivative of the mean square loss = (y_hat - y)*dy_hat/dy_hat
+        &#39;&#39;&#39;
+
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.mean_square_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return: the derivative of the mean square loss = (y_hat - y)*dy_hat/dy_hat</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    &#39;&#39;&#39;
+
+    :return: the derivative of the mean square loss = (y_hat - y)*dy_hat/dy_hat
+    &#39;&#39;&#39;
+
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.mean_square_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param prediction: ,
+:param label:
+each input is a kXd matrix where k is the number of examples and d is the number of input dimension
+:return: the sum of 0.5*(y_hat - y)^2 in forward propagation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    &#39;&#39;&#39;
+
+    :param prediction: ,    :param label:
+    each input is a kXd matrix where k is the number of examples and d is the number of input dimension
+    :return: the sum of 0.5*(y_hat - y)^2 in forward propagation
+    &#39;&#39;&#39;
+    assert (label.shape == prediction.shape)
+    # transpose the matrices
+    label = np.transpose(label)
+    prediction = np.transpose(prediction)
+    # the function derivative
+    col_len, row_len = label.shape
+    self.loss_derivative = -np.transpose(((label - prediction) / row_len))
+    #the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    # the function output
+    return np.sum(((np.multiply((label - prediction), (label - prediction))) / (2 * row_len)))+w</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.multinomial_loss"><code class="flex name class">
+<span>class <span class="ident">multinomial_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class multinomial_loss(loss_functions):
+    
+    # init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model = model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+
+    # calculate the function and the derivative but only return the function
+    def evaluate(self, prediction, label):
+        &#39;&#39;&#39;
+
+             :param prediction:
+             :param label:
+             each input is a kXd matrix where k is the number of examples and d is the number of input classes
+             :return: the loss at the node at which the label is 1 = e^(node output)/sum of e^(all nodes output) in forward propagation
+             &#39;&#39;&#39;
+        assert (label.shape == prediction.shape)
+        # the function derivative
+        # return the derivative for each class by d all other classes
+        no_of_examples, no_of_classes = prediction.shape
+        delta = np.zeros((no_of_examples, no_of_classes))
+        for j in range(no_of_examples):
+            for i in range(no_of_classes):
+                if label[j][i] == 1:
+                    delta[j][i] = -(1 - prediction[j][i])
+                else:
+                    delta[j][i] = prediction[j][i]
+        self.loss_derivative =  delta
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function output
+        return (-1* (np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))) + w)
+
+    # return the previously calculated derivative
+    def backward(self):
+        &#39;&#39;&#39;
+
+                :return:the derivative of the mutinomial loss in backward propagation
+                &#39;&#39;&#39;
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.multinomial_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:return:the derivative of the mutinomial loss in backward propagation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    &#39;&#39;&#39;
+
+            :return:the derivative of the mutinomial loss in backward propagation
+            &#39;&#39;&#39;
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.multinomial_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>:param prediction:
+:param label:
+each input is a kXd matrix where k is the number of examples and d is the number of input classes
+:return: the loss at the node at which the label is 1 = e^(node output)/sum of e^(all nodes output) in forward propagation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self, prediction, label):
+    &#39;&#39;&#39;
+
+         :param prediction:
+         :param label:
+         each input is a kXd matrix where k is the number of examples and d is the number of input classes
+         :return: the loss at the node at which the label is 1 = e^(node output)/sum of e^(all nodes output) in forward propagation
+         &#39;&#39;&#39;
+    assert (label.shape == prediction.shape)
+    # the function derivative
+    # return the derivative for each class by d all other classes
+    no_of_examples, no_of_classes = prediction.shape
+    delta = np.zeros((no_of_examples, no_of_classes))
+    for j in range(no_of_examples):
+        for i in range(no_of_classes):
+            if label[j][i] == 1:
+                delta[j][i] = -(1 - prediction[j][i])
+            else:
+                delta[j][i] = prediction[j][i]
+    self.loss_derivative =  delta
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    # the function output
+    return (-1* (np.sum(np.multiply(np.log(prediction + np.exp(-150)), label))) + w)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss"><code class="flex name class">
+<span>class <span class="ident">perceptron_criterion_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>perceptron criterion
+loss function for Multiclass problem &amp; linear activation function
+loss_i = Max(0, Y_i - Y_corrent)
+Loss = max loss_i
+dervative out = matrix whose size = prediction's size
+if Y_correct is not the maximum value of one ex. (one row) of prediction matrix derivative = -1 @ Y_correct
+&amp; derivative = 1 @ maximum value of one exp &amp; rest of the dervatives = 0
+else if Y_correct is the maximum value &ndash;&gt; then all the row = 0,0,.... in derivative Matrix for this ex
+parameters are 2 matrices (for the first fun):
+prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp
+labels presents Matrix (one hup) , same size as prediction
+2 returns :
+first function :(evalute) returns one value (loss) &amp; compute drivative
+second function : (back word) return the drivativre (Matrix consist of
+1 , -1 &amp; zeros)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class perceptron_criterion_loss(loss_functions):
+    &#34;&#34;&#34;
+        perceptron criterion
+        loss function for Multiclass problem &amp; linear activation function 
+        loss_i = Max(0, Y_i - Y_corrent)
+        Loss = max loss_i
+        dervative out = matrix whose size = prediction&#39;s size
+        if Y_correct is not the maximum value of one ex. (one row) of prediction matrix derivative = -1 @ Y_correct 
+        &amp; derivative = 1 @ maximum value of one exp &amp; rest of the dervatives = 0
+        else if Y_correct is the maximum value --&gt; then all the row = 0,0,.... in derivative Matrix for this ex 
+        parameters are 2 matrices (for the first fun): 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents Matrix (one hup) , same size as prediction
+        2 returns : 
+        first function :(evalute) returns one value (loss) &amp; compute drivative 
+        second function : (back word) return the drivativre (Matrix consist of  1 , -1 &amp; zeros)
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert(label.shape == prediction.shape)
+
+        # the function output
+        row_len,col_len  = label.shape
+        lap = np.zeros(row_len) 
+        loss = np.zeros(row_len)
+        #Get the label value for each exp
+        lap = np.sum(np.multiply(prediction, label),axis=1)
+        #convert it into matrix each row &#39;s size = prediction &#39;s row 
+        lap = np.transpose(np.tile(lap,(col_len,1)))
+
+        #compute loss: loss is a vector of n elemnt where n = no, of ex.
+        # &amp; each element is the highest value in 1 ex  
+        loss = np.max(np.maximum(prediction-lap,0),axis=1)
+
+        #convert loss to matrix the same way like lap
+        li = np.transpose(np.tile(loss,(col_len,1)))
+
+        # the function derivative
+        #return matrix : has the same size as pred
+        # consist of 1 , -1 &amp; 0,    
+        ret_mat = np.zeros_like(prediction)
+        #set -1 @ the right class if its out was not the highest for z certain ex
+        ret_mat = np.where(((label == 1) &amp; ((lap + li) != prediction)),-1,0) 
+        # set 1 @ the node who has the highet output for a certin ex
+        ret_mat = np.where(((lap + li) == prediction) &amp; (label != 1) ,1,ret_mat)
+        self.loss_derivative = ret_mat
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        return np.sum(loss)+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative
+
+
+    &#34;&#34;&#34;
+        SVM 
+        loss function for Multiclass problem &amp; linear activation function 
+        loss_i = Max(0, Y_i - Y_corrent + 1)
+        dervative out = matrix whose size = prediction&#39;s size
+        if Y_correct is not the  maximum value of one ex. (one row) of prediction matrix derivative = -1 * n @ Y_correct
+        where n is the no of nodes that have higher values in one ex of (one row of)prediction Matrix than (Y_correct -1 ) for this e x  
+        &amp; derivative = 1 @  values higer than Y_correct  for tis ex &amp; rest of the dervatives = 0
+        else if Y_correct is the maximum value --&gt; then all the row = 0,0,.... in derivative Matrix for this ex 
+        parameters are 2 matrices (for the first fun): 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents Matrix (one hup) , same size as prediction
+        2 returns : 
+        first function :(evalute) returns one value (loss) &amp; compute drivative 
+        second function : (back word) return the drivativre (Matrix consist of  1 , -1*n &amp; zeros)
+    &#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.loss_derivative"><code class="name">var <span class="ident">loss_derivative</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    assert(label.shape == prediction.shape)
+
+    # the function output
+    row_len,col_len  = label.shape
+    lap = np.zeros(row_len) 
+    loss = np.zeros(row_len)
+    #Get the label value for each exp
+    lap = np.sum(np.multiply(prediction, label),axis=1)
+    #convert it into matrix each row &#39;s size = prediction &#39;s row 
+    lap = np.transpose(np.tile(lap,(col_len,1)))
+
+    #compute loss: loss is a vector of n elemnt where n = no, of ex.
+    # &amp; each element is the highest value in 1 ex  
+    loss = np.max(np.maximum(prediction-lap,0),axis=1)
+
+    #convert loss to matrix the same way like lap
+    li = np.transpose(np.tile(loss,(col_len,1)))
+
+    # the function derivative
+    #return matrix : has the same size as pred
+    # consist of 1 , -1 &amp; 0,    
+    ret_mat = np.zeros_like(prediction)
+    #set -1 @ the right class if its out was not the highest for z certain ex
+    ret_mat = np.where(((label == 1) &amp; ((lap + li) != prediction)),-1,0) 
+    # set 1 @ the node who has the highet output for a certin ex
+    ret_mat = np.where(((lap + li) == prediction) &amp; (label != 1) ,1,ret_mat)
+    self.loss_derivative = ret_mat
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    return np.sum(loss)+w</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.svm_hinge_loss"><code class="flex name class">
+<span>class <span class="ident">svm_hinge_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>loss function for Binary classifier problem &amp; linear activation function
+loss = Max(0,1-Y<em>Y_hat)
+derivative = -Y
+if
+1-Y</em>Y_hat &gt; 0
+zero other wise
+parameters are 2 matrices :
+prediction is the output of the last layer each row represents 1 ex and each column represents certain node's output for all exp
+labels presents the actual output [1 , -1] or any 2 positive &amp; negative values</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class svm_hinge_loss(loss_functions):
+    &#34;&#34;&#34;
+        loss function for Binary classifier problem &amp; linear activation function 
+        loss = Max(0,1-Y*Y_hat)
+        derivative = -Y   if  1-Y*Y_hat &gt; 0 
+        zero other wise
+        parameters are 2 matrices : 
+        prediction is the output of the last layer each row represents 1 ex and each column represents certain node&#39;s output for all exp 
+        labels presents the actual output [1 , -1] or any 2 positive &amp; negative values
+    &#34;&#34;&#34;
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert (label.shape == prediction.shape)
+        # the function output
+        lap = -1 * label
+        prod = np.multiply(lap,prediction) + 1
+        Loss = np.maximum(prod,0)
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        # the function derivative
+        dev = np.where(prod &gt; 0,lap,0)
+        self.loss_derivative = dev
+        return np.sum(Loss)+w
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.svm_hinge_loss.loss_derivative"><code class="name">var <span class="ident">loss_derivative</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.svm_hinge_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.svm_hinge_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    assert (label.shape == prediction.shape)
+    # the function output
+    lap = -1 * label
+    prod = np.multiply(lap,prediction) + 1
+    Loss = np.maximum(prod,0)
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    # the function derivative
+    dev = np.where(prod &gt; 0,lap,0)
+    self.loss_derivative = dev
+    return np.sum(Loss)+w</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.svm_multiclass_loss"><code class="flex name class">
+<span>class <span class="ident">svm_multiclass_loss</span></span>
+<span>(</span><span>model, regularization_parameter=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class svm_multiclass_loss(loss_functions):
+    # general attributes
+    loss_derivative = None
+    #init functions that take the model
+    def __init__(self,model,regularization_parameter = 0):
+        self.model=model
+        self.loss_derivative = None
+        self.lamda = regularization_parameter
+    #calculate the function and the derivative but only return the function
+    def evaluate(self,prediction,label):
+        assert(label.shape == prediction.shape)
+        # the function output
+        row_len,col_len  = label.shape
+        lap = np.zeros(row_len) 
+        loss = np.zeros(row_len)
+        #Get the label value for each exp
+        lap = np.sum(np.multiply(prediction, label),axis=1)
+        #convert it into matrix each row &#39;s size = prediction &#39;s row 
+        lap = np.transpose(np.tile(lap,(col_len,1)))
+        #compute loss: loss is a vector of n elemnt where n = no, of ex.
+        # &amp; each element is the highest value in 1 ex  
+        loss = np.maximum(1 + prediction-lap,0)
+        li = np.max(loss,axis=1)
+        li = np.transpose(np.tile(li,(col_len,1)))
+        #set loss to zero  @ the right label
+        loss = np.where(label == 1, 0, loss)
+        #compute the no. of nodes that has a higher output than the actual label
+        no_max = np.sum(np.where(loss &gt; 0,1,0),axis=1)
+        no_max = np.transpose(np.tile(no_max,(col_len,1)))
+    
+        # the function derivative
+        #return matrix : has the same size as pred
+        # consist of 1 , -1 &amp; 0,    
+        ret_mat = np.zeros_like(prediction)
+        #set -1 @ the right class if its out was not the highest for z certain ex
+        ret_mat = np.where(((label == 1) &amp; ((li + lap -1) != prediction)),-1*no_max,0) 
+        # set 1 @ the node who has the highet output for a certin ex
+        ret_mat = np.where(((prediction + 1) &gt; lap ) &amp; (label != 1) ,1,ret_mat)
+        self.loss_derivative = ret_mat
+        # the regularization term
+        w = self.model.weights[-1]
+        w = np.multiply(self.lamda / 2, np.multiply(w, w))
+        w = np.sum(w)
+        return ((np.sum(loss)/row_len)+w)
+
+
+    #return the previously calculated derivative
+    def backward(self):
+        return self.loss_derivative</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.svm_multiclass_loss.loss_derivative"><code class="name">var <span class="ident">loss_derivative</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.loss_functions.svm_multiclass_loss.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self):
+    return self.loss_derivative</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.loss_functions.svm_multiclass_loss.evaluate"><code class="name flex">
+<span>def <span class="ident">evaluate</span></span>(<span>self, prediction, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluate(self,prediction,label):
+    assert(label.shape == prediction.shape)
+    # the function output
+    row_len,col_len  = label.shape
+    lap = np.zeros(row_len) 
+    loss = np.zeros(row_len)
+    #Get the label value for each exp
+    lap = np.sum(np.multiply(prediction, label),axis=1)
+    #convert it into matrix each row &#39;s size = prediction &#39;s row 
+    lap = np.transpose(np.tile(lap,(col_len,1)))
+    #compute loss: loss is a vector of n elemnt where n = no, of ex.
+    # &amp; each element is the highest value in 1 ex  
+    loss = np.maximum(1 + prediction-lap,0)
+    li = np.max(loss,axis=1)
+    li = np.transpose(np.tile(li,(col_len,1)))
+    #set loss to zero  @ the right label
+    loss = np.where(label == 1, 0, loss)
+    #compute the no. of nodes that has a higher output than the actual label
+    no_max = np.sum(np.where(loss &gt; 0,1,0),axis=1)
+    no_max = np.transpose(np.tile(no_max,(col_len,1)))
+
+    # the function derivative
+    #return matrix : has the same size as pred
+    # consist of 1 , -1 &amp; 0,    
+    ret_mat = np.zeros_like(prediction)
+    #set -1 @ the right class if its out was not the highest for z certain ex
+    ret_mat = np.where(((label == 1) &amp; ((li + lap -1) != prediction)),-1*no_max,0) 
+    # set 1 @ the node who has the highet output for a certin ex
+    ret_mat = np.where(((prediction + 1) &gt; lap ) &amp; (label != 1) ,1,ret_mat)
+    self.loss_derivative = ret_mat
+    # the regularization term
+    w = self.model.weights[-1]
+    w = np.multiply(self.lamda / 2, np.multiply(w, w))
+    w = np.sum(w)
+    return ((np.sum(loss)/row_len)+w)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="nn13framework.neural_networks" href="index.html">nn13framework.neural_networks</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.hinge_loss" href="#nn13framework.neural_networks.loss_functions.hinge_loss">hinge_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.hinge_loss.backward" href="#nn13framework.neural_networks.loss_functions.hinge_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.hinge_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.hinge_loss.evaluate">evaluate</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.hinge_loss.loss_derivative" href="#nn13framework.neural_networks.loss_functions.hinge_loss.loss_derivative">loss_derivative</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss" href="#nn13framework.neural_networks.loss_functions.log_likehood_alt_loss">log_likehood_alt_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.backward" href="#nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.evaluate">evaluate</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.loss_derivative" href="#nn13framework.neural_networks.loss_functions.log_likehood_alt_loss.loss_derivative">loss_derivative</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_loss" href="#nn13framework.neural_networks.loss_functions.log_likehood_loss">log_likehood_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_loss.backward" href="#nn13framework.neural_networks.loss_functions.log_likehood_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.log_likehood_loss.evaluate">evaluate</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.log_likehood_loss.loss_derivative" href="#nn13framework.neural_networks.loss_functions.log_likehood_loss.loss_derivative">loss_derivative</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.loss_functions" href="#nn13framework.neural_networks.loss_functions.loss_functions">loss_functions</a></code></h4>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.mean_square_loss" href="#nn13framework.neural_networks.loss_functions.mean_square_loss">mean_square_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.mean_square_loss.backward" href="#nn13framework.neural_networks.loss_functions.mean_square_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.mean_square_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.mean_square_loss.evaluate">evaluate</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.multinomial_loss" href="#nn13framework.neural_networks.loss_functions.multinomial_loss">multinomial_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.multinomial_loss.backward" href="#nn13framework.neural_networks.loss_functions.multinomial_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.multinomial_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.multinomial_loss.evaluate">evaluate</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss" href="#nn13framework.neural_networks.loss_functions.perceptron_criterion_loss">perceptron_criterion_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.backward" href="#nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.evaluate">evaluate</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.loss_derivative" href="#nn13framework.neural_networks.loss_functions.perceptron_criterion_loss.loss_derivative">loss_derivative</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.svm_hinge_loss" href="#nn13framework.neural_networks.loss_functions.svm_hinge_loss">svm_hinge_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.svm_hinge_loss.backward" href="#nn13framework.neural_networks.loss_functions.svm_hinge_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.svm_hinge_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.svm_hinge_loss.evaluate">evaluate</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.svm_hinge_loss.loss_derivative" href="#nn13framework.neural_networks.loss_functions.svm_hinge_loss.loss_derivative">loss_derivative</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.loss_functions.svm_multiclass_loss" href="#nn13framework.neural_networks.loss_functions.svm_multiclass_loss">svm_multiclass_loss</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.loss_functions.svm_multiclass_loss.backward" href="#nn13framework.neural_networks.loss_functions.svm_multiclass_loss.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.svm_multiclass_loss.evaluate" href="#nn13framework.neural_networks.loss_functions.svm_multiclass_loss.evaluate">evaluate</a></code></li>
+<li><code><a title="nn13framework.neural_networks.loss_functions.svm_multiclass_loss.loss_derivative" href="#nn13framework.neural_networks.loss_functions.svm_multiclass_loss.loss_derivative">loss_derivative</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

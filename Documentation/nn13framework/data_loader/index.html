@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>nn13framework.data_loader API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>nn13framework.data_loader</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import pickle
+import numpy as np
+import os
+import tarfile
+from urllib import request
+import gzip
+from urllib.request import urlretrieve
+import matplotlib.pyplot  as plt
+import math
+
+
+
+
+############################################# FOR GENERIC DATA ###############################################################
+
+
+def one_hot(Y, D_out):
+    N = Y.shape[0]
+    Z = np.zeros((N, D_out))
+    
+    Z[np.arange(N), Y] = 1 #Z[][]==Z[,]
+    return Z
+
+
+def get_batch_generator_XY(X,Y,batch_size,shuffle=False):
+    if shuffle:
+        X,Y=shuffle_data(X,Y)
+    N=len(Y)
+    batch_number=math.ceil(N/batch_size)
+    count=0
+    for i in range (0,N,batch_size):
+        #to prevent last batch to be less than the batch size
+        if (N%batch_size)!=0 and count==batch_number-1:
+            break
+        else :
+            yield X[i:i+batch_size],Y[i:i+batch_size]
+            count+=1
+   
+
+def get_batch_XY(X_Data,Y_Data,batch_size,shuffle=False):
+    X_batch_generator,Y_batch_generator=zip(*get_batch_generator_XY(X_Data,Y_Data,batch_size,shuffle))
+    X_batches=list()
+    Y_batches=list()
+    for x in X_batch_generator:
+        X_batches.append(x)
+    for y in Y_batch_generator:
+        Y_batches.append(y)
+    
+    return X_batches,Y_batches
+
+
+
+
+#MinMaxScaler Normaliztion
+def init_norm(data):
+    min_data=np.min(data)
+    max_data=np.max(data)
+    output_data=(data-min_data)/(max_data-min_data)
+    return output_data
+
+
+#Data Standardization (StandardScaler)
+def init_standard(data):
+    mean=np.mean(data)
+    standard_div=np.std(data)
+    output_data=(data-mean)/standard_div
+    return output_data
+
+#Shuffle the data if needed
+def shuffle_data(X,Y):
+    #By default X.shape[0] is the size of the numpy array given or passed to the function
+    perm=np.random.permutation(len(Y))
+    X_shuffled=X[perm]
+    Y_shuffled=Y[perm]
+    return X_shuffled,Y_shuffled
+
+
+def train_test_split(X,Y,test_size):
+    #get the size of the dataset passed to the function
+    data_size=X.shape[0]
+    if test_size &gt;1 :
+        return &#34;ERROR , the test size can not be larger than 1&#34;
+    else :
+    #calculate the test size and train size
+        data_test_size=int(data_size*test_size)
+        data_train_size=data_size-data_test_size
+        #Shuffle the data 
+        X_shuffled,Y_shuffled=shuffle_data(X,Y)
+        #Train_test for X,Y
+        X_train=X_shuffled[0:data_train_size-1]
+        X_test=X_shuffled[data_train_size:data_train_size+data_test_size]
+        Y_train=Y_shuffled[0:data_train_size-1]
+        Y_test=Y_shuffled[data_train_size:data_train_size+data_test_size]
+        return X_train,Y_train,X_test,Y_test
+
+
+
+
+############################################# FOR MNIST DATA ###############################################################
+
+
+def download_save_mnist(path=None,CNN=False):
+
+    r&#34;&#34;&#34;Return (train_images, train_labels, test_images, test_labels).
+
+    Args:
+        path (str): Directory containing Mnist. Default is
+            /home/USER/data/Mnist or C:\Users\USER\data\Mnist.
+            Create if nonexistant. Download Mnist if missing.
+
+    Returns:
+        Tuple of (train_images, train_labels, test_images, test_labels), each
+            a matrix. Rows are examples. Columns of images are pixel values,
+            with the order (red -&gt; blue -&gt; green). Columns of labels are a
+            onehot encoding of the correct class.
+    &#34;&#34;&#34;
+
+
+    if CNN==None :
+        CNN=False
+
+    Mnist_files = [
+        [&#34;training_images&#34;,&#34;train-images-idx3-ubyte.gz&#34;,9912422],
+        [&#34;test_images&#34;,&#34;t10k-images-idx3-ubyte.gz&#34;,1648877],
+        [&#34;training_labels&#34;,&#34;train-labels-idx1-ubyte.gz&#34;,28881],
+        [&#34;test_labels&#34;,&#34;t10k-labels-idx1-ubyte.gz&#34;,4542]
+    ]
+
+    mnist_url = &#34;http://yann.lecun.com/exdb/mnist/&#34;
+
+    # Set path to /home/USER_NAME/data/Mnist or C:\Users\USER_NAME\data\Mnist
+    if path is None:
+        path = os.path.join(os.path.expanduser(&#39;~&#39;), &#39;data&#39;, &#39;Mnist&#39;)
+    
+    # Create path if it doesn&#39;t exist
+    os.makedirs(path, exist_ok=True)
+
+    count=0
+    #Download files
+    for name in Mnist_files:
+        if name[1] not in os.listdir(path):
+            print(&#34;Downloading &#34;+name[1]+&#34;...&#34;)
+            count+=1
+            request.urlretrieve(mnist_url+name[1],os.path.join(path, name[1]))
+
+    #if the download is not completed so that the downloaded file be deleted and then re-downloaded
+        elif name[1] in os.listdir(path) and os.path.getsize(os.path.join(path, name[1]))!=name[2]:
+            os.remove(os.path.join(path, name[1]))
+            print(&#34;Downloading &#34;+name[1]+&#34;...&#34;)
+            count+=1
+            request.urlretrieve(mnist_url+name[1],os.path.join(path, name[1]))
+
+    if count==0:
+        print(&#34;Mnist dataset is already downloaded in the directory :&#34;,path)
+    else:
+        print(&#34;Download complete.&#34;)
+################################### SAVING ########################################
+    #saving the dataset
+    mnist = {}
+    
+    #save inputs
+    for name in Mnist_files[:2]:
+        with gzip.open(os.path.join(path,name[1]), &#39;rb&#39;) as f:
+            if CNN:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,1,28,28)
+            else:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28*28)
+    
+    #save labels
+    for name in Mnist_files[-2:]:
+        with gzip.open(os.path.join(path,name[1]), &#39;rb&#39;) as f:
+            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
+
+    with open(path+&#34;/mnist.pkl&#34;, &#39;wb&#39;) as f:
+        pickle.dump(mnist,f)
+    print(&#34;Save complete in the directory :&#34;, path)
+
+
+
+
+
+def load_mnist(path=None):
+
+    # Set path to /home/USER/data/mnist or C:\Users\USER_NAME\data\mnist
+    if path is None:
+        path = os.path.join(os.path.expanduser(&#39;~&#39;), &#39;data&#39;, &#39;Mnist&#39;)
+    #Open Pickle file
+    with open(path+&#34;/mnist.pkl&#34;, &#39;rb&#39;) as f:
+        mnist = pickle.load(f)
+    
+    return mnist[&#34;training_images&#34;], mnist[&#34;training_labels&#34;], mnist[&#34;test_images&#34;], mnist[&#34;test_labels&#34;]
+
+
+def load_mnist_data(path=None,CNN=False):
+    if CNN==None:
+        CNN=False
+    #downloading &amp; and saving
+    download_save_mnist(path,CNN)
+    #loading
+    X_train,Y_train,X_test,Y_test=load_mnist(path)
+    #Nomralization &amp; One hot encoding
+    X_train, X_test = X_train/float(255), X_test/float(255)
+    Data_out=10
+    Y_train=one_hot(Y_train, Data_out)
+    Y_test=one_hot(Y_test,Data_out)
+
+    return X_train,Y_train,X_test,Y_test
+
+
+def visualize_mnist(Data_input,idx):
+    if idx&gt;len(Data_input)-1:
+       print(&#34;Out of index&#34;)
+       return 0
+    #reshaping back the dataset if the dataset shape is (len(data),1,28,28)
+    Data_input=Data_input.reshape(len(Data_input),1,28,28).transpose(0,2,3,1)
+    plt.figure()
+    plt.imshow(Data_input[idx])
+    plt.show()  # display it
+
+            
+############################################# FOR CIFAR DATA ###############################################################
+def download_save_cifar10(path=None,CNN=False):
+    if CNN==None :
+        CNN=False    
+    
+    r&#34;&#34;&#34;Return (train_images, train_labels, test_images, test_labels).
+
+    Args:
+        path (str): Directory containing CIFAR-10. Default is
+            /home/USER/data/cifar10 or C:\Users\USER\data\cifar10.
+            Create if nonexistant. Download CIFAR-10 if missing.
+
+    Returns:
+        Tuple of (train_images, train_labels, test_images, test_labels), each
+            a matrix. Rows are examples. Columns of images are pixel values,
+            with the order (red -&gt; blue -&gt; green). Columns of labels are a
+            onehot encoding of the correct class.
+    &#34;&#34;&#34;
+    cifar_url = &#39;https://www.cs.toronto.edu/~kriz/&#39;
+    cifar_tar = &#39;cifar-10-binary.tar.gz&#39;
+    cifar_files = [&#39;cifar-10-batches-bin/data_batch_1.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_2.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_3.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_4.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_5.bin&#39;,
+             &#39;cifar-10-batches-bin/test_batch.bin&#39;]
+    
+    Cifar_Size=170052171
+
+    if path is None:
+        # Set path to /home/USER/data/mnist or C:\Users\USER\data\mnist
+        path = os.path.join(os.path.expanduser(&#39;~&#39;), &#39;data&#39;, &#39;cifar10&#39;)
+
+    # Create path if it doesn&#39;t exist
+    os.makedirs(path, exist_ok=True)
+
+    # # Download tarfile if missing
+    # if cifar_tar not in os.listdir(path):
+    #     urlretrieve(&#39;&#39;.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+    #     print(&#34;Downloaded %s to %s&#34; % (cifar_tar, path))
+
+    
+    
+    # Download tarfile if missing
+    if cifar_tar not in os.listdir(path): 
+        print(&#34;Downloading cifar-10-binary.tar.gz....&#34;)
+        urlretrieve(&#39;&#39;.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+        print(&#34;Downloaded %s to %s&#34; % (cifar_tar, path))
+    else :
+        #if the download is not completed so that the downloaded file be deleted and then re-downloaded
+        if os.path.getsize(os.path.join(path, cifar_tar))!= Cifar_Size:
+            os.remove(os.path.join(path,cifar_tar))
+            print(&#34;Downloading cifar-10-binary.tar.gz....&#34;)
+            urlretrieve(&#39;&#39;.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+            print(&#34;Downloaded %s to %s&#34; % (cifar_tar, path))
+        else :
+            print(&#34;Cifar10 dataset is already downloaded in the directory :&#34;,path)
+
+    # Load data from tarfile
+    with tarfile.open(os.path.join(path, cifar_tar)) as tar_object:
+        # Each file contains 10,000 color images and 10,000 labels
+        fsize = 10000 * (32 * 32 * 3) + 10000
+
+        # There are 6 files (5 train and 1 test)
+        buffr = np.zeros(fsize * 6, dtype=&#39;uint8&#39;)
+
+        # Get members of tar corresponding to data files
+        # -- The tar contains README&#39;s and other extraneous stuff
+        members = [file for file in tar_object if file.name in cifar_files]
+
+        # Sort those members by name
+        # -- Ensures we load train data in the proper order
+        # -- Ensures that test data is the last file in the list
+        members.sort(key=lambda member: member.name)
+
+        # Extract data from members
+        for i, member in enumerate(members):
+            # Get member as a file object
+            f = tar_object.extractfile(member)
+            # Read bytes from that file object into buffr
+            buffr[i * fsize:(i + 1) * fsize] = np.frombuffer(f.read(), &#39;B&#39;)
+
+    # Parse data from buffer
+    # -- Examples are in chunks of 3,073 bytes
+    # -- First byte of each chunk is the label
+    # -- Next 32 * 32 * 3 = 3,072 bytes are its corresponding image
+
+    # Labels are the first byte of every chunk
+    labels = buffr[::3073]
+
+    # Pixels are everything remaining after we delete the labels
+    pixels = np.delete(buffr, np.arange(0, buffr.size, 3073))
+    images = pixels.reshape(-1, 3072).astype(&#39;float32&#39;) / 255
+
+    # Split into train and test
+    train_images, test_images = images[:50000], images[50000:]
+    train_labels, test_labels = labels[:50000], labels[50000:]
+
+    if CNN==True:
+        train_images=train_images.reshape(len(train_images),3,32,32)
+        test_images=train_images.reshape(len(train_images),3,32,32)
+
+
+    return train_images, one_hot(train_labels,10),test_images, one_hot(test_labels,10)
+
+
+
+def visualize_cifar(Data_input,idx):
+    if idx&gt;len(Data_input)-1:
+       print(&#34;Out of index&#34;)
+       return 0
+    #reshaping back the dataset if the dataset shape is (len(data),1,28,28)
+    Data_input=Data_input.reshape(len(Data_input),3,32,32).transpose(0,2,3,1)
+    plt.figure()
+    plt.imshow(Data_input[idx])
+    plt.show()  # display it</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="nn13framework.data_loader.download_save_cifar10"><code class="name flex">
+<span>def <span class="ident">download_save_cifar10</span></span>(<span>path=None, CNN=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_save_cifar10(path=None,CNN=False):
+    if CNN==None :
+        CNN=False    
+    
+    r&#34;&#34;&#34;Return (train_images, train_labels, test_images, test_labels).
+
+    Args:
+        path (str): Directory containing CIFAR-10. Default is
+            /home/USER/data/cifar10 or C:\Users\USER\data\cifar10.
+            Create if nonexistant. Download CIFAR-10 if missing.
+
+    Returns:
+        Tuple of (train_images, train_labels, test_images, test_labels), each
+            a matrix. Rows are examples. Columns of images are pixel values,
+            with the order (red -&gt; blue -&gt; green). Columns of labels are a
+            onehot encoding of the correct class.
+    &#34;&#34;&#34;
+    cifar_url = &#39;https://www.cs.toronto.edu/~kriz/&#39;
+    cifar_tar = &#39;cifar-10-binary.tar.gz&#39;
+    cifar_files = [&#39;cifar-10-batches-bin/data_batch_1.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_2.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_3.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_4.bin&#39;,
+             &#39;cifar-10-batches-bin/data_batch_5.bin&#39;,
+             &#39;cifar-10-batches-bin/test_batch.bin&#39;]
+    
+    Cifar_Size=170052171
+
+    if path is None:
+        # Set path to /home/USER/data/mnist or C:\Users\USER\data\mnist
+        path = os.path.join(os.path.expanduser(&#39;~&#39;), &#39;data&#39;, &#39;cifar10&#39;)
+
+    # Create path if it doesn&#39;t exist
+    os.makedirs(path, exist_ok=True)
+
+    # # Download tarfile if missing
+    # if cifar_tar not in os.listdir(path):
+    #     urlretrieve(&#39;&#39;.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+    #     print(&#34;Downloaded %s to %s&#34; % (cifar_tar, path))
+
+    
+    
+    # Download tarfile if missing
+    if cifar_tar not in os.listdir(path): 
+        print(&#34;Downloading cifar-10-binary.tar.gz....&#34;)
+        urlretrieve(&#39;&#39;.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+        print(&#34;Downloaded %s to %s&#34; % (cifar_tar, path))
+    else :
+        #if the download is not completed so that the downloaded file be deleted and then re-downloaded
+        if os.path.getsize(os.path.join(path, cifar_tar))!= Cifar_Size:
+            os.remove(os.path.join(path,cifar_tar))
+            print(&#34;Downloading cifar-10-binary.tar.gz....&#34;)
+            urlretrieve(&#39;&#39;.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+            print(&#34;Downloaded %s to %s&#34; % (cifar_tar, path))
+        else :
+            print(&#34;Cifar10 dataset is already downloaded in the directory :&#34;,path)
+
+    # Load data from tarfile
+    with tarfile.open(os.path.join(path, cifar_tar)) as tar_object:
+        # Each file contains 10,000 color images and 10,000 labels
+        fsize = 10000 * (32 * 32 * 3) + 10000
+
+        # There are 6 files (5 train and 1 test)
+        buffr = np.zeros(fsize * 6, dtype=&#39;uint8&#39;)
+
+        # Get members of tar corresponding to data files
+        # -- The tar contains README&#39;s and other extraneous stuff
+        members = [file for file in tar_object if file.name in cifar_files]
+
+        # Sort those members by name
+        # -- Ensures we load train data in the proper order
+        # -- Ensures that test data is the last file in the list
+        members.sort(key=lambda member: member.name)
+
+        # Extract data from members
+        for i, member in enumerate(members):
+            # Get member as a file object
+            f = tar_object.extractfile(member)
+            # Read bytes from that file object into buffr
+            buffr[i * fsize:(i + 1) * fsize] = np.frombuffer(f.read(), &#39;B&#39;)
+
+    # Parse data from buffer
+    # -- Examples are in chunks of 3,073 bytes
+    # -- First byte of each chunk is the label
+    # -- Next 32 * 32 * 3 = 3,072 bytes are its corresponding image
+
+    # Labels are the first byte of every chunk
+    labels = buffr[::3073]
+
+    # Pixels are everything remaining after we delete the labels
+    pixels = np.delete(buffr, np.arange(0, buffr.size, 3073))
+    images = pixels.reshape(-1, 3072).astype(&#39;float32&#39;) / 255
+
+    # Split into train and test
+    train_images, test_images = images[:50000], images[50000:]
+    train_labels, test_labels = labels[:50000], labels[50000:]
+
+    if CNN==True:
+        train_images=train_images.reshape(len(train_images),3,32,32)
+        test_images=train_images.reshape(len(train_images),3,32,32)
+
+
+    return train_images, one_hot(train_labels,10),test_images, one_hot(test_labels,10)</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.download_save_mnist"><code class="name flex">
+<span>def <span class="ident">download_save_mnist</span></span>(<span>path=None, CNN=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return (train_images, train_labels, test_images, test_labels).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory containing Mnist. Default is
+/home/USER/data/Mnist or C:\Users\USER\data\Mnist.
+Create if nonexistant. Download Mnist if missing.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>Tuple of (train_images, train_labels, test_images, test_labels), each
+a matrix. Rows are examples. Columns of images are pixel values,
+with the order (red -&gt; blue -&gt; green). Columns of labels are a
+onehot encoding of the correct class.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_save_mnist(path=None,CNN=False):
+
+    r&#34;&#34;&#34;Return (train_images, train_labels, test_images, test_labels).
+
+    Args:
+        path (str): Directory containing Mnist. Default is
+            /home/USER/data/Mnist or C:\Users\USER\data\Mnist.
+            Create if nonexistant. Download Mnist if missing.
+
+    Returns:
+        Tuple of (train_images, train_labels, test_images, test_labels), each
+            a matrix. Rows are examples. Columns of images are pixel values,
+            with the order (red -&gt; blue -&gt; green). Columns of labels are a
+            onehot encoding of the correct class.
+    &#34;&#34;&#34;
+
+
+    if CNN==None :
+        CNN=False
+
+    Mnist_files = [
+        [&#34;training_images&#34;,&#34;train-images-idx3-ubyte.gz&#34;,9912422],
+        [&#34;test_images&#34;,&#34;t10k-images-idx3-ubyte.gz&#34;,1648877],
+        [&#34;training_labels&#34;,&#34;train-labels-idx1-ubyte.gz&#34;,28881],
+        [&#34;test_labels&#34;,&#34;t10k-labels-idx1-ubyte.gz&#34;,4542]
+    ]
+
+    mnist_url = &#34;http://yann.lecun.com/exdb/mnist/&#34;
+
+    # Set path to /home/USER_NAME/data/Mnist or C:\Users\USER_NAME\data\Mnist
+    if path is None:
+        path = os.path.join(os.path.expanduser(&#39;~&#39;), &#39;data&#39;, &#39;Mnist&#39;)
+    
+    # Create path if it doesn&#39;t exist
+    os.makedirs(path, exist_ok=True)
+
+    count=0
+    #Download files
+    for name in Mnist_files:
+        if name[1] not in os.listdir(path):
+            print(&#34;Downloading &#34;+name[1]+&#34;...&#34;)
+            count+=1
+            request.urlretrieve(mnist_url+name[1],os.path.join(path, name[1]))
+
+    #if the download is not completed so that the downloaded file be deleted and then re-downloaded
+        elif name[1] in os.listdir(path) and os.path.getsize(os.path.join(path, name[1]))!=name[2]:
+            os.remove(os.path.join(path, name[1]))
+            print(&#34;Downloading &#34;+name[1]+&#34;...&#34;)
+            count+=1
+            request.urlretrieve(mnist_url+name[1],os.path.join(path, name[1]))
+
+    if count==0:
+        print(&#34;Mnist dataset is already downloaded in the directory :&#34;,path)
+    else:
+        print(&#34;Download complete.&#34;)
+################################### SAVING ########################################
+    #saving the dataset
+    mnist = {}
+    
+    #save inputs
+    for name in Mnist_files[:2]:
+        with gzip.open(os.path.join(path,name[1]), &#39;rb&#39;) as f:
+            if CNN:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,1,28,28)
+            else:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1,28*28)
+    
+    #save labels
+    for name in Mnist_files[-2:]:
+        with gzip.open(os.path.join(path,name[1]), &#39;rb&#39;) as f:
+            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
+
+    with open(path+&#34;/mnist.pkl&#34;, &#39;wb&#39;) as f:
+        pickle.dump(mnist,f)
+    print(&#34;Save complete in the directory :&#34;, path)</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.get_batch_XY"><code class="name flex">
+<span>def <span class="ident">get_batch_XY</span></span>(<span>X_Data, Y_Data, batch_size, shuffle=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_batch_XY(X_Data,Y_Data,batch_size,shuffle=False):
+    X_batch_generator,Y_batch_generator=zip(*get_batch_generator_XY(X_Data,Y_Data,batch_size,shuffle))
+    X_batches=list()
+    Y_batches=list()
+    for x in X_batch_generator:
+        X_batches.append(x)
+    for y in Y_batch_generator:
+        Y_batches.append(y)
+    
+    return X_batches,Y_batches</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.get_batch_generator_XY"><code class="name flex">
+<span>def <span class="ident">get_batch_generator_XY</span></span>(<span>X, Y, batch_size, shuffle=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_batch_generator_XY(X,Y,batch_size,shuffle=False):
+    if shuffle:
+        X,Y=shuffle_data(X,Y)
+    N=len(Y)
+    batch_number=math.ceil(N/batch_size)
+    count=0
+    for i in range (0,N,batch_size):
+        #to prevent last batch to be less than the batch size
+        if (N%batch_size)!=0 and count==batch_number-1:
+            break
+        else :
+            yield X[i:i+batch_size],Y[i:i+batch_size]
+            count+=1</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.init_norm"><code class="name flex">
+<span>def <span class="ident">init_norm</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_norm(data):
+    min_data=np.min(data)
+    max_data=np.max(data)
+    output_data=(data-min_data)/(max_data-min_data)
+    return output_data</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.init_standard"><code class="name flex">
+<span>def <span class="ident">init_standard</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_standard(data):
+    mean=np.mean(data)
+    standard_div=np.std(data)
+    output_data=(data-mean)/standard_div
+    return output_data</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.load_mnist"><code class="name flex">
+<span>def <span class="ident">load_mnist</span></span>(<span>path=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_mnist(path=None):
+
+    # Set path to /home/USER/data/mnist or C:\Users\USER_NAME\data\mnist
+    if path is None:
+        path = os.path.join(os.path.expanduser(&#39;~&#39;), &#39;data&#39;, &#39;Mnist&#39;)
+    #Open Pickle file
+    with open(path+&#34;/mnist.pkl&#34;, &#39;rb&#39;) as f:
+        mnist = pickle.load(f)
+    
+    return mnist[&#34;training_images&#34;], mnist[&#34;training_labels&#34;], mnist[&#34;test_images&#34;], mnist[&#34;test_labels&#34;]</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.load_mnist_data"><code class="name flex">
+<span>def <span class="ident">load_mnist_data</span></span>(<span>path=None, CNN=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_mnist_data(path=None,CNN=False):
+    if CNN==None:
+        CNN=False
+    #downloading &amp; and saving
+    download_save_mnist(path,CNN)
+    #loading
+    X_train,Y_train,X_test,Y_test=load_mnist(path)
+    #Nomralization &amp; One hot encoding
+    X_train, X_test = X_train/float(255), X_test/float(255)
+    Data_out=10
+    Y_train=one_hot(Y_train, Data_out)
+    Y_test=one_hot(Y_test,Data_out)
+
+    return X_train,Y_train,X_test,Y_test</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.one_hot"><code class="name flex">
+<span>def <span class="ident">one_hot</span></span>(<span>Y, D_out)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def one_hot(Y, D_out):
+    N = Y.shape[0]
+    Z = np.zeros((N, D_out))
+    
+    Z[np.arange(N), Y] = 1 #Z[][]==Z[,]
+    return Z</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.shuffle_data"><code class="name flex">
+<span>def <span class="ident">shuffle_data</span></span>(<span>X, Y)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def shuffle_data(X,Y):
+    #By default X.shape[0] is the size of the numpy array given or passed to the function
+    perm=np.random.permutation(len(Y))
+    X_shuffled=X[perm]
+    Y_shuffled=Y[perm]
+    return X_shuffled,Y_shuffled</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.train_test_split"><code class="name flex">
+<span>def <span class="ident">train_test_split</span></span>(<span>X, Y, test_size)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def train_test_split(X,Y,test_size):
+    #get the size of the dataset passed to the function
+    data_size=X.shape[0]
+    if test_size &gt;1 :
+        return &#34;ERROR , the test size can not be larger than 1&#34;
+    else :
+    #calculate the test size and train size
+        data_test_size=int(data_size*test_size)
+        data_train_size=data_size-data_test_size
+        #Shuffle the data 
+        X_shuffled,Y_shuffled=shuffle_data(X,Y)
+        #Train_test for X,Y
+        X_train=X_shuffled[0:data_train_size-1]
+        X_test=X_shuffled[data_train_size:data_train_size+data_test_size]
+        Y_train=Y_shuffled[0:data_train_size-1]
+        Y_test=Y_shuffled[data_train_size:data_train_size+data_test_size]
+        return X_train,Y_train,X_test,Y_test</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.visualize_cifar"><code class="name flex">
+<span>def <span class="ident">visualize_cifar</span></span>(<span>Data_input, idx)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def visualize_cifar(Data_input,idx):
+    if idx&gt;len(Data_input)-1:
+       print(&#34;Out of index&#34;)
+       return 0
+    #reshaping back the dataset if the dataset shape is (len(data),1,28,28)
+    Data_input=Data_input.reshape(len(Data_input),3,32,32).transpose(0,2,3,1)
+    plt.figure()
+    plt.imshow(Data_input[idx])
+    plt.show()  # display it</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.data_loader.visualize_mnist"><code class="name flex">
+<span>def <span class="ident">visualize_mnist</span></span>(<span>Data_input, idx)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def visualize_mnist(Data_input,idx):
+    if idx&gt;len(Data_input)-1:
+       print(&#34;Out of index&#34;)
+       return 0
+    #reshaping back the dataset if the dataset shape is (len(data),1,28,28)
+    Data_input=Data_input.reshape(len(Data_input),1,28,28).transpose(0,2,3,1)
+    plt.figure()
+    plt.imshow(Data_input[idx])
+    plt.show()  # display it</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="nn13framework" href="../index.html">nn13framework</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="nn13framework.data_loader.download_save_cifar10" href="#nn13framework.data_loader.download_save_cifar10">download_save_cifar10</a></code></li>
+<li><code><a title="nn13framework.data_loader.download_save_mnist" href="#nn13framework.data_loader.download_save_mnist">download_save_mnist</a></code></li>
+<li><code><a title="nn13framework.data_loader.get_batch_XY" href="#nn13framework.data_loader.get_batch_XY">get_batch_XY</a></code></li>
+<li><code><a title="nn13framework.data_loader.get_batch_generator_XY" href="#nn13framework.data_loader.get_batch_generator_XY">get_batch_generator_XY</a></code></li>
+<li><code><a title="nn13framework.data_loader.init_norm" href="#nn13framework.data_loader.init_norm">init_norm</a></code></li>
+<li><code><a title="nn13framework.data_loader.init_standard" href="#nn13framework.data_loader.init_standard">init_standard</a></code></li>
+<li><code><a title="nn13framework.data_loader.load_mnist" href="#nn13framework.data_loader.load_mnist">load_mnist</a></code></li>
+<li><code><a title="nn13framework.data_loader.load_mnist_data" href="#nn13framework.data_loader.load_mnist_data">load_mnist_data</a></code></li>
+<li><code><a title="nn13framework.data_loader.one_hot" href="#nn13framework.data_loader.one_hot">one_hot</a></code></li>
+<li><code><a title="nn13framework.data_loader.shuffle_data" href="#nn13framework.data_loader.shuffle_data">shuffle_data</a></code></li>
+<li><code><a title="nn13framework.data_loader.train_test_split" href="#nn13framework.data_loader.train_test_split">train_test_split</a></code></li>
+<li><code><a title="nn13framework.data_loader.visualize_cifar" href="#nn13framework.data_loader.visualize_cifar">visualize_cifar</a></code></li>
+<li><code><a title="nn13framework.data_loader.visualize_mnist" href="#nn13framework.data_loader.visualize_mnist">visualize_mnist</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

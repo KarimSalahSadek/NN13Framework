@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: nn13framework
+Version: 0.0.6
+Summary: nn13framework
+Home-page: https://github.com/KarimSalahSadek/NN13Framework
+Author: Example Author
+Author-email: author@example.com
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: Deep_learning_frame_work
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

@@ -1,0 +1,2564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>nn13framework.neural_networks.layers API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>nn13framework.neural_networks.layers</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from nn13framework.neural_networks import activation_functions
+import numpy as np
+
+#Layer class , a model mainly consists of multiple objects of this class
+class layer:
+    pass
+
+#Network Layers
+class linear(layer):
+    &#34;&#34;&#34;
+        Also called dense or fully-connected layer
+        all input neurons are connected to all output neurons
+        
+        output = w_1 * input1 + w_2* input_2 + .... w_n*input_n
+    &#34;&#34;&#34;
+
+    def __init__(self,input_dim,output_dim, use_bias = True):
+        &#34;&#34;&#34;
+            input_dim: number of neurons in the previous layer
+            output_dim: number of neurons in the layer
+            use_bias: boolean value for whether or not a bias term is added
+        &#34;&#34;&#34;
+        self.layer_name = &#39;linear&#39;
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.layer_num = None
+        self.weight = None
+        self.use_bias = use_bias
+        self.is_activation = False
+        self.last_input = None
+        self.first_linear = False
+        
+    def forward(self,data_in):
+        &#34;&#34;&#34;
+            Data input must be a matrix of row vectors, each row vector is an example
+        &#34;&#34;&#34;
+        data_in = np.array(data_in)
+        if not self.first_linear:
+            data_in = np.array(data_in).T
+        if self.use_bias:
+            data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+        else:
+            data_out = np.dot(self.weight,data_in.T)
+        self.last_input = data_in
+
+        return data_out
+
+    def backward(self,grad_data_out):
+        &#34;&#34;&#34;
+        Returns grad of weight , grad of input data
+        &#34;&#34;&#34;
+        if self.use_bias:
+            grad_w = np.hstack((np.dot(grad_data_out,self.last_input),np.sum(grad_data_out,axis=1,keepdims=True)))
+            #grad w = dw + db = sigma (grad_out_i * in_i) + sigma (grad_out_i)
+        else:
+            grad_w = np.dot(grad_data_out,self.last_input)
+        grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out)
+        return grad_w , grad_data_in
+
+class linear_svm_output(layer):
+    &#34;&#34;&#34;
+        A modified version of the linear layer
+        Only works with svm_multiclass_loss and preceptron_criterion
+        This layer must always be the last linear layer in the network
+    &#34;&#34;&#34;
+    def __init__(self,input_dim,output_dim, use_bias = True):
+        &#34;&#34;&#34;
+            input_dim: number of neurons in the previous layer
+            output_dim: number of neurons in the layer
+            use_bias: boolean value for whether or not a bias term is added
+        &#34;&#34;&#34;
+        self.layer_name = &#39;linear_svm_output&#39;
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.layer_num = None
+        self.weight = None
+        self.use_bias = use_bias
+        self.is_activation = False
+        self.last_input = None
+        self.first_linear = False
+        
+    def forward(self,data_in):
+        &#34;&#34;&#34;
+            Data input must be a matrix of row vectors, each row vector is an example
+        &#34;&#34;&#34;
+        data_in = np.array(data_in)
+        if not self.first_linear:
+            data_in = np.array(data_in).T
+        if self.use_bias:
+            data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+        else:
+            data_out = np.dot(self.weight,data_in.T)
+        self.last_input = data_in
+
+        return data_out
+
+    def backward(self,grad_data_out):
+        &#34;&#34;&#34;
+        Returns grad of weight , grad of input data
+        &#34;&#34;&#34;
+        inp = self.last_input
+        delta = grad_data_out.T
+        
+        no_of_exp1,no_of_nodes_per_layer = delta.shape
+        no_of_exp2,no_of_weights_per_node = inp.shape
+        assert(no_of_exp1==no_of_exp2)
+
+        if (self.use_bias):
+            ones =np.eye(no_of_exp1) 
+            acc_bias = np.zeros((no_of_nodes_per_layer,no_of_exp1))
+            tensor2 = np.einsum(&#39;ij,ik-&gt;ijk&#39;,ones,delta)
+
+        acc_delta = np.zeros((no_of_nodes_per_layer,no_of_weights_per_node))
+        tensor1 = np.einsum(&#39;ij,ik-&gt;ijk&#39;, inp,delta)
+        for i in range(no_of_exp1):
+            acc_delta += np.transpose(tensor1[i])
+            if (self.use_bias):
+                acc_bias += np.transpose(tensor2[i]) 
+            
+        acc_delta = acc_delta / no_of_exp1
+
+        if (self.use_bias):
+            # add bias as last column
+            acc_bias =np.transpose(np.sum(acc_bias,axis=1)/no_of_exp1)
+            acc_delta = np.c_[acc_delta,acc_bias]
+
+        grad_w = acc_delta
+
+        delta = grad_data_out.T
+        weights = self.weight
+
+        delta = np.transpose(delta)
+        no_of_nodes_per_layer1,no_of_exp1, = delta.shape
+        no_of_nodes_per_layer2,no_of_weights_per_node = weights.shape
+
+        if (self.use_bias):
+            no_of_weights_per_node = no_of_weights_per_node - 1
+            weights = np.delete(weights,no_of_weights_per_node,axis=1)
+
+        acc_delta = np.zeros((no_of_exp1,no_of_weights_per_node))
+        tensor1 = np.einsum(&#39;ij,ik-&gt;ijk&#39;, weights,delta)
+        for i in range(no_of_nodes_per_layer1):
+            acc_delta += np.transpose(tensor1[i])
+        acc_delta = acc_delta / no_of_nodes_per_layer1
+
+        grad_data_in = acc_delta.T
+
+        return grad_w , grad_data_in
+
+class convolution(layer):
+    &#34;&#34;&#34;
+    initalization fn:
+
+    this fn is convolution inialization ,will take needed parameter for convolution (filter size,stride,padding
+    ,depth_out(number of filter) , depth_in (depth of image)
+    filter size must be integer or tuple of length 2
+    &#34;&#34;&#34;
+
+
+    def __init__(self, depth_in , depth_out, filter_size, stride, padding):
+        self.stride = stride
+        self.last_input = None
+        self.layer_name = &#39;convolution&#39;
+        self.layer_num = None
+        self.is_activation = False
+
+
+        self.n_filter =  depth_out
+
+        self.h_filter, self.w_filter = None , None
+        if type(filter_size) == type(int()):
+             self.h_filter = self.w_filter = filter_size
+        elif type(filter_size) == type(tuple()) and len(filter_size)==2:
+            self.h_filter, self.w_filter = filter_size
+        else:
+            raise Exception(&#34;Invalid filter size! Must be int() or tuple() of length 2!&#34;)
+        self.stride, self.padding = stride, padding
+
+        self.weight = None
+        self.d_X = depth_in
+        self.h_out = None
+        self.w_out = None
+
+
+    def forward(self, X):
+        &#34;&#34;&#34;
+        argument X: input images with width ,height, depth
+        return:out: weight with dimensions (dimension of self_col,1)
+        &#34;&#34;&#34;
+
+        self.last_input = X
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        self.h_out = (h_X - self.h_filter + 2 * self.padding) // self.stride + 1
+        self.w_out = (w_X - self.w_filter + 2 * self.padding) // self.stride + 1
+
+        self.X_col = im2col_indices(X, self.h_filter, self.w_filter, stride=self.stride, padding=self.padding)
+        W_row = self.weight.reshape(self.n_filter, -1)
+
+        out = W_row @ self.X_col
+        out = out.reshape(self.n_filter, self.h_out, self.w_out, n_X)
+        out = out.transpose(3, 0, 1, 2)
+        return out
+
+    def backward(self, dout):
+
+        &#34;&#34;&#34;
+        argument dout: derivative of out in forward fn
+        return: dw,dx
+        &#34;&#34;&#34;
+        dout_flat = dout.transpose(1, 2, 3, 0).reshape(self.n_filter, -1)
+        dW = dout_flat @ self.X_col.T
+        dW = dW.reshape(self.weight.shape)
+        W_flat = self.weight.reshape(self.n_filter, -1)
+        dX_col = W_flat.T @ dout_flat
+        shape = self.last_input.shape
+        dX = col2im_indices(dX_col, shape, self.h_filter,self.w_filter, self.padding, self.stride)
+        return dW , dX                                     
+                                    
+
+
+
+###########################################################################
+#Activation Layers
+class sigmoid(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;
+    def __init__(self):
+        self.layer_name = &#39;sigmoid&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.sigmoid(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.sigmoid(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class relu(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;relu&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.relu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.relu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class tanh(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;tanh&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.tanh(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.tanh(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class hard_tanh(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;hard_tanh&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.hard_tanh(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.hard_tanh(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class sign(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;sign&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.sign(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.sign(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class leaky_relu(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;leaky_relu&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.leaky_relu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.leaky_relu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+class elu(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;elu&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.elu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.elu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in
+
+
+class softmax(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;softmax&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        
+        data_out = activation_functions.softmax(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_data_in = []
+        d_out = data_out.T
+        inp = self.last_input.T
+        for i in range(d_out.shape[0]):
+            grad_data_in.append(np.multiply(d_out,inp))
+        grad_data_in = np.mean(grad_data_in,axis=0).T
+        return None , grad_data_in
+
+class dropout(layer):
+    &#34;&#34;&#34;
+        Turns off neurons randomly, each neuron has probability (1- keep_probability) to be turned off
+        Only works when the model is not working in evaluation mode
+    &#34;&#34;&#34;    
+    def __init__(self,keep_probability):
+        &#34;&#34;&#34;
+            keep_probability: constant fraction that determines the probability for keeping each neuron
+        &#34;&#34;&#34;
+        self.layer_name = &#34;dropout&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.p = keep_probability
+        self.prob_matrix = None
+        self.evaluate_mode = False
+        
+    def forward(self,data_in):
+        if self.evaluate_mode == False:
+            self.prob_matrix = np.random.binomial(1,self.p,size=data_in.shape)
+            prob = self.p
+        elif self.evaluate_mode:
+            self.prob_matrix = np.ones(data_in.shape)
+            prob = 1
+        data_out = np.multiply(data_in,self.prob_matrix)/prob
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_data_in = np.multiply(self.prob_matrix,data_out)
+        return None , grad_data_in
+
+
+class flatten(layer):
+    &#34;&#34;&#34;
+        Flattens the input but takes into account the batch size 
+    &#34;&#34;&#34;
+    def __init__(self):
+        self.layer_name = &#34;flatten&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.input_size = None
+        
+    def forward(self,data_in):
+        self.input_size = data_in.shape
+        data_out = np.reshape(data_in,(data_in.shape[0],-1))
+        return data_out
+
+    def backward(self,data_out):
+        grad_data_in = np.reshape(data_out,self.input_size)
+        return None , grad_data_in
+
+
+class max_pool(layer):
+    &#34;&#34;&#34;
+            this is initialization fn for max pooling
+            argument:filter size,stride
+    &#34;&#34;&#34;
+
+    def __init__(self, filter_size, stride):
+        self.layer_name = &#34;max_pool&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+
+        self.size = filter_size
+        self.stride = stride
+
+        self.h_out = None
+        self.w_out = None
+        
+
+    def forward(self, X):
+        &#34;&#34;&#34;
+            this is forward fn for max pooling
+            argument:x before max pooling 
+            return: out(x after max pooling)
+        &#34;&#34;&#34;
+        self.last_input = X
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        self.h_out = (h_X - self.size) // self.stride + 1
+        self.w_out = (w_X - self.size) // self.stride + 1
+
+        X_reshaped = X.reshape(X.shape[0] * X.shape[1], 1, X.shape[2], X.shape[3])
+
+        self.X_col = im2col_indices(X_reshaped, self.size, self.size, padding=0, stride=self.stride)
+
+        self.max_indices = np.argmax(self.X_col, axis=0)
+        out = self.X_col[self.max_indices, range(self.max_indices.size)]
+        out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
+        return out
+
+    
+
+    def backward(self, dout):
+        &#34;&#34;&#34;
+            this is backward fn in case of max pooling 
+            argument:data_out (that is calculated from forward fn)
+            return: None , dx
+
+        &#34;&#34;&#34;
+        X = self.last_input
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        dX_col = np.zeros_like(self.X_col)
+        # flatten the gradient
+        dout_flat = dout.transpose(2, 3, 0, 1).ravel()
+
+        dX_col[self.max_indices, range(self.max_indices.size)] = dout_flat
+
+        # get the original X_reshaped structure from col2im
+        shape = (n_X * d_X, 1, h_X, w_X)
+        dX = col2im_indices(dX_col, shape, self.size,self.size, padding=0, stride=self.stride)
+        dX = dX.reshape(n_X, d_X, h_X, w_X)
+        return None , dX
+
+class average_pool(layer):
+    &#34;&#34;&#34;
+        this is initialization fn for average pooling
+        argument:filter size,stride
+    &#34;&#34;&#34;
+
+    def __init__(self, filter_size, stride):
+        self.layer_name = &#34;average_pool&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+
+        self.size = filter_size
+        self.stride = stride
+
+        self.h_out = None
+        self.w_out = None
+
+        
+
+    def forward(self, X):
+        &#34;&#34;&#34;
+            this is forward fn for average pooling
+            argument:x before average pooling 
+            return: out(x after average pooling)
+        &#34;&#34;&#34;
+        self.last_input = X
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        self.h_out = (h_X - self.size) // self.stride + 1
+        self.w_out = (w_X - self.size) // self.stride + 1
+
+        X_reshaped = X.reshape(X.shape[0] * X.shape[1], 1, X.shape[2], X.shape[3])
+
+        self.X_col = im2col_indices(X_reshaped, self.size, self.size, padding=0, stride=self.stride)
+
+        self.indices = np.argmax(self.X_col, axis=0)
+
+        out = np.mean(self.X_col,axis=0)
+        out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
+        return out
+
+    
+
+    def backward(self, dout):
+        &#34;&#34;&#34;
+            this is backward fn in case of average pooling 
+            argument:data_out (that is calculated from forward fn)
+            return: None , dx
+
+        &#34;&#34;&#34;
+        X = self.last_input
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        dX_col = np.zeros_like(self.X_col)
+        # flatten the gradient
+        dout_flat = dout.transpose(2, 3, 0, 1).ravel()
+
+        dX_col[self.indices, range(self.indices.size)] = dout_flat
+
+        # get the original X_reshaped structure from col2im
+        shape = (n_X * d_X, 1, h_X, w_X)
+        dX = col2im_indices(dX_col, shape, self.size,self.size, padding=0, stride=self.stride)
+        dX = dX.reshape(n_X, d_X, h_X, w_X)
+        return None , dX
+
+
+
+def get_im2col_indices(x_shape, field_height=3, field_width=3, padding=1, stride=1):
+    &#34;&#34;&#34; 
+        NOT FOR DIRECT USAGE
+    &#34;&#34;&#34;
+    N, C, H, W = x_shape
+    assert (H + 2 * padding - field_height) % stride == 0
+    assert (W + 2 * padding - field_height) % stride == 0
+    out_height = (H + 2 * padding - field_height) / stride + 1
+    out_width = (W + 2 * padding - field_width) / stride + 1
+
+    i0 = np.repeat(np.arange(field_height,dtype=&#39;int32&#39;), field_width)
+    i0 = np.tile(i0, C)
+    i1 = stride * np.repeat(np.arange(out_height,dtype=&#39;int32&#39;), out_width)
+    j0 = np.tile(np.arange(field_width), field_height * C)
+    j1 = stride * np.tile(np.arange(out_width,dtype=&#39;int32&#39;), int(out_height))
+    i = i0.reshape(-1, 1) + i1.reshape(1, -1)
+    j = j0.reshape(-1, 1) + j1.reshape(1, -1)
+
+    k = np.repeat(np.arange(C,dtype=&#39;int32&#39;), field_height * field_width).reshape(-1, 1)
+
+    return (k, i, j)
+
+def im2col_indices(x, field_height=3, field_width=3, padding=1, stride=1):
+    &#34;&#34;&#34; 
+        NOT FOR DIRECT USAGE
+    &#34;&#34;&#34;
+    # Zero-pad the input
+    p = padding
+    x_padded = np.pad(x, ((0, 0), (0, 0), (p, p), (p, p)), mode=&#39;constant&#39;)
+
+    k, i, j = get_im2col_indices(x.shape, field_height, field_width, padding,stride)
+
+    cols = x_padded[:, k, i, j]
+    C = x.shape[1]
+    cols = cols.transpose(1, 2, 0).reshape(field_height * field_width * C, -1)
+    return cols
+
+
+def col2im_indices(cols, x_shape, field_height=3, field_width=3, padding=1,stride=1):
+    &#34;&#34;&#34; 
+        NOT FOR DIRECT USAGE
+    &#34;&#34;&#34;
+    N, C, H, W = x_shape
+    H_padded, W_padded = H + 2 * padding, W + 2 * padding
+    x_padded = np.zeros((N, C, H_padded, W_padded), dtype=cols.dtype)
+    k, i, j = get_im2col_indices(x_shape, field_height, field_width, padding,stride)
+    cols_reshaped = cols.reshape(C * field_height * field_width, -1, N)
+    cols_reshaped = cols_reshaped.transpose(2, 0, 1)
+    np.add.at(x_padded, (slice(None), k, i, j), cols_reshaped)
+    if padding == 0:
+        return x_padded
+    return x_padded[:, :, padding:-padding, padding:-padding]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="nn13framework.neural_networks.layers.col2im_indices"><code class="name flex">
+<span>def <span class="ident">col2im_indices</span></span>(<span>cols, x_shape, field_height=3, field_width=3, padding=1, stride=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>NOT FOR DIRECT USAGE</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def col2im_indices(cols, x_shape, field_height=3, field_width=3, padding=1,stride=1):
+    &#34;&#34;&#34; 
+        NOT FOR DIRECT USAGE
+    &#34;&#34;&#34;
+    N, C, H, W = x_shape
+    H_padded, W_padded = H + 2 * padding, W + 2 * padding
+    x_padded = np.zeros((N, C, H_padded, W_padded), dtype=cols.dtype)
+    k, i, j = get_im2col_indices(x_shape, field_height, field_width, padding,stride)
+    cols_reshaped = cols.reshape(C * field_height * field_width, -1, N)
+    cols_reshaped = cols_reshaped.transpose(2, 0, 1)
+    np.add.at(x_padded, (slice(None), k, i, j), cols_reshaped)
+    if padding == 0:
+        return x_padded
+    return x_padded[:, :, padding:-padding, padding:-padding]</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.get_im2col_indices"><code class="name flex">
+<span>def <span class="ident">get_im2col_indices</span></span>(<span>x_shape, field_height=3, field_width=3, padding=1, stride=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>NOT FOR DIRECT USAGE</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_im2col_indices(x_shape, field_height=3, field_width=3, padding=1, stride=1):
+    &#34;&#34;&#34; 
+        NOT FOR DIRECT USAGE
+    &#34;&#34;&#34;
+    N, C, H, W = x_shape
+    assert (H + 2 * padding - field_height) % stride == 0
+    assert (W + 2 * padding - field_height) % stride == 0
+    out_height = (H + 2 * padding - field_height) / stride + 1
+    out_width = (W + 2 * padding - field_width) / stride + 1
+
+    i0 = np.repeat(np.arange(field_height,dtype=&#39;int32&#39;), field_width)
+    i0 = np.tile(i0, C)
+    i1 = stride * np.repeat(np.arange(out_height,dtype=&#39;int32&#39;), out_width)
+    j0 = np.tile(np.arange(field_width), field_height * C)
+    j1 = stride * np.tile(np.arange(out_width,dtype=&#39;int32&#39;), int(out_height))
+    i = i0.reshape(-1, 1) + i1.reshape(1, -1)
+    j = j0.reshape(-1, 1) + j1.reshape(1, -1)
+
+    k = np.repeat(np.arange(C,dtype=&#39;int32&#39;), field_height * field_width).reshape(-1, 1)
+
+    return (k, i, j)</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.im2col_indices"><code class="name flex">
+<span>def <span class="ident">im2col_indices</span></span>(<span>x, field_height=3, field_width=3, padding=1, stride=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>NOT FOR DIRECT USAGE</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def im2col_indices(x, field_height=3, field_width=3, padding=1, stride=1):
+    &#34;&#34;&#34; 
+        NOT FOR DIRECT USAGE
+    &#34;&#34;&#34;
+    # Zero-pad the input
+    p = padding
+    x_padded = np.pad(x, ((0, 0), (0, 0), (p, p), (p, p)), mode=&#39;constant&#39;)
+
+    k, i, j = get_im2col_indices(x.shape, field_height, field_width, padding,stride)
+
+    cols = x_padded[:, k, i, j]
+    C = x.shape[1]
+    cols = cols.transpose(1, 2, 0).reshape(field_height * field_width * C, -1)
+    return cols</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="nn13framework.neural_networks.layers.average_pool"><code class="flex name class">
+<span>class <span class="ident">average_pool</span></span>
+<span>(</span><span>filter_size, stride)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for average pooling
+argument:filter size,stride</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class average_pool(layer):
+    &#34;&#34;&#34;
+        this is initialization fn for average pooling
+        argument:filter size,stride
+    &#34;&#34;&#34;
+
+    def __init__(self, filter_size, stride):
+        self.layer_name = &#34;average_pool&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+
+        self.size = filter_size
+        self.stride = stride
+
+        self.h_out = None
+        self.w_out = None
+
+        
+
+    def forward(self, X):
+        &#34;&#34;&#34;
+            this is forward fn for average pooling
+            argument:x before average pooling 
+            return: out(x after average pooling)
+        &#34;&#34;&#34;
+        self.last_input = X
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        self.h_out = (h_X - self.size) // self.stride + 1
+        self.w_out = (w_X - self.size) // self.stride + 1
+
+        X_reshaped = X.reshape(X.shape[0] * X.shape[1], 1, X.shape[2], X.shape[3])
+
+        self.X_col = im2col_indices(X_reshaped, self.size, self.size, padding=0, stride=self.stride)
+
+        self.indices = np.argmax(self.X_col, axis=0)
+
+        out = np.mean(self.X_col,axis=0)
+        out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
+        return out
+
+    
+
+    def backward(self, dout):
+        &#34;&#34;&#34;
+            this is backward fn in case of average pooling 
+            argument:data_out (that is calculated from forward fn)
+            return: None , dx
+
+        &#34;&#34;&#34;
+        X = self.last_input
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        dX_col = np.zeros_like(self.X_col)
+        # flatten the gradient
+        dout_flat = dout.transpose(2, 3, 0, 1).ravel()
+
+        dX_col[self.indices, range(self.indices.size)] = dout_flat
+
+        # get the original X_reshaped structure from col2im
+        shape = (n_X * d_X, 1, h_X, w_X)
+        dX = col2im_indices(dX_col, shape, self.size,self.size, padding=0, stride=self.stride)
+        dX = dX.reshape(n_X, d_X, h_X, w_X)
+        return None , dX</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.average_pool.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, dout)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is backward fn in case of average pooling
+argument:data_out (that is calculated from forward fn)
+return: None , dx</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self, dout):
+    &#34;&#34;&#34;
+        this is backward fn in case of average pooling 
+        argument:data_out (that is calculated from forward fn)
+        return: None , dx
+
+    &#34;&#34;&#34;
+    X = self.last_input
+    n_X = X.shape[0]
+    d_X = X.shape[1]
+    h_X = X.shape[2]
+    w_X = X.shape[3]
+
+    dX_col = np.zeros_like(self.X_col)
+    # flatten the gradient
+    dout_flat = dout.transpose(2, 3, 0, 1).ravel()
+
+    dX_col[self.indices, range(self.indices.size)] = dout_flat
+
+    # get the original X_reshaped structure from col2im
+    shape = (n_X * d_X, 1, h_X, w_X)
+    dX = col2im_indices(dX_col, shape, self.size,self.size, padding=0, stride=self.stride)
+    dX = dX.reshape(n_X, d_X, h_X, w_X)
+    return None , dX</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.average_pool.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, X)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is forward fn for average pooling
+argument:x before average pooling
+return: out(x after average pooling)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self, X):
+    &#34;&#34;&#34;
+        this is forward fn for average pooling
+        argument:x before average pooling 
+        return: out(x after average pooling)
+    &#34;&#34;&#34;
+    self.last_input = X
+    n_X = X.shape[0]
+    d_X = X.shape[1]
+    h_X = X.shape[2]
+    w_X = X.shape[3]
+
+    self.h_out = (h_X - self.size) // self.stride + 1
+    self.w_out = (w_X - self.size) // self.stride + 1
+
+    X_reshaped = X.reshape(X.shape[0] * X.shape[1], 1, X.shape[2], X.shape[3])
+
+    self.X_col = im2col_indices(X_reshaped, self.size, self.size, padding=0, stride=self.stride)
+
+    self.indices = np.argmax(self.X_col, axis=0)
+
+    out = np.mean(self.X_col,axis=0)
+    out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
+    return out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.convolution"><code class="flex name class">
+<span>class <span class="ident">convolution</span></span>
+<span>(</span><span>depth_in, depth_out, filter_size, stride, padding)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>initalization fn:</p>
+<p>this fn is convolution inialization ,will take needed parameter for convolution (filter size,stride,padding
+,depth_out(number of filter) , depth_in (depth of image)
+filter size must be integer or tuple of length 2</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class convolution(layer):
+    &#34;&#34;&#34;
+    initalization fn:
+
+    this fn is convolution inialization ,will take needed parameter for convolution (filter size,stride,padding
+    ,depth_out(number of filter) , depth_in (depth of image)
+    filter size must be integer or tuple of length 2
+    &#34;&#34;&#34;
+
+
+    def __init__(self, depth_in , depth_out, filter_size, stride, padding):
+        self.stride = stride
+        self.last_input = None
+        self.layer_name = &#39;convolution&#39;
+        self.layer_num = None
+        self.is_activation = False
+
+
+        self.n_filter =  depth_out
+
+        self.h_filter, self.w_filter = None , None
+        if type(filter_size) == type(int()):
+             self.h_filter = self.w_filter = filter_size
+        elif type(filter_size) == type(tuple()) and len(filter_size)==2:
+            self.h_filter, self.w_filter = filter_size
+        else:
+            raise Exception(&#34;Invalid filter size! Must be int() or tuple() of length 2!&#34;)
+        self.stride, self.padding = stride, padding
+
+        self.weight = None
+        self.d_X = depth_in
+        self.h_out = None
+        self.w_out = None
+
+
+    def forward(self, X):
+        &#34;&#34;&#34;
+        argument X: input images with width ,height, depth
+        return:out: weight with dimensions (dimension of self_col,1)
+        &#34;&#34;&#34;
+
+        self.last_input = X
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        self.h_out = (h_X - self.h_filter + 2 * self.padding) // self.stride + 1
+        self.w_out = (w_X - self.w_filter + 2 * self.padding) // self.stride + 1
+
+        self.X_col = im2col_indices(X, self.h_filter, self.w_filter, stride=self.stride, padding=self.padding)
+        W_row = self.weight.reshape(self.n_filter, -1)
+
+        out = W_row @ self.X_col
+        out = out.reshape(self.n_filter, self.h_out, self.w_out, n_X)
+        out = out.transpose(3, 0, 1, 2)
+        return out
+
+    def backward(self, dout):
+
+        &#34;&#34;&#34;
+        argument dout: derivative of out in forward fn
+        return: dw,dx
+        &#34;&#34;&#34;
+        dout_flat = dout.transpose(1, 2, 3, 0).reshape(self.n_filter, -1)
+        dW = dout_flat @ self.X_col.T
+        dW = dW.reshape(self.weight.shape)
+        W_flat = self.weight.reshape(self.n_filter, -1)
+        dX_col = W_flat.T @ dout_flat
+        shape = self.last_input.shape
+        dX = col2im_indices(dX_col, shape, self.h_filter,self.w_filter, self.padding, self.stride)
+        return dW , dX                                     </code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.convolution.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, dout)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>argument dout: derivative of out in forward fn
+return: dw,dx</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self, dout):
+
+    &#34;&#34;&#34;
+    argument dout: derivative of out in forward fn
+    return: dw,dx
+    &#34;&#34;&#34;
+    dout_flat = dout.transpose(1, 2, 3, 0).reshape(self.n_filter, -1)
+    dW = dout_flat @ self.X_col.T
+    dW = dW.reshape(self.weight.shape)
+    W_flat = self.weight.reshape(self.n_filter, -1)
+    dX_col = W_flat.T @ dout_flat
+    shape = self.last_input.shape
+    dX = col2im_indices(dX_col, shape, self.h_filter,self.w_filter, self.padding, self.stride)
+    return dW , dX                                     </code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.convolution.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, X)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>argument X: input images with width ,height, depth
+return:out: weight with dimensions (dimension of self_col,1)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self, X):
+    &#34;&#34;&#34;
+    argument X: input images with width ,height, depth
+    return:out: weight with dimensions (dimension of self_col,1)
+    &#34;&#34;&#34;
+
+    self.last_input = X
+    n_X = X.shape[0]
+    d_X = X.shape[1]
+    h_X = X.shape[2]
+    w_X = X.shape[3]
+
+    self.h_out = (h_X - self.h_filter + 2 * self.padding) // self.stride + 1
+    self.w_out = (w_X - self.w_filter + 2 * self.padding) // self.stride + 1
+
+    self.X_col = im2col_indices(X, self.h_filter, self.w_filter, stride=self.stride, padding=self.padding)
+    W_row = self.weight.reshape(self.n_filter, -1)
+
+    out = W_row @ self.X_col
+    out = out.reshape(self.n_filter, self.h_out, self.w_out, n_X)
+    out = out.transpose(3, 0, 1, 2)
+    return out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.dropout"><code class="flex name class">
+<span>class <span class="ident">dropout</span></span>
+<span>(</span><span>keep_probability)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Turns off neurons randomly, each neuron has probability (1- keep_probability) to be turned off
+Only works when the model is not working in evaluation mode</p>
+<p>keep_probability: constant fraction that determines the probability for keeping each neuron</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class dropout(layer):
+    &#34;&#34;&#34;
+        Turns off neurons randomly, each neuron has probability (1- keep_probability) to be turned off
+        Only works when the model is not working in evaluation mode
+    &#34;&#34;&#34;    
+    def __init__(self,keep_probability):
+        &#34;&#34;&#34;
+            keep_probability: constant fraction that determines the probability for keeping each neuron
+        &#34;&#34;&#34;
+        self.layer_name = &#34;dropout&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.p = keep_probability
+        self.prob_matrix = None
+        self.evaluate_mode = False
+        
+    def forward(self,data_in):
+        if self.evaluate_mode == False:
+            self.prob_matrix = np.random.binomial(1,self.p,size=data_in.shape)
+            prob = self.p
+        elif self.evaluate_mode:
+            self.prob_matrix = np.ones(data_in.shape)
+            prob = 1
+        data_out = np.multiply(data_in,self.prob_matrix)/prob
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_data_in = np.multiply(self.prob_matrix,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.dropout.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_data_in = np.multiply(self.prob_matrix,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.dropout.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    if self.evaluate_mode == False:
+        self.prob_matrix = np.random.binomial(1,self.p,size=data_in.shape)
+        prob = self.p
+    elif self.evaluate_mode:
+        self.prob_matrix = np.ones(data_in.shape)
+        prob = 1
+    data_out = np.multiply(data_in,self.prob_matrix)/prob
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.elu"><code class="flex name class">
+<span>class <span class="ident">elu</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class elu(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;elu&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.elu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.elu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.elu.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.elu(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.elu.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.elu(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.flatten"><code class="flex name class">
+<span>class <span class="ident">flatten</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Flattens the input but takes into account the batch size</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class flatten(layer):
+    &#34;&#34;&#34;
+        Flattens the input but takes into account the batch size 
+    &#34;&#34;&#34;
+    def __init__(self):
+        self.layer_name = &#34;flatten&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        self.input_size = None
+        
+    def forward(self,data_in):
+        self.input_size = data_in.shape
+        data_out = np.reshape(data_in,(data_in.shape[0],-1))
+        return data_out
+
+    def backward(self,data_out):
+        grad_data_in = np.reshape(data_out,self.input_size)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.flatten.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    grad_data_in = np.reshape(data_out,self.input_size)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.flatten.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.input_size = data_in.shape
+    data_out = np.reshape(data_in,(data_in.shape[0],-1))
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.hard_tanh"><code class="flex name class">
+<span>class <span class="ident">hard_tanh</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class hard_tanh(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;hard_tanh&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.hard_tanh(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.hard_tanh(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.hard_tanh.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.hard_tanh(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.hard_tanh.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.hard_tanh(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.layer"><code class="flex name class">
+<span>class <span class="ident">layer</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class layer:
+    pass</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.average_pool" href="#nn13framework.neural_networks.layers.average_pool">average_pool</a></li>
+<li><a title="nn13framework.neural_networks.layers.convolution" href="#nn13framework.neural_networks.layers.convolution">convolution</a></li>
+<li><a title="nn13framework.neural_networks.layers.dropout" href="#nn13framework.neural_networks.layers.dropout">dropout</a></li>
+<li><a title="nn13framework.neural_networks.layers.elu" href="#nn13framework.neural_networks.layers.elu">elu</a></li>
+<li><a title="nn13framework.neural_networks.layers.flatten" href="#nn13framework.neural_networks.layers.flatten">flatten</a></li>
+<li><a title="nn13framework.neural_networks.layers.hard_tanh" href="#nn13framework.neural_networks.layers.hard_tanh">hard_tanh</a></li>
+<li><a title="nn13framework.neural_networks.layers.leaky_relu" href="#nn13framework.neural_networks.layers.leaky_relu">leaky_relu</a></li>
+<li><a title="nn13framework.neural_networks.layers.linear" href="#nn13framework.neural_networks.layers.linear">linear</a></li>
+<li><a title="nn13framework.neural_networks.layers.linear_svm_output" href="#nn13framework.neural_networks.layers.linear_svm_output">linear_svm_output</a></li>
+<li><a title="nn13framework.neural_networks.layers.max_pool" href="#nn13framework.neural_networks.layers.max_pool">max_pool</a></li>
+<li><a title="nn13framework.neural_networks.layers.relu" href="#nn13framework.neural_networks.layers.relu">relu</a></li>
+<li><a title="nn13framework.neural_networks.layers.sigmoid" href="#nn13framework.neural_networks.layers.sigmoid">sigmoid</a></li>
+<li><a title="nn13framework.neural_networks.layers.sign" href="#nn13framework.neural_networks.layers.sign">sign</a></li>
+<li><a title="nn13framework.neural_networks.layers.softmax" href="#nn13framework.neural_networks.layers.softmax">softmax</a></li>
+<li><a title="nn13framework.neural_networks.layers.tanh" href="#nn13framework.neural_networks.layers.tanh">tanh</a></li>
+</ul>
+</dd>
+<dt id="nn13framework.neural_networks.layers.leaky_relu"><code class="flex name class">
+<span>class <span class="ident">leaky_relu</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class leaky_relu(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;leaky_relu&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.leaky_relu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.leaky_relu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.leaky_relu.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.leaky_relu(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.leaky_relu.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.leaky_relu(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.linear"><code class="flex name class">
+<span>class <span class="ident">linear</span></span>
+<span>(</span><span>input_dim, output_dim, use_bias=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Also called dense or fully-connected layer
+all input neurons are connected to all output neurons</p>
+<p>output = w_1 * input1 + w_2<em> input_2 + .... w_n</em>input_n</p>
+<p>input_dim: number of neurons in the previous layer
+output_dim: number of neurons in the layer
+use_bias: boolean value for whether or not a bias term is added</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class linear(layer):
+    &#34;&#34;&#34;
+        Also called dense or fully-connected layer
+        all input neurons are connected to all output neurons
+        
+        output = w_1 * input1 + w_2* input_2 + .... w_n*input_n
+    &#34;&#34;&#34;
+
+    def __init__(self,input_dim,output_dim, use_bias = True):
+        &#34;&#34;&#34;
+            input_dim: number of neurons in the previous layer
+            output_dim: number of neurons in the layer
+            use_bias: boolean value for whether or not a bias term is added
+        &#34;&#34;&#34;
+        self.layer_name = &#39;linear&#39;
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.layer_num = None
+        self.weight = None
+        self.use_bias = use_bias
+        self.is_activation = False
+        self.last_input = None
+        self.first_linear = False
+        
+    def forward(self,data_in):
+        &#34;&#34;&#34;
+            Data input must be a matrix of row vectors, each row vector is an example
+        &#34;&#34;&#34;
+        data_in = np.array(data_in)
+        if not self.first_linear:
+            data_in = np.array(data_in).T
+        if self.use_bias:
+            data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+        else:
+            data_out = np.dot(self.weight,data_in.T)
+        self.last_input = data_in
+
+        return data_out
+
+    def backward(self,grad_data_out):
+        &#34;&#34;&#34;
+        Returns grad of weight , grad of input data
+        &#34;&#34;&#34;
+        if self.use_bias:
+            grad_w = np.hstack((np.dot(grad_data_out,self.last_input),np.sum(grad_data_out,axis=1,keepdims=True)))
+            #grad w = dw + db = sigma (grad_out_i * in_i) + sigma (grad_out_i)
+        else:
+            grad_w = np.dot(grad_data_out,self.last_input)
+        grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out)
+        return grad_w , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.linear.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, grad_data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns grad of weight , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,grad_data_out):
+    &#34;&#34;&#34;
+    Returns grad of weight , grad of input data
+    &#34;&#34;&#34;
+    if self.use_bias:
+        grad_w = np.hstack((np.dot(grad_data_out,self.last_input),np.sum(grad_data_out,axis=1,keepdims=True)))
+        #grad w = dw + db = sigma (grad_out_i * in_i) + sigma (grad_out_i)
+    else:
+        grad_w = np.dot(grad_data_out,self.last_input)
+    grad_data_in = np.dot(self.weight[:,:-1].T,grad_data_out)
+    return grad_w , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.linear.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data input must be a matrix of row vectors, each row vector is an example</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    &#34;&#34;&#34;
+        Data input must be a matrix of row vectors, each row vector is an example
+    &#34;&#34;&#34;
+    data_in = np.array(data_in)
+    if not self.first_linear:
+        data_in = np.array(data_in).T
+    if self.use_bias:
+        data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+    else:
+        data_out = np.dot(self.weight,data_in.T)
+    self.last_input = data_in
+
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.linear_svm_output"><code class="flex name class">
+<span>class <span class="ident">linear_svm_output</span></span>
+<span>(</span><span>input_dim, output_dim, use_bias=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A modified version of the linear layer
+Only works with svm_multiclass_loss and preceptron_criterion
+This layer must always be the last linear layer in the network</p>
+<p>input_dim: number of neurons in the previous layer
+output_dim: number of neurons in the layer
+use_bias: boolean value for whether or not a bias term is added</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class linear_svm_output(layer):
+    &#34;&#34;&#34;
+        A modified version of the linear layer
+        Only works with svm_multiclass_loss and preceptron_criterion
+        This layer must always be the last linear layer in the network
+    &#34;&#34;&#34;
+    def __init__(self,input_dim,output_dim, use_bias = True):
+        &#34;&#34;&#34;
+            input_dim: number of neurons in the previous layer
+            output_dim: number of neurons in the layer
+            use_bias: boolean value for whether or not a bias term is added
+        &#34;&#34;&#34;
+        self.layer_name = &#39;linear_svm_output&#39;
+        self.input_dim = input_dim
+        self.output_dim = output_dim
+        self.layer_num = None
+        self.weight = None
+        self.use_bias = use_bias
+        self.is_activation = False
+        self.last_input = None
+        self.first_linear = False
+        
+    def forward(self,data_in):
+        &#34;&#34;&#34;
+            Data input must be a matrix of row vectors, each row vector is an example
+        &#34;&#34;&#34;
+        data_in = np.array(data_in)
+        if not self.first_linear:
+            data_in = np.array(data_in).T
+        if self.use_bias:
+            data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+        else:
+            data_out = np.dot(self.weight,data_in.T)
+        self.last_input = data_in
+
+        return data_out
+
+    def backward(self,grad_data_out):
+        &#34;&#34;&#34;
+        Returns grad of weight , grad of input data
+        &#34;&#34;&#34;
+        inp = self.last_input
+        delta = grad_data_out.T
+        
+        no_of_exp1,no_of_nodes_per_layer = delta.shape
+        no_of_exp2,no_of_weights_per_node = inp.shape
+        assert(no_of_exp1==no_of_exp2)
+
+        if (self.use_bias):
+            ones =np.eye(no_of_exp1) 
+            acc_bias = np.zeros((no_of_nodes_per_layer,no_of_exp1))
+            tensor2 = np.einsum(&#39;ij,ik-&gt;ijk&#39;,ones,delta)
+
+        acc_delta = np.zeros((no_of_nodes_per_layer,no_of_weights_per_node))
+        tensor1 = np.einsum(&#39;ij,ik-&gt;ijk&#39;, inp,delta)
+        for i in range(no_of_exp1):
+            acc_delta += np.transpose(tensor1[i])
+            if (self.use_bias):
+                acc_bias += np.transpose(tensor2[i]) 
+            
+        acc_delta = acc_delta / no_of_exp1
+
+        if (self.use_bias):
+            # add bias as last column
+            acc_bias =np.transpose(np.sum(acc_bias,axis=1)/no_of_exp1)
+            acc_delta = np.c_[acc_delta,acc_bias]
+
+        grad_w = acc_delta
+
+        delta = grad_data_out.T
+        weights = self.weight
+
+        delta = np.transpose(delta)
+        no_of_nodes_per_layer1,no_of_exp1, = delta.shape
+        no_of_nodes_per_layer2,no_of_weights_per_node = weights.shape
+
+        if (self.use_bias):
+            no_of_weights_per_node = no_of_weights_per_node - 1
+            weights = np.delete(weights,no_of_weights_per_node,axis=1)
+
+        acc_delta = np.zeros((no_of_exp1,no_of_weights_per_node))
+        tensor1 = np.einsum(&#39;ij,ik-&gt;ijk&#39;, weights,delta)
+        for i in range(no_of_nodes_per_layer1):
+            acc_delta += np.transpose(tensor1[i])
+        acc_delta = acc_delta / no_of_nodes_per_layer1
+
+        grad_data_in = acc_delta.T
+
+        return grad_w , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.linear_svm_output.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, grad_data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns grad of weight , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,grad_data_out):
+    &#34;&#34;&#34;
+    Returns grad of weight , grad of input data
+    &#34;&#34;&#34;
+    inp = self.last_input
+    delta = grad_data_out.T
+    
+    no_of_exp1,no_of_nodes_per_layer = delta.shape
+    no_of_exp2,no_of_weights_per_node = inp.shape
+    assert(no_of_exp1==no_of_exp2)
+
+    if (self.use_bias):
+        ones =np.eye(no_of_exp1) 
+        acc_bias = np.zeros((no_of_nodes_per_layer,no_of_exp1))
+        tensor2 = np.einsum(&#39;ij,ik-&gt;ijk&#39;,ones,delta)
+
+    acc_delta = np.zeros((no_of_nodes_per_layer,no_of_weights_per_node))
+    tensor1 = np.einsum(&#39;ij,ik-&gt;ijk&#39;, inp,delta)
+    for i in range(no_of_exp1):
+        acc_delta += np.transpose(tensor1[i])
+        if (self.use_bias):
+            acc_bias += np.transpose(tensor2[i]) 
+        
+    acc_delta = acc_delta / no_of_exp1
+
+    if (self.use_bias):
+        # add bias as last column
+        acc_bias =np.transpose(np.sum(acc_bias,axis=1)/no_of_exp1)
+        acc_delta = np.c_[acc_delta,acc_bias]
+
+    grad_w = acc_delta
+
+    delta = grad_data_out.T
+    weights = self.weight
+
+    delta = np.transpose(delta)
+    no_of_nodes_per_layer1,no_of_exp1, = delta.shape
+    no_of_nodes_per_layer2,no_of_weights_per_node = weights.shape
+
+    if (self.use_bias):
+        no_of_weights_per_node = no_of_weights_per_node - 1
+        weights = np.delete(weights,no_of_weights_per_node,axis=1)
+
+    acc_delta = np.zeros((no_of_exp1,no_of_weights_per_node))
+    tensor1 = np.einsum(&#39;ij,ik-&gt;ijk&#39;, weights,delta)
+    for i in range(no_of_nodes_per_layer1):
+        acc_delta += np.transpose(tensor1[i])
+    acc_delta = acc_delta / no_of_nodes_per_layer1
+
+    grad_data_in = acc_delta.T
+
+    return grad_w , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.linear_svm_output.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Data input must be a matrix of row vectors, each row vector is an example</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    &#34;&#34;&#34;
+        Data input must be a matrix of row vectors, each row vector is an example
+    &#34;&#34;&#34;
+    data_in = np.array(data_in)
+    if not self.first_linear:
+        data_in = np.array(data_in).T
+    if self.use_bias:
+        data_out = np.dot(self.weight[:,:-1],data_in.T) + np.array([self.weight[:,-1]]).T #bias
+    else:
+        data_out = np.dot(self.weight,data_in.T)
+    self.last_input = data_in
+
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.max_pool"><code class="flex name class">
+<span>class <span class="ident">max_pool</span></span>
+<span>(</span><span>filter_size, stride)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for max pooling
+argument:filter size,stride</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class max_pool(layer):
+    &#34;&#34;&#34;
+            this is initialization fn for max pooling
+            argument:filter size,stride
+    &#34;&#34;&#34;
+
+    def __init__(self, filter_size, stride):
+        self.layer_name = &#34;max_pool&#34;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+
+        self.size = filter_size
+        self.stride = stride
+
+        self.h_out = None
+        self.w_out = None
+        
+
+    def forward(self, X):
+        &#34;&#34;&#34;
+            this is forward fn for max pooling
+            argument:x before max pooling 
+            return: out(x after max pooling)
+        &#34;&#34;&#34;
+        self.last_input = X
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        self.h_out = (h_X - self.size) // self.stride + 1
+        self.w_out = (w_X - self.size) // self.stride + 1
+
+        X_reshaped = X.reshape(X.shape[0] * X.shape[1], 1, X.shape[2], X.shape[3])
+
+        self.X_col = im2col_indices(X_reshaped, self.size, self.size, padding=0, stride=self.stride)
+
+        self.max_indices = np.argmax(self.X_col, axis=0)
+        out = self.X_col[self.max_indices, range(self.max_indices.size)]
+        out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
+        return out
+
+    
+
+    def backward(self, dout):
+        &#34;&#34;&#34;
+            this is backward fn in case of max pooling 
+            argument:data_out (that is calculated from forward fn)
+            return: None , dx
+
+        &#34;&#34;&#34;
+        X = self.last_input
+        n_X = X.shape[0]
+        d_X = X.shape[1]
+        h_X = X.shape[2]
+        w_X = X.shape[3]
+
+        dX_col = np.zeros_like(self.X_col)
+        # flatten the gradient
+        dout_flat = dout.transpose(2, 3, 0, 1).ravel()
+
+        dX_col[self.max_indices, range(self.max_indices.size)] = dout_flat
+
+        # get the original X_reshaped structure from col2im
+        shape = (n_X * d_X, 1, h_X, w_X)
+        dX = col2im_indices(dX_col, shape, self.size,self.size, padding=0, stride=self.stride)
+        dX = dX.reshape(n_X, d_X, h_X, w_X)
+        return None , dX</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.max_pool.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, dout)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is backward fn in case of max pooling
+argument:data_out (that is calculated from forward fn)
+return: None , dx</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self, dout):
+    &#34;&#34;&#34;
+        this is backward fn in case of max pooling 
+        argument:data_out (that is calculated from forward fn)
+        return: None , dx
+
+    &#34;&#34;&#34;
+    X = self.last_input
+    n_X = X.shape[0]
+    d_X = X.shape[1]
+    h_X = X.shape[2]
+    w_X = X.shape[3]
+
+    dX_col = np.zeros_like(self.X_col)
+    # flatten the gradient
+    dout_flat = dout.transpose(2, 3, 0, 1).ravel()
+
+    dX_col[self.max_indices, range(self.max_indices.size)] = dout_flat
+
+    # get the original X_reshaped structure from col2im
+    shape = (n_X * d_X, 1, h_X, w_X)
+    dX = col2im_indices(dX_col, shape, self.size,self.size, padding=0, stride=self.stride)
+    dX = dX.reshape(n_X, d_X, h_X, w_X)
+    return None , dX</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.max_pool.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, X)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is forward fn for max pooling
+argument:x before max pooling
+return: out(x after max pooling)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self, X):
+    &#34;&#34;&#34;
+        this is forward fn for max pooling
+        argument:x before max pooling 
+        return: out(x after max pooling)
+    &#34;&#34;&#34;
+    self.last_input = X
+    n_X = X.shape[0]
+    d_X = X.shape[1]
+    h_X = X.shape[2]
+    w_X = X.shape[3]
+
+    self.h_out = (h_X - self.size) // self.stride + 1
+    self.w_out = (w_X - self.size) // self.stride + 1
+
+    X_reshaped = X.reshape(X.shape[0] * X.shape[1], 1, X.shape[2], X.shape[3])
+
+    self.X_col = im2col_indices(X_reshaped, self.size, self.size, padding=0, stride=self.stride)
+
+    self.max_indices = np.argmax(self.X_col, axis=0)
+    out = self.X_col[self.max_indices, range(self.max_indices.size)]
+    out = out.reshape(self.h_out, self.w_out, n_X,d_X).transpose(2, 3, 0, 1)
+    return out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.relu"><code class="flex name class">
+<span>class <span class="ident">relu</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class relu(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;relu&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.relu(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.relu(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.relu.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.relu(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.relu.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.relu(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.sigmoid"><code class="flex name class">
+<span>class <span class="ident">sigmoid</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class sigmoid(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;
+    def __init__(self):
+        self.layer_name = &#39;sigmoid&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.sigmoid(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.sigmoid(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.sigmoid.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.sigmoid(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.sigmoid.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.sigmoid(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.sign"><code class="flex name class">
+<span>class <span class="ident">sign</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class sign(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;sign&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.sign(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.sign(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.sign.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.sign(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.sign.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.sign(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.softmax"><code class="flex name class">
+<span>class <span class="ident">softmax</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class softmax(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;softmax&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        
+        data_out = activation_functions.softmax(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_data_in = []
+        d_out = data_out.T
+        inp = self.last_input.T
+        for i in range(d_out.shape[0]):
+            grad_data_in.append(np.multiply(d_out,inp))
+        grad_data_in = np.mean(grad_data_in,axis=0).T
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.softmax.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_data_in = []
+    d_out = data_out.T
+    inp = self.last_input.T
+    for i in range(d_out.shape[0]):
+        grad_data_in.append(np.multiply(d_out,inp))
+    grad_data_in = np.mean(grad_data_in,axis=0).T
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.softmax.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    
+    data_out = activation_functions.softmax(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.neural_networks.layers.tanh"><code class="flex name class">
+<span>class <span class="ident">tanh</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A layer that utilizes this activation function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class tanh(layer):
+    &#34;&#34;&#34;
+        A layer that utilizes this activation function
+    &#34;&#34;&#34;    
+    def __init__(self):
+        self.layer_name = &#39;tanh&#39;
+        self.layer_num = None
+        self.weight = None
+        self.is_activation = True
+        self.last_input = None
+        
+    def forward(self,data_in):
+        self.last_input = data_in
+        data_out = activation_functions.tanh(data_in)
+        return data_out
+
+    def backward(self,data_out):
+        &#34;&#34;&#34;
+        Returns None , grad of input data
+        &#34;&#34;&#34;
+        grad_z = activation_functions.tanh(self.last_input,grad=True)
+        assert(grad_z.shape == data_out.shape)
+        grad_data_in = np.multiply(grad_z,data_out)
+        return None , grad_data_in</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.neural_networks.layers.tanh.backward"><code class="name flex">
+<span>def <span class="ident">backward</span></span>(<span>self, data_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns None , grad of input data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def backward(self,data_out):
+    &#34;&#34;&#34;
+    Returns None , grad of input data
+    &#34;&#34;&#34;
+    grad_z = activation_functions.tanh(self.last_input,grad=True)
+    assert(grad_z.shape == data_out.shape)
+    grad_data_in = np.multiply(grad_z,data_out)
+    return None , grad_data_in</code></pre>
+</details>
+</dd>
+<dt id="nn13framework.neural_networks.layers.tanh.forward"><code class="name flex">
+<span>def <span class="ident">forward</span></span>(<span>self, data_in)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def forward(self,data_in):
+    self.last_input = data_in
+    data_out = activation_functions.tanh(data_in)
+    return data_out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="nn13framework.neural_networks" href="../index.html">nn13framework.neural_networks</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.col2im_indices" href="#nn13framework.neural_networks.layers.col2im_indices">col2im_indices</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.get_im2col_indices" href="#nn13framework.neural_networks.layers.get_im2col_indices">get_im2col_indices</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.im2col_indices" href="#nn13framework.neural_networks.layers.im2col_indices">im2col_indices</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.average_pool" href="#nn13framework.neural_networks.layers.average_pool">average_pool</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.average_pool.backward" href="#nn13framework.neural_networks.layers.average_pool.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.average_pool.forward" href="#nn13framework.neural_networks.layers.average_pool.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.convolution" href="#nn13framework.neural_networks.layers.convolution">convolution</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.convolution.backward" href="#nn13framework.neural_networks.layers.convolution.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.convolution.forward" href="#nn13framework.neural_networks.layers.convolution.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.dropout" href="#nn13framework.neural_networks.layers.dropout">dropout</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.dropout.backward" href="#nn13framework.neural_networks.layers.dropout.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.dropout.forward" href="#nn13framework.neural_networks.layers.dropout.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.elu" href="#nn13framework.neural_networks.layers.elu">elu</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.elu.backward" href="#nn13framework.neural_networks.layers.elu.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.elu.forward" href="#nn13framework.neural_networks.layers.elu.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.flatten" href="#nn13framework.neural_networks.layers.flatten">flatten</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.flatten.backward" href="#nn13framework.neural_networks.layers.flatten.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.flatten.forward" href="#nn13framework.neural_networks.layers.flatten.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.hard_tanh" href="#nn13framework.neural_networks.layers.hard_tanh">hard_tanh</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.hard_tanh.backward" href="#nn13framework.neural_networks.layers.hard_tanh.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.hard_tanh.forward" href="#nn13framework.neural_networks.layers.hard_tanh.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.layer" href="#nn13framework.neural_networks.layers.layer">layer</a></code></h4>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.leaky_relu" href="#nn13framework.neural_networks.layers.leaky_relu">leaky_relu</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.leaky_relu.backward" href="#nn13framework.neural_networks.layers.leaky_relu.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.leaky_relu.forward" href="#nn13framework.neural_networks.layers.leaky_relu.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.linear" href="#nn13framework.neural_networks.layers.linear">linear</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.linear.backward" href="#nn13framework.neural_networks.layers.linear.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.linear.forward" href="#nn13framework.neural_networks.layers.linear.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.linear_svm_output" href="#nn13framework.neural_networks.layers.linear_svm_output">linear_svm_output</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.linear_svm_output.backward" href="#nn13framework.neural_networks.layers.linear_svm_output.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.linear_svm_output.forward" href="#nn13framework.neural_networks.layers.linear_svm_output.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.max_pool" href="#nn13framework.neural_networks.layers.max_pool">max_pool</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.max_pool.backward" href="#nn13framework.neural_networks.layers.max_pool.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.max_pool.forward" href="#nn13framework.neural_networks.layers.max_pool.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.relu" href="#nn13framework.neural_networks.layers.relu">relu</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.relu.backward" href="#nn13framework.neural_networks.layers.relu.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.relu.forward" href="#nn13framework.neural_networks.layers.relu.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.sigmoid" href="#nn13framework.neural_networks.layers.sigmoid">sigmoid</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.sigmoid.backward" href="#nn13framework.neural_networks.layers.sigmoid.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.sigmoid.forward" href="#nn13framework.neural_networks.layers.sigmoid.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.sign" href="#nn13framework.neural_networks.layers.sign">sign</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.sign.backward" href="#nn13framework.neural_networks.layers.sign.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.sign.forward" href="#nn13framework.neural_networks.layers.sign.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.softmax" href="#nn13framework.neural_networks.layers.softmax">softmax</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.softmax.backward" href="#nn13framework.neural_networks.layers.softmax.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.softmax.forward" href="#nn13framework.neural_networks.layers.softmax.forward">forward</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.neural_networks.layers.tanh" href="#nn13framework.neural_networks.layers.tanh">tanh</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.neural_networks.layers.tanh.backward" href="#nn13framework.neural_networks.layers.tanh.backward">backward</a></code></li>
+<li><code><a title="nn13framework.neural_networks.layers.tanh.forward" href="#nn13framework.neural_networks.layers.tanh.forward">forward</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

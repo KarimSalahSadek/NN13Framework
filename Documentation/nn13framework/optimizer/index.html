@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>nn13framework.optimizer API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>nn13framework.optimizer</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+
+class optimizer:
+    pass
+
+class SGD(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for SGD
+    argument: model, loss_fn, learning_rate, batch_size
+    &#34;&#34;&#34;
+ 
+    def __init__(self, model,loss_fn, learning_rate):
+        self.learning_rate = learning_rate
+        self.batch_size = None
+        self.model = model
+        self.loss_fn= loss_fn
+                
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to mini batch gradient descent
+        &#34;&#34;&#34;
+        self.batch_size = self.model.layers[0].last_input.shape[0]
+        grad_loss=self.loss_fn.backward()
+        last_dx = grad_loss.T
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+            # Update Rule
+            if self.model.layers[i].is_activation:
+                continue
+            self.model.layers[i].weight -= (self.learning_rate * dw / self.batch_size )  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+        
+        
+
+class momuntum(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for momentum
+    argument: model, loss_fn, learning_rate, beta
+    &#34;&#34;&#34;
+
+    def __init__(self, model,loss_fn, learning_rate,beta=0.9):
+        self.loss_fn = loss_fn
+        self.learning_rate = learning_rate
+        self.beta = beta
+        self.model = model
+        self.v = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.v.append(np.zeros_like(self.model.layers[i].weight))  # set v =0 in all layers
+
+
+
+
+
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to momentum
+        &#34;&#34;&#34;
+        grad_loss=self.loss_fn.backward()
+        last_dx = grad_loss.T
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+            # Update Rule
+            if self.model.layers[i].is_activation:
+                continue
+            self.v[i] = (self.beta * self.v[i]) - self.learning_rate * dw
+            self.model.layers[i].weight += self.v[i]  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+
+
+
+
+class adagrad(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for adagrad
+    argument: model, loss_fn, learning_rate, epsilon
+    &#34;&#34;&#34;
+
+    def __init__(self, model,loss_fn, learning_rate,epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon=epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+                        
+                        
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to adagrad
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+            self.s[i] +=   np.power(dw, 2)#Ai accumelator
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+                
+                
+                
+
+
+
+
+class RMSprop(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for RMSprop
+    argument: model, loss_fn, learning_rate, epsilon
+    &#34;&#34;&#34;
+
+
+    def __init__(self, model,loss_fn, learning_rate,epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon=epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+                        
+                
+
+
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to RMS
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+            self.s[i] =(self.learning_rate *self.s[i]) + (1-self.learning_rate)*np.power(dw, 2)#Ai accumelator
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+
+
+
+
+class adadelta(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for adadelta
+    argument: model, loss_fn, learning_rate, epsilon
+    &#34;&#34;&#34;
+
+    def __init__(self, model, loss_fn, learning_rate, epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon = epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        self.si = []
+        L = len(self.model.layers)
+        for i in range(L):
+            self.s.append(np.ones_like(self.model.layers[i].weight))
+            self.si.append(np.ones_like(self.model.layers[i].weight))
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to adadelta
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+            self.s[i] = self.learning_rate * (self.s[i]) + (1 - self.learning_rate) * dw ** 2  # Ai
+
+            self.dwi = dw * ((np.sqrt(self.epsilon + self.si[i])) / (np.sqrt(self.epsilon + self.s[i])))  # delta wi
+
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.dwi) * self.learning_rate  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+            # Update decays d
+            self.si[i] = self.learning_rate * (self.si[i]) + (1 - self.learning_rate) * self.dwi ** 2
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+                
+        
+                
+                
+
+
+class adam(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for adam
+    argument: model, loss_fn, learning_rate, beta1,beta2,epsilon
+    &#34;&#34;&#34;
+
+    def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8):
+
+        self.learning_rate = learning_rate
+        self.model = model
+        self.beta1 = beta1
+        self.beta2 = beta2
+        self.epsilon=epsilon
+        self.loss_fn = loss_fn
+        self.v = []
+        self.s = []
+        self.v_corrected = []
+        self.s_corrected = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.v.append(np.zeros_like(self.model.layers[i].weight))  # set v =0 in all layers
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+            self.v_corrected.append(np.zeros_like(self.model.layers[i].weight))
+            self.s_corrected.append(np.zeros_like(self.model.layers[i].weight))
+                        
+                        
+                        
+
+        
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to adam
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+            # Update Rule
+            if self.model.layers[i].is_activation:
+                continue
+            # Moving average of the gradients. Inputs: &#34;v, grads, beta1&#34;. Output: &#34;v&#34;.
+            t = (self.model.history[&#39;epoch_number&#39;]+1)
+            self.v[i] = self.beta1 * self.v[i] + (1 - self.beta1 + self.epsilon) * dw
+            # Compute bias-corrected first moment estimate. Inputs: &#34;v, beta1, t&#34;. Output: &#34;v_corrected&#34;.
+            self.v_corrected[i] = self.v[i] / (1 - np.power(self.beta1, t) + self.epsilon)
+            # Moving average of the squared gradients. Inputs: &#34;s, grads, beta2&#34;. Output: &#34;s&#34;.
+            self.s[i] = self.beta2 * self.s[i] + (1 - self.beta2 + self.epsilon) * np.power(dw, 2)
+            # Compute bias-corrected second raw moment estimate. Inputs: &#34;s, beta2, t&#34;. Output: &#34;s_corrected&#34;.
+            self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , t) + self.epsilon)
+            # Update parameters. Inputs: &#34;parameters, learning_rate, v_corrected, s_corrected, epsilon&#34;. Output: &#34;parameters&#34;.
+            self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon) - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]
+                
+
+                </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="nn13framework.optimizer.RMSprop"><code class="flex name class">
+<span>class <span class="ident">RMSprop</span></span>
+<span>(</span><span>model, loss_fn, learning_rate, epsilon=1e-08)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for RMSprop
+argument: model, loss_fn, learning_rate, epsilon</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RMSprop(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for RMSprop
+    argument: model, loss_fn, learning_rate, epsilon
+    &#34;&#34;&#34;
+
+
+    def __init__(self, model,loss_fn, learning_rate,epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon=epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+                        
+                
+
+
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to RMS
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+            self.s[i] =(self.learning_rate *self.s[i]) + (1-self.learning_rate)*np.power(dw, 2)#Ai accumelator
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.optimizer.RMSprop.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this function update weight according to RMS</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self):
+    &#34;&#34;&#34;
+    this function update weight according to RMS
+    &#34;&#34;&#34;
+    grad_loss = self.loss_fn.backward()
+    last_dx = grad_loss.T
+
+    for i in reversed(range(len(self.model.layers))):
+        dw, dx = self.model.layers[i].backward(last_dx)
+        last_dx = dx
+
+        if self.model.layers[i].is_activation:
+            continue
+
+        self.s[i] =(self.learning_rate *self.s[i]) + (1-self.learning_rate)*np.power(dw, 2)#Ai accumelator
+        self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+    self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.optimizer.SGD"><code class="flex name class">
+<span>class <span class="ident">SGD</span></span>
+<span>(</span><span>model, loss_fn, learning_rate)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for SGD
+argument: model, loss_fn, learning_rate, batch_size</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SGD(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for SGD
+    argument: model, loss_fn, learning_rate, batch_size
+    &#34;&#34;&#34;
+ 
+    def __init__(self, model,loss_fn, learning_rate):
+        self.learning_rate = learning_rate
+        self.batch_size = None
+        self.model = model
+        self.loss_fn= loss_fn
+                
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to mini batch gradient descent
+        &#34;&#34;&#34;
+        self.batch_size = self.model.layers[0].last_input.shape[0]
+        grad_loss=self.loss_fn.backward()
+        last_dx = grad_loss.T
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+            # Update Rule
+            if self.model.layers[i].is_activation:
+                continue
+            self.model.layers[i].weight -= (self.learning_rate * dw / self.batch_size )  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.optimizer.SGD.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this function update weight according to mini batch gradient descent</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self):
+    &#34;&#34;&#34;
+    this function update weight according to mini batch gradient descent
+    &#34;&#34;&#34;
+    self.batch_size = self.model.layers[0].last_input.shape[0]
+    grad_loss=self.loss_fn.backward()
+    last_dx = grad_loss.T
+    for i in reversed(range(len(self.model.layers))):
+        dw, dx = self.model.layers[i].backward(last_dx)
+        last_dx = dx
+        # Update Rule
+        if self.model.layers[i].is_activation:
+            continue
+        self.model.layers[i].weight -= (self.learning_rate * dw / self.batch_size )  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+    self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.optimizer.adadelta"><code class="flex name class">
+<span>class <span class="ident">adadelta</span></span>
+<span>(</span><span>model, loss_fn, learning_rate, epsilon=1e-08)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for adadelta
+argument: model, loss_fn, learning_rate, epsilon</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class adadelta(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for adadelta
+    argument: model, loss_fn, learning_rate, epsilon
+    &#34;&#34;&#34;
+
+    def __init__(self, model, loss_fn, learning_rate, epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon = epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        self.si = []
+        L = len(self.model.layers)
+        for i in range(L):
+            self.s.append(np.ones_like(self.model.layers[i].weight))
+            self.si.append(np.ones_like(self.model.layers[i].weight))
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to adadelta
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+            self.s[i] = self.learning_rate * (self.s[i]) + (1 - self.learning_rate) * dw ** 2  # Ai
+
+            self.dwi = dw * ((np.sqrt(self.epsilon + self.si[i])) / (np.sqrt(self.epsilon + self.s[i])))  # delta wi
+
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.dwi) * self.learning_rate  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+            # Update decays d
+            self.si[i] = self.learning_rate * (self.si[i]) + (1 - self.learning_rate) * self.dwi ** 2
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.optimizer.adadelta.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this function update weight according to adadelta</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self):
+    &#34;&#34;&#34;
+    this function update weight according to adadelta
+    &#34;&#34;&#34;
+    grad_loss = self.loss_fn.backward()
+    last_dx = grad_loss.T
+
+    for i in reversed(range(len(self.model.layers))):
+        dw, dx = self.model.layers[i].backward(last_dx)
+        last_dx = dx
+
+        if self.model.layers[i].is_activation:
+            continue
+
+        self.s[i] = self.learning_rate * (self.s[i]) + (1 - self.learning_rate) * dw ** 2  # Ai
+
+        self.dwi = dw * ((np.sqrt(self.epsilon + self.si[i])) / (np.sqrt(self.epsilon + self.s[i])))  # delta wi
+
+        self.model.layers[i].weight = self.model.layers[i].weight - (self.dwi) * self.learning_rate  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        # Update decays d
+        self.si[i] = self.learning_rate * (self.si[i]) + (1 - self.learning_rate) * self.dwi ** 2
+
+    self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.optimizer.adagrad"><code class="flex name class">
+<span>class <span class="ident">adagrad</span></span>
+<span>(</span><span>model, loss_fn, learning_rate, epsilon=1e-08)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for adagrad
+argument: model, loss_fn, learning_rate, epsilon</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class adagrad(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for adagrad
+    argument: model, loss_fn, learning_rate, epsilon
+    &#34;&#34;&#34;
+
+    def __init__(self, model,loss_fn, learning_rate,epsilon=1e-8):
+        self.learning_rate = learning_rate
+        self.model = model
+        self.epsilon=epsilon
+        self.loss_fn = loss_fn
+        self.s = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+                        
+                        
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to adagrad
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+
+            if self.model.layers[i].is_activation:
+                continue
+
+            self.s[i] +=   np.power(dw, 2)#Ai accumelator
+            self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.optimizer.adagrad.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this function update weight according to adagrad</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self):
+    &#34;&#34;&#34;
+    this function update weight according to adagrad
+    &#34;&#34;&#34;
+    grad_loss = self.loss_fn.backward()
+    last_dx = grad_loss.T
+
+    for i in reversed(range(len(self.model.layers))):
+        dw, dx = self.model.layers[i].backward(last_dx)
+        last_dx = dx
+
+        if self.model.layers[i].is_activation:
+            continue
+
+        self.s[i] +=   np.power(dw, 2)#Ai accumelator
+        self.model.layers[i].weight = self.model.layers[i].weight - (self.learning_rate * dw) / np.sqrt(self.s[i] + self.epsilon)  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+    self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.optimizer.adam"><code class="flex name class">
+<span>class <span class="ident">adam</span></span>
+<span>(</span><span>model, loss_fn, learning_rate, beta1=0.9, beta2=0.999, epsilon=1e-08)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for adam
+argument: model, loss_fn, learning_rate, beta1,beta2,epsilon</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class adam(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for adam
+    argument: model, loss_fn, learning_rate, beta1,beta2,epsilon
+    &#34;&#34;&#34;
+
+    def __init__(self, model,loss_fn, learning_rate,beta1=0.9,beta2=0.999,epsilon=1e-8):
+
+        self.learning_rate = learning_rate
+        self.model = model
+        self.beta1 = beta1
+        self.beta2 = beta2
+        self.epsilon=epsilon
+        self.loss_fn = loss_fn
+        self.v = []
+        self.s = []
+        self.v_corrected = []
+        self.s_corrected = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.v.append(np.zeros_like(self.model.layers[i].weight))  # set v =0 in all layers
+            self.s.append(np.zeros_like(self.model.layers[i].weight))
+            self.v_corrected.append(np.zeros_like(self.model.layers[i].weight))
+            self.s_corrected.append(np.zeros_like(self.model.layers[i].weight))
+                        
+                        
+                        
+
+        
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to adam
+        &#34;&#34;&#34;
+        grad_loss = self.loss_fn.backward()
+        last_dx = grad_loss.T
+
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+            # Update Rule
+            if self.model.layers[i].is_activation:
+                continue
+            # Moving average of the gradients. Inputs: &#34;v, grads, beta1&#34;. Output: &#34;v&#34;.
+            t = (self.model.history[&#39;epoch_number&#39;]+1)
+            self.v[i] = self.beta1 * self.v[i] + (1 - self.beta1 + self.epsilon) * dw
+            # Compute bias-corrected first moment estimate. Inputs: &#34;v, beta1, t&#34;. Output: &#34;v_corrected&#34;.
+            self.v_corrected[i] = self.v[i] / (1 - np.power(self.beta1, t) + self.epsilon)
+            # Moving average of the squared gradients. Inputs: &#34;s, grads, beta2&#34;. Output: &#34;s&#34;.
+            self.s[i] = self.beta2 * self.s[i] + (1 - self.beta2 + self.epsilon) * np.power(dw, 2)
+            # Compute bias-corrected second raw moment estimate. Inputs: &#34;s, beta2, t&#34;. Output: &#34;s_corrected&#34;.
+            self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , t) + self.epsilon)
+            # Update parameters. Inputs: &#34;parameters, learning_rate, v_corrected, s_corrected, epsilon&#34;. Output: &#34;parameters&#34;.
+            self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon) - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.optimizer.adam.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this function update weight according to adam</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self):
+    &#34;&#34;&#34;
+    this function update weight according to adam
+    &#34;&#34;&#34;
+    grad_loss = self.loss_fn.backward()
+    last_dx = grad_loss.T
+
+    for i in reversed(range(len(self.model.layers))):
+        dw, dx = self.model.layers[i].backward(last_dx)
+        last_dx = dx
+        # Update Rule
+        if self.model.layers[i].is_activation:
+            continue
+        # Moving average of the gradients. Inputs: &#34;v, grads, beta1&#34;. Output: &#34;v&#34;.
+        t = (self.model.history[&#39;epoch_number&#39;]+1)
+        self.v[i] = self.beta1 * self.v[i] + (1 - self.beta1 + self.epsilon) * dw
+        # Compute bias-corrected first moment estimate. Inputs: &#34;v, beta1, t&#34;. Output: &#34;v_corrected&#34;.
+        self.v_corrected[i] = self.v[i] / (1 - np.power(self.beta1, t) + self.epsilon)
+        # Moving average of the squared gradients. Inputs: &#34;s, grads, beta2&#34;. Output: &#34;s&#34;.
+        self.s[i] = self.beta2 * self.s[i] + (1 - self.beta2 + self.epsilon) * np.power(dw, 2)
+        # Compute bias-corrected second raw moment estimate. Inputs: &#34;s, beta2, t&#34;. Output: &#34;s_corrected&#34;.
+        self.s_corrected[i] = self.s[i] / (1 - np.power(self.beta2 , t) + self.epsilon)
+        # Update parameters. Inputs: &#34;parameters, learning_rate, v_corrected, s_corrected, epsilon&#34;. Output: &#34;parameters&#34;.
+        self.model.layers[i].weight = self.model.layers[i].weight - self.learning_rate * self.v_corrected[i] / np.sqrt(self.s[i] + self.epsilon) - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+    self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.optimizer.momuntum"><code class="flex name class">
+<span>class <span class="ident">momuntum</span></span>
+<span>(</span><span>model, loss_fn, learning_rate, beta=0.9)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this is initialization fn for momentum
+argument: model, loss_fn, learning_rate, beta</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class momuntum(optimizer):
+    &#34;&#34;&#34;
+    this is initialization fn for momentum
+    argument: model, loss_fn, learning_rate, beta
+    &#34;&#34;&#34;
+
+    def __init__(self, model,loss_fn, learning_rate,beta=0.9):
+        self.loss_fn = loss_fn
+        self.learning_rate = learning_rate
+        self.beta = beta
+        self.model = model
+        self.v = []
+        L = len(self.model.layers)
+        for i in range(L):
+
+            self.v.append(np.zeros_like(self.model.layers[i].weight))  # set v =0 in all layers
+
+
+
+
+
+
+    def step(self):
+        &#34;&#34;&#34;
+        this function update weight according to momentum
+        &#34;&#34;&#34;
+        grad_loss=self.loss_fn.backward()
+        last_dx = grad_loss.T
+        for i in reversed(range(len(self.model.layers))):
+            dw, dx = self.model.layers[i].backward(last_dx)
+            last_dx = dx
+            # Update Rule
+            if self.model.layers[i].is_activation:
+                continue
+            self.v[i] = (self.beta * self.v[i]) - self.learning_rate * dw
+            self.model.layers[i].weight += self.v[i]  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+        self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="nn13framework.optimizer.momuntum.step"><code class="name flex">
+<span>def <span class="ident">step</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>this function update weight according to momentum</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def step(self):
+    &#34;&#34;&#34;
+    this function update weight according to momentum
+    &#34;&#34;&#34;
+    grad_loss=self.loss_fn.backward()
+    last_dx = grad_loss.T
+    for i in reversed(range(len(self.model.layers))):
+        dw, dx = self.model.layers[i].backward(last_dx)
+        last_dx = dx
+        # Update Rule
+        if self.model.layers[i].is_activation:
+            continue
+        self.v[i] = (self.beta * self.v[i]) - self.learning_rate * dw
+        self.model.layers[i].weight += self.v[i]  - self.loss_fn.lamda*self.model.layers[i].weight*((i+1)==len(self.model.layers))
+
+    self.model.weights = [layer.weight for layer in self.model.layers if layer.weight is not None]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="nn13framework.optimizer.optimizer"><code class="flex name class">
+<span>class <span class="ident">optimizer</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class optimizer:
+    pass</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="nn13framework.optimizer.RMSprop" href="#nn13framework.optimizer.RMSprop">RMSprop</a></li>
+<li><a title="nn13framework.optimizer.SGD" href="#nn13framework.optimizer.SGD">SGD</a></li>
+<li><a title="nn13framework.optimizer.adadelta" href="#nn13framework.optimizer.adadelta">adadelta</a></li>
+<li><a title="nn13framework.optimizer.adagrad" href="#nn13framework.optimizer.adagrad">adagrad</a></li>
+<li><a title="nn13framework.optimizer.adam" href="#nn13framework.optimizer.adam">adam</a></li>
+<li><a title="nn13framework.optimizer.momuntum" href="#nn13framework.optimizer.momuntum">momuntum</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="nn13framework" href="../index.html">nn13framework</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="nn13framework.optimizer.RMSprop" href="#nn13framework.optimizer.RMSprop">RMSprop</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.optimizer.RMSprop.step" href="#nn13framework.optimizer.RMSprop.step">step</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.optimizer.SGD" href="#nn13framework.optimizer.SGD">SGD</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.optimizer.SGD.step" href="#nn13framework.optimizer.SGD.step">step</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.optimizer.adadelta" href="#nn13framework.optimizer.adadelta">adadelta</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.optimizer.adadelta.step" href="#nn13framework.optimizer.adadelta.step">step</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.optimizer.adagrad" href="#nn13framework.optimizer.adagrad">adagrad</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.optimizer.adagrad.step" href="#nn13framework.optimizer.adagrad.step">step</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.optimizer.adam" href="#nn13framework.optimizer.adam">adam</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.optimizer.adam.step" href="#nn13framework.optimizer.adam.step">step</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.optimizer.momuntum" href="#nn13framework.optimizer.momuntum">momuntum</a></code></h4>
+<ul class="">
+<li><code><a title="nn13framework.optimizer.momuntum.step" href="#nn13framework.optimizer.momuntum.step">step</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="nn13framework.optimizer.optimizer" href="#nn13framework.optimizer.optimizer">optimizer</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
