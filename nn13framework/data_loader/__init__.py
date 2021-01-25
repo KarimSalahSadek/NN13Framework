@@ -1,5 +1,4 @@
 import pickle
-# import random
 import numpy as np
 import os
 import tarfile
@@ -8,6 +7,8 @@ import gzip
 from urllib.request import urlretrieve
 import matplotlib.pyplot  as plt
 import math
+
+
 
 
 ############################################# FOR GENERIC DATA ###############################################################
@@ -100,6 +101,21 @@ def train_test_split(X,Y,test_size):
 
 def download_save_mnist(path=None,CNN=False):
 
+    r"""Return (train_images, train_labels, test_images, test_labels).
+
+    Args:
+        path (str): Directory containing Mnist. Default is
+            /home/USER/data/Mnist or C:\Users\USER\data\Mnist.
+            Create if nonexistant. Download Mnist if missing.
+
+    Returns:
+        Tuple of (train_images, train_labels, test_images, test_labels), each
+            a matrix. Rows are examples. Columns of images are pixel values,
+            with the order (red -> blue -> green). Columns of labels are a
+            onehot encoding of the correct class.
+    """
+
+
     if CNN==None :
         CNN=False
 
@@ -138,7 +154,7 @@ def download_save_mnist(path=None,CNN=False):
         print("Mnist dataset is already downloaded in the directory :",path)
     else:
         print("Download complete.")
-########################################################################################## SAVING #############################################################################################
+################################### SAVING ########################################
     #saving the dataset
     mnist = {}
     
@@ -191,98 +207,130 @@ def load_mnist_data(path=None,CNN=False):
     return X_train,Y_train,X_test,Y_test
 
 
+def visualize_mnist(Data_input,idx):
+    if idx>len(Data_input)-1:
+       print("Out of index")
+       return 0
+    #reshaping back the dataset if the dataset shape is (len(data),1,28,28)
+    Data_input=Data_input.reshape(len(Data_input),1,28,28).transpose(0,2,3,1)
+    plt.figure()
+    plt.imshow(Data_input[idx])
+    plt.show()  # display it
+
+            
+############################################# FOR CIFAR DATA ###############################################################
+def download_save_cifar10(path=None,CNN=False):
+    if CNN==None :
+        CNN=False    
+    
+    r"""Return (train_images, train_labels, test_images, test_labels).
+
+    Args:
+        path (str): Directory containing CIFAR-10. Default is
+            /home/USER/data/cifar10 or C:\Users\USER\data\cifar10.
+            Create if nonexistant. Download CIFAR-10 if missing.
+
+    Returns:
+        Tuple of (train_images, train_labels, test_images, test_labels), each
+            a matrix. Rows are examples. Columns of images are pixel values,
+            with the order (red -> blue -> green). Columns of labels are a
+            onehot encoding of the correct class.
+    """
+    cifar_url = 'https://www.cs.toronto.edu/~kriz/'
+    cifar_tar = 'cifar-10-binary.tar.gz'
+    cifar_files = ['cifar-10-batches-bin/data_batch_1.bin',
+             'cifar-10-batches-bin/data_batch_2.bin',
+             'cifar-10-batches-bin/data_batch_3.bin',
+             'cifar-10-batches-bin/data_batch_4.bin',
+             'cifar-10-batches-bin/data_batch_5.bin',
+             'cifar-10-batches-bin/test_batch.bin']
+    
+    Cifar_Size=170052171
+
+    if path is None:
+        # Set path to /home/USER/data/mnist or C:\Users\USER\data\mnist
+        path = os.path.join(os.path.expanduser('~'), 'data', 'cifar10')
+
+    # Create path if it doesn't exist
+    os.makedirs(path, exist_ok=True)
+
+    # # Download tarfile if missing
+    # if cifar_tar not in os.listdir(path):
+    #     urlretrieve(''.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+    #     print("Downloaded %s to %s" % (cifar_tar, path))
+
+    
+    
+    # Download tarfile if missing
+    if cifar_tar not in os.listdir(path): 
+        print("Downloading cifar-10-binary.tar.gz....")
+        urlretrieve(''.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+        print("Downloaded %s to %s" % (cifar_tar, path))
+    else :
+        #if the download is not completed so that the downloaded file be deleted and then re-downloaded
+        if os.path.getsize(os.path.join(path, cifar_tar))!= Cifar_Size:
+            os.remove(os.path.join(path,cifar_tar))
+            print("Downloading cifar-10-binary.tar.gz....")
+            urlretrieve(''.join((cifar_url, cifar_tar)), os.path.join(path, cifar_tar))
+            print("Downloaded %s to %s" % (cifar_tar, path))
+        else :
+            print("Cifar10 dataset is already downloaded in the directory :",path)
+
+    # Load data from tarfile
+    with tarfile.open(os.path.join(path, cifar_tar)) as tar_object:
+        # Each file contains 10,000 color images and 10,000 labels
+        fsize = 10000 * (32 * 32 * 3) + 10000
+
+        # There are 6 files (5 train and 1 test)
+        buffr = np.zeros(fsize * 6, dtype='uint8')
+
+        # Get members of tar corresponding to data files
+        # -- The tar contains README's and other extraneous stuff
+        members = [file for file in tar_object if file.name in cifar_files]
+
+        # Sort those members by name
+        # -- Ensures we load train data in the proper order
+        # -- Ensures that test data is the last file in the list
+        members.sort(key=lambda member: member.name)
+
+        # Extract data from members
+        for i, member in enumerate(members):
+            # Get member as a file object
+            f = tar_object.extractfile(member)
+            # Read bytes from that file object into buffr
+            buffr[i * fsize:(i + 1) * fsize] = np.frombuffer(f.read(), 'B')
+
+    # Parse data from buffer
+    # -- Examples are in chunks of 3,073 bytes
+    # -- First byte of each chunk is the label
+    # -- Next 32 * 32 * 3 = 3,072 bytes are its corresponding image
+
+    # Labels are the first byte of every chunk
+    labels = buffr[::3073]
+
+    # Pixels are everything remaining after we delete the labels
+    pixels = np.delete(buffr, np.arange(0, buffr.size, 3073))
+    images = pixels.reshape(-1, 3072).astype('float32') / 255
+
+    # Split into train and test
+    train_images, test_images = images[:50000], images[50000:]
+    train_labels, test_labels = labels[:50000], labels[50000:]
+
+    if CNN==True:
+        train_images=train_images.reshape(len(train_images),3,32,32)
+        test_images=train_images.reshape(len(train_images),3,32,32)
+
+
+    return train_images, one_hot(train_labels,10),test_images, one_hot(test_labels,10)
 
 
 
-
-
-
-
-
-
-##################################################################### FOR TESTING ########################################################################
-
-# load_mnist_data(path=None,CNN=True)
-
- 
-#Steps for loading Mnist step by step (Not required to do that now)
-##  1st : download & save the dataset 
-# download_save_mnist()
-## 2nd : Load it in dictionaries of names training_images,test_images,training_labels,and test_labels
-# X_train, Y_train, X_test, Y_test=load_mnist()
-##3rd : Normaliztion
-# X_train, X_test = X_train/float(255), X_test/float(255)
-##5th : convert Y into one hot encoding
-## DataOut= is the number of classes to be applied in the output in order to make proper one hot encoding  
-##for testing the mnist the Data_out will be 10
-# Data_out=10
-# Y_train=one_hot(Y_train, Data_out)
-# Y_test=one_hot(Y_test,Data_out)
-
-###################################################### Steps for batch & CNN DATA LOADER ############################################
-
-#Please use it like this way 
-
-
-#NOTE : X_batches_list is not required at all for your testing it is only for me to test if the functions is functional 
-
-# X_train,Y_train,X_test,Y_test=load_mnist_data(path=None,CNN=False)
-
-
-# #TESTING THE CNN DATA LOADER & Compare the output in first examples
-# print(Y_train[8])
-# #plt.figure()
-# plt.imshow(X_train[8])
-# plt.show()  # display it
-
-
-# #MORE EXAMPLES , CLOSE THE WINDOW OF THE FIRST EXAMPLE FIRST
-# print(Y_train[10])
-# #plt.figure()
-# plt.imshow(X_train[10])
-# plt.show()  # display it
-
-################################################ 1st test ####################################################
-
-# X_batch_test=[]
-# batch_size=4957
-# for epoch in range (0,50):
-#         X_batches,y_batches=get_batch_XY(X_train,Y_train,batch_size,shuffle=False)
-#         #to compare between different batches in an epoch
-#         if epoch==1 : 
-#             X_batch_test.append(X_batches[1])
-#             X_batch_test.append(X_batches[5])
-#         #print(len(X_batches))  #will be 12 in this example
-#         #print(X_batches[0].shape)
-
-
-
-################################################ 2nd test ####################################################
-# X_batch_test=[]
-# batch_size=4957
-# X_batches,y_batches=get_batch_XY(X_train,Y_train,batch_size,shuffle=False)
-# for epoch in range (0,50):
-#          #to compare between different batches in an epoch
-#          if epoch==1 : 
-#              X_batch_test.append(X_batches[1])
-#              X_batch_test.append(X_batches[5])
-#          print(len(X_batches))  #will be 12 in this example
-#          print(X_batches[0].shape)
-
-
-#1st method to keep tracking , is 5anzara method by keep tracking by your eye to the first changed element in lets say 3rd col in the second example in batch 1 and compare it to the second ex in batch2 
-# print(X_batch_test[0])
-# print("***********************************************************************************************************************")
-# print(X_batch_test[1])
-
-#2nd method is to be a human and use a numpy function to compare between 2 numpy arrays (There is more than one numpy array)
-# print(np.array_equal(X_batch_test[0],X_batch_test[1]))
-
-#https://www.geeksforgeeks.org/how-to-compare-two-numpy-arrays/ This method only tnf3 lma yb2a 3ndk array of size so8ir msh 64,784
-
-########################## STEPS FOR CNN DATA_LOADER ####################################################
-# BY DEFAULT THE DATA_LOADER WILL RETURN ONLY THE DATA IN THIS SHAPE (60000,784) IF IT IS TRAINING DATA , BUT IF YOU WANT TO USE CNN , JUST CALL THE FUNCTION load_mnist_data 
-# AND PUT CNN=TRUE or IF YOU WANT TO GO FOR STEP BY STEP , JUST USE THIS download_save_mnist AND PUT CNN=TRUE
-
-
-# THE DATALOADER IS ATGRABET BY ME USING MATPLOTLIB IN MORE THAN 10 EXAMPLES AND IT WORKS WELL
+def visualize_cifar(Data_input,idx):
+    if idx>len(Data_input)-1:
+       print("Out of index")
+       return 0
+    #reshaping back the dataset if the dataset shape is (len(data),1,28,28)
+    Data_input=Data_input.reshape(len(Data_input),3,32,32).transpose(0,2,3,1)
+    plt.figure()
+    plt.imshow(Data_input[idx])
+    plt.show()  # display it
