@@ -1,3 +1,0 @@
-numpy
-texttable
-matplotlib
